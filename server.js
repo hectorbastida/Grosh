@@ -46,10 +46,17 @@ server.use(express.static('./public'));//<---------------------aqui colocamos lo
 require('./source/controllers/app/home')(server);
 require('./source/controllers/api/chat')(io);
 
-//connections
-require('./source/connections/facebook')(server);
-require('./source/connections/local')(server,io);
-require('./source/connections/twitter')(server);
+//models
+require('./source/models/user');
+require('./source/models/group');
+require('./source/models/post');
+require('./source/models/image');
+require('./source/models/answer');
+require('./source/models/file');
+require('./source/models/chat');
+require('./source/models/message');
+require('./source/models/invitation');
+require('./source/models/request');
 
 //require('./source/connections/view-twitter')(server);
 //require('./source/connections/createTwit')('Hello twitter from #nodejs');
