@@ -31,14 +31,16 @@ module.exports = function(server) {
 
     //POST
     addGroup = function(req, res) {
+        userAdmin = "559786baa361ca280ffa15f0";// will be replaced by the id_user in session
         var newGroup = new Group({
-            name        :req.body.name,
-            description :req.body.description,
-            create_date :currentdate,
-            url_image   :req.body.url_image,
-            privileges  :req.body.privileges
+            name            :req.body.name,
+            description     :req.body.description,
+            date_creation   :currentdate,
+            url_image       :req.body.url_image,
+            privileges      :req.body.privileges,
+            administrators  :[]
         });
-
+        newGroup.administrators.push(userAdmin);
         newGroup.save(function(err) {
             if(!err) 
                 console.log('Group Successfully Saved');
