@@ -1,0 +1,20 @@
+{
+  "name": "Group Sharing",
+  "version": "0.0.1",
+  "authors": [
+    "Hector Bastida <hectorlooper@gmail.com>"
+  ],
+  "description": "Group Sharing",
+  "main": "grosh-index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mdi": "~1.1.34"
+  }
+}
