@@ -43,15 +43,16 @@ module.exports = function(server) {
             state             :req.body.state,
             city              :req.body.city,
             date_registry     :currentdate,
-            status            :req.body.status,
             url_image         :req.body.url_image        
         });
 
         newUser.save(function(err) {
-            if(!err) 
-                console.log('User Successfully Saved');
-            else 
+            if(err) 
                 console.log('ERROR: ' +err);
+            else {
+                console.log('User Successfully Saved');
+                createGCloud(newUser);
+            }
         });
 
         res.send(newUser);
@@ -92,6 +93,33 @@ module.exports = function(server) {
                 else 
                     console.log('ERROR: ' +err);  
             });  
+        });
+    }
+
+
+    function createGCloud(user){
+        var Group = require('../../models/group');
+        var admins = [user.id];
+        var newGroup = new Group({
+            name            :"my g-cloud",
+            description     :"My personal folder",
+            date_creation   :currentdate,
+            privileges      :"personal",
+            administrators  :admins 
+        });
+
+        newGroup.save(function(err){
+            if (err) {
+                console.log('ERROR: '+err);
+            }else{
+                user.groups_created.push(newGroup);
+                user.save(function(err){
+                    if (err)
+                        console.log("ERROR: "+err);
+                    else
+                        console.log("g-cloud creado");
+                });
+            }
         });
     }
 
