@@ -1,6 +1,7 @@
 module.exports = function(server) {
     
     var Image = require('../../models/image');
+    var Group = require('../../models/group');
     var currentdate = new Date(); 
     var datetime = (currentdate.getDate() + "/"
         + (currentdate.getMonth()+1)  + "/" 
@@ -16,6 +17,17 @@ module.exports = function(server) {
                 res.send(image);
             else 
                 console.log('ERROR: ' +err);
+        });
+    };
+
+    //GET ALL images of a group
+    findAllImagesGroup = function(req, res) {
+        Group.findById(req.params.idGroup, function(err, group) {
+            if(!err && group) 
+                res.send(group.image);
+            else 
+                console.log('ERROR: ' +err);
+                res.send('Sin imagenes');
         });
     };
 
@@ -79,7 +91,8 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/image', findAllImages);
+    server.get('/image/', findAllImages);
+    server.get('/imageGroup/:idGroup', findAllImagesGroup);
     server.get('/image/:id', findByID);
     server.post('/image', addImage);
     server.put('/image/:id', updateImage);

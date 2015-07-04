@@ -1,6 +1,7 @@
 module.exports = function(server) {
     
     var File = require('../../models/file');
+    var Group = require('../../models/group');
     var currentdate = new Date(); 
     var datetime = (currentdate.getDate() + "/"
         + (currentdate.getMonth()+1)  + "/" 
@@ -16,6 +17,17 @@ module.exports = function(server) {
                 res.send(file);
             else 
                 console.log('ERROR: ' +err);
+        });
+    };
+
+    //GET ALL files of a group
+    findAllFilesGroup = function(req, res) {
+        Group.findById(req.params.idGroup, function(err, group) {
+            if(!err && group) 
+                res.send(group.file);
+            else 
+                console.log('ERROR: ' +err);
+                res.send('Sin archivos');
         });
     };
 
@@ -79,7 +91,8 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/file', findAllFiles);
+    server.get('/file/', findAllFiles);
+    server.get('/fileGroup/:idGroup', findAllFilesGroup);
     server.get('/file/:id', findByID);
     server.post('/file', addFile);
     server.put('/file/:id', updateFile);
