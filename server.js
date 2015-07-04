@@ -35,12 +35,13 @@ passport.deserializeUser(function(user,done){
 	done(null,user);
 });
 
+
 //config swig
 server.engine('html',swig.renderFile);//<----------------------el motor de templates es swig
 server.set('view engine','html');
 server.set('views',__dirname + '/source/views');//<------------en donde van a estar las vistas o templates
-server.set('uploadDir', './public/uploads');//<----------------carpeta en la que se guardaran las cosas que subamos
-server.use(express.static('./public'));//<---------------------aqui colocamos los ccs,js,img y toda la informacion publica.
+server.set('uploadDir', './client/uploads');//<----------------carpeta en la que se guardaran las cosas que subamos
+server.use(express.static('./client'));//<---------------------aqui colocamos los ccs,js,img y toda la informacion publica.
 
 //controllers
 require('./source/controllers/app/home')(server);
@@ -58,6 +59,8 @@ require('./source/models/message');
 require('./source/models/invitation');
 require('./source/models/request');
 
+require('./source/controllers/api/user')(server);
+require('./source/controllers/api/group')(server);
 //require('./source/connections/view-twitter')(server);
 //require('./source/connections/createTwit')('Hello twitter from #nodejs');
 //require('./app/connections/mail')(server);
