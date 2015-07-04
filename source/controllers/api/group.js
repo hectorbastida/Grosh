@@ -32,11 +32,11 @@ module.exports = function(server) {
     //POST
     addGroup = function(req, res) {
         var newGroup = new Group({
-            name            :req.body.name,
-            description     :req.body.description,
-            date_creation   :currentdate,
-            url_image       :req.body.url_image,
-            privileges      :req.body.privileges
+            name        :req.body.name,
+            description :req.body.description,
+            create_date :currentdate,
+            url_image   :req.body.url_image,
+            privileges  :req.body.privileges
         });
 
         newGroup.save(function(err) {
@@ -52,20 +52,20 @@ module.exports = function(server) {
     //PUT
     updateGroup = function(req, res) {
         Group.findById(req.params.id, function(err, group) {
-            name            = req.body.name;
-            description     = req.body.description;
-            status          = req.body.status;
-            date_creation   = req.body.date_creation;
-            url_image       = req.body.url_image;
-            privileges      = req.body.privileges;
+            group.name        = req.body.name;
+            group.description = req.body.description;
+            group.status      = req.body.status;
+            group.url_image   = req.body.url_image;
+            group.privileges  = req.body.privileges;
             
             group.save(function(err) {
                 if(!err) 
-                    console.log('Group Successfully Updated');
+                    console.log("Group Successfully Updated");
                 else 
                     console.log('ERROR: ' +err); 
-                res.send(group);
+                
             });
+            res.send(group);
         });
     };
 

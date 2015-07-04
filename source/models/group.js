@@ -5,7 +5,7 @@ var groupSchema=new Schema({
     
     name           :{type:String,required:true},
     description    :{type:String},
-    date_creation  :{type:Date,required:true},
+    create_date    :{type:Date,required:true},
     status         :{type:Boolean,required:true,default:true},
     url_image      :{type:String},
     privileges     :{
