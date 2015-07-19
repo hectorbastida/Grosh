@@ -1,6 +1,7 @@
 module.exports = function(server) {
     
     var Post = require('../../models/post');
+    var Group = require('../../models/group');
     var currentdate = new Date(); 
     var datetime = (currentdate.getDate() + "/"
         + (currentdate.getMonth()+1)  + "/" 
@@ -16,6 +17,17 @@ module.exports = function(server) {
                 res.send(post);
             else 
                 console.log('ERROR: ' +err);
+        });
+    };
+
+    //GET ALL post of a group
+    findAllPostsGroup = function(req, res) {
+        Group.findById(req.params.idGroup, function(err, group) {
+            if(!err && group) 
+                res.send(group.post);
+            else 
+                console.log('ERROR: ' +err);
+                res.send('Sin post');
         });
     };
 
@@ -77,7 +89,8 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/post', findAllPosts);
+    server.get('/post/', findAllPosts);
+    server.get('/postGroup/:idGroup', findAllPostsGroup);
     server.get('/post/:id', findByID);
     server.post('/post', addPost);
     server.put('/post/:id', updatePost);

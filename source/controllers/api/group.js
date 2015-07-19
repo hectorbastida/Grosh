@@ -19,6 +19,37 @@ module.exports = function(server) {
         });
     };
 
+    //GET ALL by a specific user
+    findAllGroupsUser = function(req, res) {
+        Group.find({'administrators' : req.params.idUser }, function(err, groups) {
+            if(!err) 
+                res.send(groups);
+            else 
+                console.log('ERROR: ' +err);
+        });
+    };
+
+    //GET ALL groups to which user belongs
+    findAllGroupsUserBelongs = function(req, res) {
+        Group.find({'members' : req.params.idUser }, function(err, groups) {
+            if(!err) 
+                res.send(groups);
+            else 
+                console.log('ERROR: ' +err);
+        });
+    };
+
+    findPersonalGroup = function(req, res){
+        Group.find(
+            {'administrators': req.params.idUser , 'privileges' : 'personal'}, function(err, group){
+                    if (!err) 
+                        res.send(group);
+                    else
+                        console.log('ERROR: '+err);
+                }
+        );
+    }
+
     //GET BY ID
     findByID = function(req, res) {
         Group.findById(req.params.id, function(err, group) {
@@ -84,7 +115,10 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/group', findAllGroups);
+    server.get('/group/', findAllGroups);
+    server.get('/groupUser/:idUser', findAllGroupsUser);
+    server.get('/groupUserBelongs/:idUser', findAllGroupsUserBelongs);
+    server.get('/groupPersonalGroup/:idUser', findPersonalGroup);
     server.get('/group/:id', findByID);
     server.post('/group', addGroup);
     server.put('/group/:id', updateGroup);
