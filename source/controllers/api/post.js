@@ -3,14 +3,43 @@ module.exports = function(server) {
     var Post = require('../../models/post');
     var Group = require('../../models/group');
     var currentdate = new Date(); 
-    var datetime = (currentdate.getDate() + "/"
-        + (currentdate.getMonth()+1)  + "/" 
-        + currentdate.getFullYear() + " @ "  
-        + currentdate.getHours() + ":"  
-        + currentdate.getMinutes()
-    );
 
-    //GET ALL
+    /**
+     * @api {get} /post/ Return a list of posts
+     * @apiVersion 1.0.0
+     * @apiName GetPosts
+     * @apiGroup post
+     *
+     *
+     * @apiSuccessExample Success-Response:
+     *   [
+     *     {
+     *       "_id": "55978ea34e9fbbc40c6ddb7a",
+     *       "content": "Hola chicos, recuerden que mañana hay examen de Hilario",
+     *       "user_creator": "345678fghjkty",
+     *       "create_date": "2015-07-04T07:40:09.247Z",
+     *       "__v": 0,
+     *       "answers": [],
+     *       "status": true
+     *     }
+     *   ]
+     * 
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     findAllPosts = function(req, res) {
         Post.find(function(err, post) {
             if(!err) 
@@ -20,7 +49,42 @@ module.exports = function(server) {
         });
     };
 
-    //GET ALL post of a group
+    /**
+     * @api {get} /postGroup/:idGroup Gets all Posts from a Group
+     * @apiVersion 1.0.0
+     * @apiName GetGroupPosts
+     * @apiGroup post
+     *
+     * @apiParam {String} id Group from you want to reach the posts.
+     * 
+     * @apiSuccessExample Success-Response:
+     *    
+     *  {
+     *    "_id": "55978ea34e9fbbc40c6ddb7a",
+     *    "content": "Hola chicos, recuerden que mañana hay examen de Hilario",
+     *    "user_creator": "345678fghjkty",
+     *    "create_date": "2015-07-04T07:40:09.247Z",
+     *    "__v": 0,
+     *    "answers": [],
+     *    "status": true
+     *  }
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     findAllPostsGroup = function(req, res) {
         Group.findById(req.params.idGroup, function(err, group) {
             if(!err && group) 
@@ -31,7 +95,42 @@ module.exports = function(server) {
         });
     };
 
-    //GET BY ID
+     /**
+     * @api {get} /post/:id Gets a specific post
+     * @apiVersion 1.0.0
+     * @apiName GetPost
+     * @apiGroup post
+     *
+     * @apiParam {String} id Post to look for.
+     * 
+     * @apiSuccessExample Success-Response:
+     *    
+     *  {
+     *    "_id": "55978ea34e9fbbc40c6ddb7a",
+     *    "content": "Hola chicos, recuerden que mañana hay examen de Hilario",
+     *    "user_creator": "345678fghjkty",
+     *    "create_date": "2015-07-04T07:40:09.247Z",
+     *    "__v": 0,
+     *    "answers": [],
+     *    "status": true
+     *  }    
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */ 
     findByID = function(req, res) {
         Post.findById(req.params.id, function(err, post) {
             if(!err) 
@@ -41,8 +140,45 @@ module.exports = function(server) {
         });
     };
 
-    //POST
+    /**
+     * @api {post} /post/ Creates a post
+     * @apiVersion 1.0.0
+     * @apiName CreatePost
+     * @apiGroup post
+     *
+     * @apiParam {String} content Content of the post.
+     * @apiParam {String} user_creator User who writes the post.
+     *
+     * @apiSuccessExample Success-Response:
+     *
+     * {
+     *    "_id": "55978ea34e9fbbc40c6ddb7a",
+     *    "content": "Hola chicos, recuerden que mañana hay examen de Hilario",
+     *    "user_creator": "345678fghjkty",
+     *    "create_date": "2015-07-04T07:40:09.247Z",
+     *    "__v": 0,
+     *    "answers": [],
+     *    "status": true
+     *  } 
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "201 Created"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     addPost = function(req, res) {
+        var currentdate = new Date(); 
         var newPost = new Post({
             content      :req.body.content,
             user_creator :req.body.user_creator,
@@ -59,7 +195,44 @@ module.exports = function(server) {
         res.send(newPost);
     };
 
-    //PUT
+    /**
+     * @api {put} /post/ Updates a post
+     * @apiVersion 1.0.0
+     * @apiName UpdatePosts
+     * @apiGroup post
+     *
+     * @apiParam {String} id Id of the post to update.
+     * @apiParam {String} content Content of the post.
+     * @apiParam {Boolean} status Status from the post.
+     *
+     * @apiSuccessExample Success-Response:
+     *
+     * {
+     *    "_id": "55978ea34e9fbbc40c6ddb7a",
+     *    "content": "Hola chicos, recuerden que mañana hay examen de Hilario",
+     *    "user_creator": "345678fghjkty",
+     *    "create_date": "2015-07-04T07:40:09.247Z",
+     *    "__v": 0,
+     *    "answers": [],
+     *    "status": true
+     *  } 
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "201 Created"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     updatePost = function(req, res) {
         Post.findById(req.params.id, function(err, post) {
             post.content     = req.body.content;
@@ -76,7 +249,36 @@ module.exports = function(server) {
         });
     };
 
-    //DELETE
+    /**
+     * @api {delete} /post/:id Delete a specific Post
+     * @apiVersion 1.0.0
+     * @apiName DeletePost
+     * @apiGroup post
+     *
+     * @apiParam {String} id Post to delete.
+     * 
+     * @apiSuccessExample Success-Response:
+     *     {
+     *        "msg":"Post Successfully Deleted"
+     *     }
+     *
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     deletePost = function(req, res) {
         Post.findById(req.params.id, function(err, post) {
             post.remove(function(err) {
