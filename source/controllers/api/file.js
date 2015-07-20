@@ -2,15 +2,56 @@ module.exports = function(server) {
     
     var File = require('../../models/file');
     var Group = require('../../models/group');
-    var currentdate = new Date(); 
-    var datetime = (currentdate.getDate() + "/"
-        + (currentdate.getMonth()+1)  + "/" 
-        + currentdate.getFullYear() + " @ "  
-        + currentdate.getHours() + ":"  
-        + currentdate.getMinutes()
-    );
+     
 
-    //GET ALL
+     /**
+     * @api {get} /file/ Return a list of files
+     * @apiVersion 1.0.0
+     * @apiName GetFiles
+     * @apiGroup file
+     *
+     *
+     * @apiSuccessExample Success-Response:
+     *
+     *   [
+     *     {
+     *       "_id": "559795074fc9bea00a464a70",
+     *       "content": "Clase ITIL Susana",
+     *       "name": "Diagrama clases Base",
+     *       "user_creator": "diego",
+     *       "create_date": "2015-07-04T08:03:45.889Z",
+     *       "__v": 0,
+     *       "answer": [],
+     *       "status": false
+     *     },
+     *     {
+     *       "_id": "559795c64fc9bea00a464a71",
+     *       "content": "Libro Pmbok",
+     *       "name": "capitulo 2",
+     *       "user_creator": "sout",
+     *       "create_date": "2015-07-04T08:03:45.889Z",
+     *       "__v": 0,
+     *       "answer": [],
+     *       "status": false
+     *     }
+     *   ]
+     * 
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     findAllFiles = function(req, res) {
         File.find(function(err, file) {
             if(!err) 
@@ -20,7 +61,55 @@ module.exports = function(server) {
         });
     };
 
-    //GET ALL files of a group
+    /**
+     * @api {get} /fileGroup/:idGroup Gets all Files from a Group
+     * @apiVersion 1.0.0
+     * @apiName GetGroupFiles
+     * @apiGroup file
+     *
+     * @apiParam {String} id Group from you want to reach the files.
+     * 
+     * @apiSuccessExample Success-Response:
+     *    
+     *   [
+     *     {
+     *       "_id": "559795074fc9bea00a464a70",
+     *       "content": "Clase ITIL Susana",
+     *       "name": "Diagrama clases Base",
+     *       "user_creator": "diego",
+     *       "create_date": "2015-07-04T08:03:45.889Z",
+     *       "__v": 0,
+     *       "answer": [],
+     *       "status": false
+     *     },
+     *     {
+     *       "_id": "559795c64fc9bea00a464a71",
+     *       "content": "Libro Pmbok",
+     *       "name": "capitulo 2",
+     *       "user_creator": "sout",
+     *       "create_date": "2015-07-04T08:03:45.889Z",
+     *       "__v": 0,
+     *       "answer": [],
+     *       "status": false
+     *     }
+     *   ]
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     findAllFilesGroup = function(req, res) {
         Group.findById(req.params.idGroup, function(err, group) {
             if(!err && group) 
@@ -31,7 +120,43 @@ module.exports = function(server) {
         });
     };
 
-    //GET BY ID
+    /**
+     * @api {get} /file/:id Gets a specific file
+     * @apiVersion 1.0.0
+     * @apiName GetFile
+     * @apiGroup file
+     *
+     * @apiParam {String} id File to look for.
+     * 
+     * @apiSuccessExample Success-Response:
+     *    
+     *   {
+     *      "_id": "559795c64fc9bea00a464a71",
+     *      "content": "Libro Pmbok",
+     *      "name": "capitulo 2",
+     *      "user_creator": "sout",
+     *      "create_date": "2015-07-04T08:03:45.889Z",
+     *      "__v": 0,
+     *      "answer": [],
+     *      "status": false
+     *   }
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     findByID = function(req, res) {
         File.findById(req.params.id, function(err, file) {
             if(!err) 
@@ -41,8 +166,47 @@ module.exports = function(server) {
         });
     };
 
-    //POST
+    /**
+     * @api {post} /file/ Creates a file
+     * @apiVersion 1.0.0
+     * @apiName CreateFile
+     * @apiGroup file
+     *
+     * @apiParam {String} content Content or description of the file.
+     * @apiParam {String} name Name or title of the file.
+     * @apiParam {String} user_creator User who uploads the file.
+     *
+     * @apiSuccessExample Success-Response:
+     *
+     *   {
+     *      "_id": "559795c64fc9bea00a464a71",
+     *      "content": "Libro Pmbok",
+     *      "name": "capitulo 2",
+     *      "user_creator": "sout",
+     *      "create_date": "2015-07-04T08:03:45.889Z",
+     *      "__v": 0,
+     *      "answer": [],
+     *      "status": false
+     *   }
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "201 Created"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     addFile = function(req, res) {
+        var currentdate = new Date(); 
         var newFile = new File({
             content      :req.body.content,
             name         :req.body.name,
@@ -60,7 +224,46 @@ module.exports = function(server) {
         res.send(newFile);
     };
 
-    //PUT
+    /**
+     * @api {post} /file/ Updates a file
+     * @apiVersion 1.0.0
+     * @apiName UpdateFile
+     * @apiGroup file
+     *
+     * @apiParam {String} id Id of the file to update.
+     * @apiParam {String} content Content or description of the file.
+     * @apiParam {String} name Name or title of the file.
+     * @apiParam {String} status Status of the file.
+     *
+     * @apiSuccessExample Success-Response:
+     *
+     *   {
+     *      "_id": "559795c64fc9bea00a464a71",
+     *      "content": "Libro Pmbok",
+     *      "name": "capitulo 2",
+     *      "user_creator": "sout",
+     *      "create_date": "2015-07-04T08:03:45.889Z",
+     *      "__v": 0,
+     *      "answer": [],
+     *      "status": false
+     *   }
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "201 Created"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     updateFile = function(req, res) {
         File.findById(req.params.id, function(err, file) {
             file.content     = req.body.content;
@@ -78,7 +281,36 @@ module.exports = function(server) {
         });
     };
 
-    //DELETE
+    /**
+     * @api {delete} /file/:id Delete a specific File
+     * @apiVersion 1.0.0
+     * @apiName DeleteFile
+     * @apiGroup file
+     *
+     * @apiParam {String} id File to delete.
+     * 
+     * @apiSuccessExample Success-Response:
+     *     {
+     *        "msg":"File Successfully Deleted"
+     *     }
+     *
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     deleteFile = function(req, res) {
         File.findById(req.params.id, function(err, file) {
             file.remove(function(err) {

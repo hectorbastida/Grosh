@@ -1,15 +1,106 @@
 module.exports = function(server) {
 	
 	var User = require('../../models/user');
-    var currentdate = new Date(); 
-    var datetime = (currentdate.getDate() + "/"
-        +(currentdate.getMonth() + 1) + "/" 
-        + currentdate.getFullYear() + " @ "
-        + currentdate.getHours() + ":"  
-        + currentdate.getMinutes()
-    );
+      
 
-    //GET ALL
+    /**
+     * @api {get} /user/ Return a list of users
+     * @apiVersion 1.0.0
+     * @apiName GetUsers
+     * @apiGroup user
+     *
+     *
+     * @apiSuccessExample Success-Response:
+     * 
+     * [
+     *     {
+     *       "_id": "559784231b993bfe0e8667b7",
+     *       "id_social_network": "56789abcdefgrtyui",
+     *       "email": "angel@mail.com",
+     *       "password": "123abcd",
+     *       "name": "Angel David",
+     *       "last_name": "Lagunas",
+     *       "age": 21,
+     *       "sex": "Masculino",
+     *       "phone": "777123456",
+     *       "state": "Morelos",
+     *       "city": "Temixco",
+     *       "date_registry": "2015-07-04T06:53:11.132Z",
+     *       "url_image": "http://lorempixel.com/g/400/200/",
+     *       "__v": 1,
+     *       "groups_created": [
+     *         {
+     *           "status": true,
+     *           "members": [],
+     *           "administrators": [],
+     *           "post": [],
+     *           "image": [],
+     *           "file": [],
+     *           "_id": "559784231b993bfe0e8667b8",
+     *           "privileges": "personal",
+     *           "date_creation": "2015-07-04T06:53:11.132Z",
+     *           "description": "My personal folder",
+     *           "name": "my g-cloud",
+     *           "__v": 0
+     *         }
+     *       ],
+     *       "groups": [],
+     *       "status": true
+     *     },
+     *     {
+     *       "_id": "559786baa361ca280ffa15f0",
+     *       "id_social_network": "56789abcdefgrtyui",
+     *       "email": "angel@mail.com.mx",
+     *       "password": "123abcd",
+     *       "name": "Angel David",
+     *       "last_name": "Lagunas",
+     *     "age": 21,
+     *     "sex": "Masculino",
+     *     "phone": "777123456",
+     *     "state": "Morelos",
+     *     "city": "Temixco",
+     *     "date_registry": "2015-07-04T07:04:54.592Z",
+     *     "url_image": "http://lorempixel.com/g/400/200/",
+     *     "__v": 1,
+     *     "groups_created": [
+     *         {
+     *           "status": true,
+     *           "members": [],
+     *           "administrators": [
+     *             "559786baa361ca280ffa15f0"
+     *           ],
+     *           "post": [],
+     *           "image": [],
+     *           "file": [],
+     *           "_id": "559786bba361ca280ffa15f1",
+     *           "privileges": "personal",
+     *           "date_creation": "2015-07-04T07:04:54.592Z",
+     *           "description": "My personal folder",
+     *           "name": "my g-cloud",
+     *           "__v": 0
+     *         }
+     *       ],
+     *       "groups": [],
+     *       "status": true
+     *     }
+     *  ]
+     * 
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     findAllUsers = function(req, res) {
     	User.find(function(err, user) {
     		if(!err) 
@@ -19,7 +110,68 @@ module.exports = function(server) {
     	});
     };
 
-    //GET BY ID
+     /**
+     * @api {get} /user/:id Gets a specific user
+     * @apiVersion 1.0.0
+     * @apiName GetUser
+     * @apiGroup user
+     *
+     * @apiParam {String} id User to look for.
+     * 
+     * @apiSuccessExample Success-Response:
+     *    
+     * [
+     *     {
+     *       "_id": "559784231b993bfe0e8667b7",
+     *       "id_social_network": "56789abcdefgrtyui",
+     *       "email": "angel@mail.com",
+     *       "password": "123abcd",
+     *       "name": "Angel David",
+     *       "last_name": "Lagunas",
+     *       "age": 21,
+     *       "sex": "Masculino",
+     *       "phone": "777123456",
+     *       "state": "Morelos",
+     *       "city": "Temixco",
+     *       "date_registry": "2015-07-04T06:53:11.132Z",
+     *       "url_image": "http://lorempixel.com/g/400/200/",
+     *       "__v": 1,
+     *       "groups_created": [
+     *         {
+     *           "status": true,
+     *           "members": [],
+     *           "administrators": [],
+     *           "post": [],
+     *           "image": [],
+     *           "file": [],
+     *           "_id": "559784231b993bfe0e8667b8",
+     *           "privileges": "personal",
+     *           "date_creation": "2015-07-04T06:53:11.132Z",
+     *           "description": "My personal folder",
+     *           "name": "my g-cloud",
+     *           "__v": 0
+     *         }
+     *       ],
+     *       "groups": [],
+     *       "status": true
+     *     },
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     findByID = function(req, res) {
         User.findById(req.params.id, function(err, user) {
             if(!err) 
@@ -29,8 +181,79 @@ module.exports = function(server) {
         });
     };
 
-    //POST
+    /**
+     * @api {post} /user/ Creates a user
+     * @apiVersion 1.0.0
+     * @apiName CreateUsers
+     * @apiGroup user
+     *
+     * @apiParam {String} id_social_network Id generated by the user's social network.
+     * @apiParam {String} email Email address to log in, it is used as a username.
+     * @apiParam {String} password Password to log into the app.
+     * @apiParam {String} name Real name from the user.
+     * @apiParam {String} last_name Lastname(s) from the user.
+     * @apiParam {number} age Age from the user.
+     * @apiParam {String} sex Sex from the user.
+     * @apiParam {String} phone Telephone number from the user.
+     * @apiParam {String} state State where the user lives.
+     * @apiParam {String} city City where the user lives.
+     * @apiParam {String} url_image Url of the profile picture from the user.
+     *
+     *
+     * @apiSuccessExample Success-Response:
+     *  {
+     *      "_id": "559784231b993bfe0e8667b7",
+     *      "id_social_network": "56789abcdefgrtyui",
+     *      "email": "angel@mail.com",
+     *      "password": "123abcd",
+     *      "name": "Angel David",
+     *      "last_name": "Lagunas",
+     *      "age": 21,
+     *      "sex": "Masculino",
+     *      "phone": "777123456",
+     *      "state": "Morelos",
+     *      "city": "Temixco",
+     *      "date_registry": "2015-07-04T06:53:11.132Z",
+     *      "url_image": "http://lorempixel.com/g/400/200/",
+     *      "__v": 1,
+     *      "groups_created": [
+     *    {
+     *      "status": true,
+     *      "members": [],
+     *      "administrators": [],
+     *      "post": [],
+     *      "image": [],
+     *      "file": [],
+     *      "_id": "559784231b993bfe0e8667b8",
+     *      "privileges": "personal",
+     *      "date_creation": "2015-07-04T06:53:11.132Z",
+     *       "description": "My personal folder",
+     *       "name": "my g-cloud",
+     *       "__v": 0
+     *     }
+     *   ],
+     *   "groups": [],
+     *   "status": true
+     *  },
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "201 Created"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     addUser = function(req, res) {
+        var currentdate = new Date(); 
         var newUser = new User({
             id_social_network :req.body.id_social_network,
             email             :req.body.email,
@@ -58,7 +281,83 @@ module.exports = function(server) {
         res.send(newUser);
     };
 
-    //PUT
+    /**
+     * @api {put} /user/:id Updates a user
+     * @apiVersion 1.0.0
+     * @apiName UpdateUser
+     * @apiGroup user
+     *
+     * @apiParam {String} id Id of User to update.      
+     * @apiParam {String} id_social_network Id generated by the user's social network.
+     * @apiParam {String} email Email address to log in, it is used as a username.
+     * @apiParam {String} password Password to log into the app.
+     * @apiParam {String} name Real name from the user.
+     * @apiParam {String} last_name Lastname(s) from the user.
+     * @apiParam {number} age Age from the user.
+     * @apiParam {String} sex Sex from the user.
+     * @apiParam {String} phone Telephone number from the user.
+     * @apiParam {String} state State where the user lives.
+     * @apiParam {String} city City where the user lives.
+     * @apiParam {Boolean} status Status of the user Boolean.
+     * @apiParam {String} url_image Url of the profile picture from the user.
+     *
+     * @apiSuccessExample Success-Response:
+     *  {
+     *      "_id": "559784231b993bfe0e8667b7",
+     *      "id_social_network": "56789abcdefgrtyui",
+     *      "email": "angel@mail.com",
+     *      "password": "123abcd",
+     *      "name": "Angel David",
+     *      "last_name": "Lagunas",
+     *      "age": 21,
+     *      "sex": "Masculino",
+     *      "phone": "777123456",
+     *      "state": "Morelos",
+     *      "city": "Temixco",
+     *      "date_registry": "2015-07-04T06:53:11.132Z",
+     *      "url_image": "http://lorempixel.com/g/400/200/",
+     *      "__v": 1,
+     *      "groups_created": [
+     *    {
+     *      "status": true,
+     *      "members": [],
+     *      "administrators": [],
+     *      "post": [],
+     *      "image": [],
+     *      "file": [],
+     *      "_id": "559784231b993bfe0e8667b8",
+     *      "privileges": "personal",
+     *      "date_creation": "2015-07-04T06:53:11.132Z",
+     *       "description": "My personal folder",
+     *       "name": "my g-cloud",
+     *       "__v": 0
+     *     }
+     *   ],
+     *   "groups": [],
+     *   "status": true
+     *  },
+     *
+     * @apiErrorExample {json} Error-400:
+     *     {
+     *       "error": "UserNotFound"
+     *     }
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "201 Created"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     updateUser = function(req, res) {
         User.findById(req.params.id, function(err, user) {
             user.id_social_network =req.body.id_social_network;
@@ -84,7 +383,36 @@ module.exports = function(server) {
         });
     };
 
-    //DELETE
+    /**
+     * @api {delete} /user/:id Delete a specific user
+     * @apiVersion 1.0.0
+     * @apiName DeleteUser
+     * @apiGroup user
+     *
+     * @apiParam {String} id User to delete.
+     * 
+     * @apiSuccessExample Success-Response:
+     *     {
+     *        "msg":"User Successfully Deleted"
+     *     }
+     *
+     *
+     * @apiHeaderExample {json} Header-Response:
+     *     {
+     *       "Content-Type": "application/json; charset=utf-8",
+     *       "status": "200 OK"
+     *     }
+     *
+     * @apiErrorExample Error-404:
+     *{
+     *  "message": "The resource specified don't exist.",
+     * }
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "message": "Internal Server Error.",
+     * } 
+     */
     deleteUser = function(req, res) {
         User.findById(req.params.id, function(err, user) {
             user.remove(function(err) {
