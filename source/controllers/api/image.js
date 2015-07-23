@@ -321,10 +321,10 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/image/', findAllImages);
-    server.get('/imageGroup/:idGroup', findAllImagesGroup);
-    server.get('/image/:id', findByID);
-    server.post('/image', addImage);
-    server.put('/image/:id', updateImage);
-    server.delete('/image/:id', deleteImage);
+    server.get('/image/', server.oauth.authorise(), findAllImages);
+    server.get('/imageGroup/:idGroup', server.oauth.authorise(), findAllImagesGroup);
+    server.get('/image/:id', server.oauth.authorise(), findByID);
+    server.post('/image', server.oauth.authorise(), addImage);
+    server.put('/image/:id', server.oauth.authorise(), updateImage);
+    server.delete('/image/:id', server.oauth.authorise(), deleteImage);
 }
