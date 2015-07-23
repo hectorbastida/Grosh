@@ -4,7 +4,8 @@ var express      = require('express'),
 	passport     = require('passport'),
 	session      = require('express-session'),
 	cookieParser = require('cookie-parser');
-	bodyParser   = require('body-parser');
+	bodyParser   = require('body-parser'),
+	oauthserver = require('./source/controllers/serverOAuth/lib/oauth2server');
 var server       = express();//<-------------------------------creamos el server de express
 var server_socket = http.createServer(server).listen(8000);//<-creamos el server de sockets
 var io = require('socket.io').listen(server_socket);//<--------el servidor de eventos escuchara en el mismo puerto que nuestro server de express
@@ -35,6 +36,13 @@ passport.deserializeUser(function(user,done){
 	done(null,user);
 });
 
+//configuracion del servidor oauth2
+server.oauth = oauthserver({
+  model: require('./source/models/authorization'),
+  grants: ['password', 'refresh_token'],
+  debug: false
+});
+
 
 //config swig
 server.engine('html',swig.renderFile);//<----------------------el motor de templates es swig
@@ -44,6 +52,7 @@ server.set('uploadDir', './client/uploads');//<----------------carpeta en la que
 server.use(express.static('./client'));//<---------------------aqui colocamos los ccs,js,img y toda la informacion publica.
 
 //controllers
+server.all('/oauth/token', server.oauth.grant());
 require('./source/controllers/app/home')(server);
 require('./source/controllers/api/chat')(io);
 
