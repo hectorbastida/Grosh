@@ -43,6 +43,9 @@
     "passport-twitter": "^1.0.2",
     "socket.io": "^1.1.0",
     "swig": "^1.4.2",
-    "twit": "^1.1.18"
+    "twit": "^1.1.18",
+    "oauth2-server": "~2.4.1",
+    "passport-oauth2": "~1.1.2",
+    "basic-auth": "~1.0.3"
   }
 }

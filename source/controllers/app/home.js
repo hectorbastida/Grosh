@@ -1,6 +1,6 @@
 var homeController=function(server){
 	server.route('/').
-		get(function(req,res){
+		get(server.oauth.authorise(),function(req,res){
 			if (req.user) {
 				if (req.user.provider == 'facebook') {	
 					var name     = req.user._json.first_name;
@@ -20,8 +20,9 @@ var homeController=function(server){
 									url_foto : url_foto
 								});
 				}
+				res.render('./grosh-index');
 			}else{
-				res.render('home/index');
+				res.render('./grosh-login');
 			}
 		});
 
