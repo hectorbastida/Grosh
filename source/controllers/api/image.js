@@ -36,6 +36,11 @@ module.exports = function(server) {
      *     }
      *  ]
      * 
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -47,10 +52,27 @@ module.exports = function(server) {
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     *
      */
     findAllImages = function(req, res) {
         Image.find(function(err, image) {
@@ -92,6 +114,11 @@ module.exports = function(server) {
      *       "status": false
      *     }
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -103,10 +130,27 @@ module.exports = function(server) {
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     * 
      */
     findAllImagesGroup = function(req, res) {
         Group.findById(req.params.idGroup, function(err, group) {
@@ -139,6 +183,11 @@ module.exports = function(server) {
      *     "status": true
      *   }  
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -150,10 +199,27 @@ module.exports = function(server) {
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     *
      */
     findByID = function(req, res) {
         Image.findById(req.params.id, function(err, image) {
@@ -187,6 +253,11 @@ module.exports = function(server) {
      *       "status": true
      *     } 
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -198,10 +269,27 @@ module.exports = function(server) {
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     *
      */
     addImage = function(req, res) {
         var currentdate = new Date(); 
@@ -246,6 +334,11 @@ module.exports = function(server) {
      *       "status": true
      *     } 
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -257,10 +350,27 @@ module.exports = function(server) {
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     *
      */
     updateImage = function(req, res) {
         Image.findById(req.params.id, function(err, image) {
@@ -293,6 +403,11 @@ module.exports = function(server) {
      *     }
      *
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -304,10 +419,27 @@ module.exports = function(server) {
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     *
      */
     deleteImage = function(req, res) {
         Image.findById(req.params.id, function(err, image) {

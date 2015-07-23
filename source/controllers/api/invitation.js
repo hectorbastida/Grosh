@@ -22,6 +22,11 @@ module.exports = function(server){
      *    }
      *  ]
      * 
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -33,10 +38,27 @@ module.exports = function(server){
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     * 
      */
     findAllInvitations = function(req, res) {
         Invitation.find(function(err, invitation) {
@@ -68,6 +90,11 @@ module.exports = function(server){
      *      "status": "En espera"
      *    }
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -79,10 +106,27 @@ module.exports = function(server){
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     *
      */ 
     findByID = function(req, res) {
         Invitation.findById(req.params.id, function(err, invitation) {
@@ -114,6 +158,11 @@ module.exports = function(server){
      *     "status": "En espera"
      *   }    
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -125,10 +174,27 @@ module.exports = function(server){
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     *
      */
     addInvitation = function(req, res) {
         userAdmin = "559786baa361ca280ffa15f0";// will be replaced by the id_user in session
@@ -172,6 +238,11 @@ module.exports = function(server){
      *      "status": "En espera"
      *    }
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      * @apiHeaderExample {json} Header-Response:
      *     {
      *       "Content-Type": "application/json; charset=utf-8",
@@ -183,10 +254,27 @@ module.exports = function(server){
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     * 
      */
     getByUser = function(req, res){
     	userAdmin = "559786baa361ca280ffa15f0";// will be replaced by the id_user in session
@@ -225,6 +313,11 @@ module.exports = function(server){
      *        "msg":"Invitation Successfully Deleted"
      *     }
      *
+     * @apiHeaderExample {json} Header-Request:
+     *     {
+     *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
+     *     }
+     *
      *
      * @apiHeaderExample {json} Header-Response:
      *     {
@@ -237,10 +330,27 @@ module.exports = function(server){
      *  "message": "The resource specified don't exist.",
      * }
      *
+     *
      * @apiErrorExample Error-500:
      *{
-     *  "message": "Internal Server Error.",
+     *  "OAuth2Error": "The access token was not found.",
      * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "The access token provided has expired.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Malformed auth header.",
+     * } 
+     *
+     * @apiErrorExample Error-500:
+     *{
+     *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
+     * } 
+     * 
      */
     deleteInvitation = function(req, res) {
         Invitation.findById(req.params.id, function(err, invitation) {

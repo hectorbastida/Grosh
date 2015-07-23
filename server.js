@@ -40,7 +40,8 @@ passport.deserializeUser(function(user,done){
 server.oauth = oauthserver({
   model: require('./source/models/authorization'),
   grants: ['password', 'refresh_token'],
-  debug: false
+  debug: false,
+  accessTokenLifetime : 3600
 });
 
 

@@ -1,6 +1,195 @@
 define({ "api": [
   {
     "type": "post",
+    "url": "/oauth/token/",
+    "title": "Return a access token by password",
+    "version": "0.1.0",
+    "name": "GetTokenByPassword",
+    "group": "Auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "email",
+            "description": "<p>The mail of user.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of user.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "grant_type",
+            "description": "<p>Grant type that you will use (password).</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "client_id",
+            "description": "<p>Is a static id.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "client_secret",
+            "description": "<p>Is a hash MD5 which is static.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "\n{\n   \"token_type\": \"bearer\",\n   \"access_token\": \"10ebf3b24073bdce5fe0f6a2741e15ef6320fe95\",\n   \"expires_in\": 3600,\n   \"refresh_token\": \"d8e4799a6ab6ea96c941f46c506ad6dd9e6eba91\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Response:",
+          "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-404:",
+          "content": "{\n  \"message\": \"The resource specified don't exist.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Invalid or missing grant_type parameter.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Invalid or missing client_id parameter.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Missing client_secret parameter.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Missing parameters email and password are required.\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "../../source/controllers/serverOAuth/doc/OAuth.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
+    "url": "/oauth/token/",
+    "title": "Return a access token by refresh_token",
+    "version": "0.1.0",
+    "name": "GetTokenByRefreshToken",
+    "group": "Auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "refresh_token",
+            "description": "<p>Hash that you got when called this endpoint with a password.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "grant_type",
+            "description": "<p>Grant type that you will use (refresh_token).</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "client_id",
+            "description": "<p>Is a static id to this App.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "client_secret",
+            "description": "<p>Is a hash MD5 which is static.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "\n{\n   \"token_type\": \"bearer\",\n   \"access_token\": \"82f2c801927cea02a8dc58524c14f05c026724b5\",\n   \"expires_in\": 3600,\n   \"refresh_token\": \"bd7721c89a1afba183010d6a8ac44cd3f5f47b6c\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Response:",
+          "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-404:",
+          "content": "{\n \"message\": \"The resource specified don't exist.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Invalid or missing grant_type parameter.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Invalid or missing client_id parameter.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Missing client_secret parameter.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{ \n  \"OAuth2Error\": \"Missing parameters email and password are required.\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "../../source/controllers/serverOAuth/doc/OAuth.js",
+    "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
     "url": "/file/",
     "title": "Creates a file",
     "version": "1.0.0",
@@ -45,6 +234,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -60,7 +254,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -100,6 +309,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -115,7 +329,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -155,6 +384,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -170,7 +404,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -197,6 +446,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -212,7 +466,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -252,6 +521,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -267,7 +541,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -328,6 +617,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -343,7 +637,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -411,6 +720,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -426,7 +740,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -466,6 +795,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -481,7 +815,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -518,6 +867,15 @@ define({ "api": [
         }
       ]
     },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        }
+      ]
+    },
     "error": {
       "examples": [
         {
@@ -527,7 +885,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -564,6 +937,15 @@ define({ "api": [
         }
       ]
     },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        }
+      ]
+    },
     "error": {
       "examples": [
         {
@@ -573,7 +955,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -600,6 +997,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -615,7 +1017,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -652,6 +1069,15 @@ define({ "api": [
         }
       ]
     },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        }
+      ]
+    },
     "error": {
       "examples": [
         {
@@ -661,7 +1087,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -698,6 +1139,15 @@ define({ "api": [
         }
       ]
     },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        }
+      ]
+    },
     "error": {
       "examples": [
         {
@@ -707,7 +1157,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -782,6 +1247,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -797,13 +1267,117 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
     },
     "filename": "../../source/controllers/api/group.js",
     "groupTitle": "group"
+  },
+  {
+    "type": "post",
+    "url": "/image/",
+    "title": "Creates a image",
+    "version": "1.0.0",
+    "name": "CreateImage",
+    "group": "image",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "content",
+            "description": "<p>Content or description of the image.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name or title of the image.</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>String</p> ",
+            "optional": false,
+            "field": "user_creator",
+            "description": "<p>User who uploads the image.</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "\n{\n  \"_id\": \"559793914fc9bea00a464a6d\",\n  \"content\": \"Work In Progress\",\n  \"name\": \"Grafica \",\n  \"user_creator\": \"987654jhgf76543gfd\",\n  \"create_date\": \"2015-07-04T08:03:45.887Z\",\n  \"__v\": 0,\n  \"answer\": [],\n  \"status\": true\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "header": {
+      "examples": [
+        {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Header-Response:",
+          "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-404:",
+          "content": "{\n \"message\": \"The resource specified don't exist.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "../../source/controllers/api/image.js",
+    "groupTitle": "image"
   },
   {
     "type": "post",
@@ -858,74 +1432,10 @@ define({ "api": [
     "header": {
       "examples": [
         {
-          "title": "Header-Response:",
-          "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "Error-404:",
-          "content": "{\n \"message\": \"The resource specified don't exist.\",\n}",
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
           "type": "json"
         },
-        {
-          "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "filename": "../../source/controllers/api/image.js",
-    "groupTitle": "image"
-  },
-  {
-    "type": "post",
-    "url": "/image/",
-    "title": "Creates a image",
-    "version": "1.0.0",
-    "name": "CreateImage",
-    "group": "image",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "content",
-            "description": "<p>Content or description of the image.</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "name",
-            "description": "<p>Name or title of the image.</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "user_creator",
-            "description": "<p>User who uploads the image.</p> "
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "\n{\n  \"_id\": \"559793914fc9bea00a464a6d\",\n  \"content\": \"Work In Progress\",\n  \"name\": \"Grafica \",\n  \"user_creator\": \"987654jhgf76543gfd\",\n  \"create_date\": \"2015-07-04T08:03:45.887Z\",\n  \"__v\": 0,\n  \"answer\": [],\n  \"status\": true\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "header": {
-      "examples": [
         {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
@@ -942,7 +1452,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -982,6 +1507,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -997,7 +1527,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1037,6 +1582,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1052,7 +1602,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1092,6 +1657,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1107,7 +1677,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1134,6 +1719,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1149,7 +1739,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1203,6 +1808,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -1218,7 +1828,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1258,6 +1883,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1273,7 +1903,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1313,6 +1958,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1328,7 +1978,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1355,6 +2020,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1370,7 +2040,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1410,6 +2095,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1425,7 +2115,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1472,6 +2177,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -1487,7 +2197,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1527,6 +2252,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1542,7 +2272,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1582,6 +2327,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1597,7 +2347,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1637,6 +2402,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1652,7 +2422,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1679,6 +2464,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1694,7 +2484,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1748,6 +2553,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -1763,7 +2573,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1873,6 +2698,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",
           "type": "json"
@@ -1888,7 +2718,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1928,6 +2773,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1943,7 +2793,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -1983,6 +2848,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -1998,7 +2868,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -2025,6 +2910,11 @@ define({ "api": [
     "header": {
       "examples": [
         {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
+        {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"200 OK\"\n}",
           "type": "json"
@@ -2040,7 +2930,22 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
@@ -2175,13 +3080,33 @@ define({ "api": [
         },
         {
           "title": "Error-500:",
-          "content": "{\n \"message\": \"Internal Server Error.\",\n}",
+          "content": "{\n \"OAuth2Error\": \"The access token was not found.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"The access token provided has expired.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Malformed auth header.\",\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-500:",
+          "content": "{\n \"OAuth2Error\": \"Only one method may be used to authenticate at a time (Auth header, GET or POST).\",\n}",
           "type": "json"
         }
       ]
     },
     "header": {
       "examples": [
+        {
+          "title": "Header-Request:",
+          "content": "{\n  \"Authorization\": \"Bearer 2af428236a809a023e68ec543a61b9366da7b56f\",\n}",
+          "type": "json"
+        },
         {
           "title": "Header-Response:",
           "content": "{\n  \"Content-Type\": \"application/json; charset=utf-8\",\n  \"status\": \"201 Created\"\n}",

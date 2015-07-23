@@ -5,7 +5,7 @@
 ## Ejecutar ApiDoc ##
 #### Nos situamos en grosh/documentation/api y ejecutamos:
 ```bash
-apidoc -i ./../../source/controllers/api -o ./output -t ./template
+apidoc -i ./../../source/controllers -o ./output -t ./template
 ```
 #### Usage apidoc [options]:
 * **-i** : Le especificamos la entrada de información o la carpeta donde esta el código que queremos documentar
