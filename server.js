@@ -47,33 +47,13 @@ server.oauth = oauthserver({
 //config swig
 server.engine('html',swig.renderFile);//<----------------------el motor de templates es swig
 server.set('view engine','html');
-server.set('views',__dirname + '/source/views');//<------------en donde van a estar las vistas o templates
+server.set('views',__dirname + '/client');//<------------------en donde van a estar las vistas o templates
 server.set('uploadDir', './client/uploads');//<----------------carpeta en la que se guardaran las cosas que subamos
 server.use(express.static('./client'));//<---------------------aqui colocamos los ccs,js,img y toda la informacion publica.
 
+
+
 //controllers
 server.all('/oauth/token', server.oauth.grant());
-require('./source/controllers/app/home')(server);
-require('./source/controllers/api/chat')(io);
-
-//models
-require('./source/models/user');
-require('./source/models/group');
-require('./source/models/post');
-require('./source/models/image');
-require('./source/models/answer');
-require('./source/models/file');
-require('./source/models/chat');
-require('./source/models/message');
-require('./source/models/invitation');
-require('./source/models/request');
-
-require('./source/controllers/api/user')(server);
-require('./source/controllers/api/post')(server);
-require('./source/controllers/api/image')(server);
-require('./source/controllers/api/file')(server);
-require('./source/controllers/api/group')(server);
-require('./source/controllers/api/invitation')(server);
-//require('./source/connections/view-twitter')(server);
-//require('./source/connections/createTwit')('Hello twitter from #nodejs');
-//require('./app/connections/mail')(server);
+require('./source/controllers/api/api')(server, io);
+require('./source/controllers/app/app')(server);

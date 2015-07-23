@@ -254,10 +254,10 @@ module.exports = function(server){
     }
 
     //API Routes
-    server.get('/invitation', findAllInvitations);
-    server.get('/invitation/:id', findByID);
-    server.post('/invitation', addInvitation);
-    server.get('/invitationUser/', getByUser);
-    server.put('/invitation/:id', readInvitations);
-    server.delete('/invitation/:id', deleteInvitation);
+    server.get('/invitation', server.oauth.authorise(), findAllInvitations);
+    server.get('/invitation/:id', server.oauth.authorise(), findByID);
+    server.post('/invitation', server.oauth.authorise(), addInvitation);
+    server.get('/invitationUser/', server.oauth.authorise(), getByUser);
+    server.put('/invitation/:id', server.oauth.authorise(), readInvitations);
+    server.delete('/invitation/:id', server.oauth.authorise(), deleteInvitation);
 }

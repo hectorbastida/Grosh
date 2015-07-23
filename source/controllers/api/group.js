@@ -535,12 +535,12 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/group/', findAllGroups);
-    server.get('/groupUser/:idUser', findAllGroupsUser);
-    server.get('/groupUserBelongs/:idUser', findAllGroupsUserBelongs);
-    server.get('/personalUserGroup/:idUser', findPersonalGroup);
-    server.get('/group/:id', findByID);
-    server.post('/group', addGroup);
-    server.put('/group/:id', updateGroup);
-    server.delete('/group/:id', deleteGroup);
+    server.get('/group/', server.oauth.authorise(), findAllGroups);
+    server.get('/groupUser/:idUser', server.oauth.authorise(), findAllGroupsUser);
+    server.get('/groupUserBelongs/:idUser', server.oauth.authorise(), findAllGroupsUserBelongs);
+    server.get('/personalUserGroup/:idUser', server.oauth.authorise(), findPersonalGroup);
+    server.get('/group/:id', server.oauth.authorise(), findByID);
+    server.post('/group', server.oauth.authorise(), addGroup);
+    server.put('/group/:id', server.oauth.authorise(), updateGroup);
+    server.delete('/group/:id', server.oauth.authorise(), deleteGroup);
 }

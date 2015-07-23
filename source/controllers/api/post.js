@@ -291,10 +291,10 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/post/', findAllPosts);
-    server.get('/postGroup/:idGroup', findAllPostsGroup);
-    server.get('/post/:id', findByID);
-    server.post('/post', addPost);
-    server.put('/post/:id', updatePost);
-    server.delete('/post/:id', deletePost);
+    server.get('/post/', server.oauth.authorise(), findAllPosts);
+    server.get('/postGroup/:idGroup', server.oauth.authorise(), findAllPostsGroup);
+    server.get('/post/:id', server.oauth.authorise(), findByID);
+    server.post('/post', server.oauth.authorise(), addPost);
+    server.put('/post/:id', server.oauth.authorise(), updatePost);
+    server.delete('/post/:id', server.oauth.authorise(), deletePost);
 }

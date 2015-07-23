@@ -21,7 +21,7 @@ function OAuth2Error(error, description, err) {
         this.stack = err.stack;
     } else {
         this.message = description;
-        Error.captureStackTrace(this, this.constructor);
+        //Error.captureStackTrace(this, this.constructor);
     }
 
     this.headers = {

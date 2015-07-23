@@ -323,10 +323,10 @@ module.exports = function(server) {
     }
 
     //API Routes
-    server.get('/file/', findAllFiles);
-    server.get('/fileGroup/:idGroup', findAllFilesGroup);
-    server.get('/file/:id', findByID);
-    server.post('/file', addFile);
-    server.put('/file/:id', updateFile);
-    server.delete('/file/:id', deleteFile);
+    server.get('/file/', server.oauth.authorise(), findAllFiles);
+    server.get('/fileGroup/:idGroup', server.oauth.authorise(), findAllFilesGroup);
+    server.get('/file/:id', server.oauth.authorise(), findByID);
+    server.post('/file', server.oauth.authorise(), addFile);
+    server.put('/file/:id', server.oauth.authorise(), updateFile);
+    server.delete('/file/:id', server.oauth.authorise(), deleteFile);
 }
