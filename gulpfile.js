@@ -30,7 +30,7 @@ gulp.task('webserver', function() {
 
 gulp.task('browse',function(){
 	var bundler = watchify(browserify({
-		entries:['./client/src/module/grosh.js'],
+		entries:['./client/app/grosh.module.js'],
 		extensions:['.js'],
 		debug:true,
 		cache:{},
