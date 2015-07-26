@@ -5,7 +5,8 @@ var directive = function(){
 		restrict: 'E',
 		templateUrl:'./app/menu-bar/menu-bar.html',
 		controller:menuBarController,
-		scope:true
+		scope:true,
+		replace:true
 	}
 }
 

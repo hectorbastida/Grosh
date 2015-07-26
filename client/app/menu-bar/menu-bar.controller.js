@@ -3,34 +3,53 @@
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$scope','$state'];
+	'$scope','$state','loginService'];
 /*
 The controller's functionality
 */
-var controller = function($scope,$state){
+var controller = function($scope,$state,loginService){
+    $scope.user = '';
 
+    function getUser(){
+       var current = loginService.getLoggedUser();
+       if(current){
+         $scope.user = {name:current.name,lastName:current.lastName,email:current.email};
+       }
+    }
+    getUser();
+    $scope.closeThis = function () {
+      if($scope.sideMenuOpen){
+        $scope.sideMenuOpen = false;
+        $scope.$apply();
+      }        
+    }
 
-	    
-   
-  /*  $scope.userIsLogged = function(){
-      return userService.isLogged();
+    $scope.menuBarActive = function(){
+        if(loginService.loggedIn()){
+              return 'menu-bar-active';
+        }
+        return 'menu-bar-inactive';
+    }
+
+    $scope.sideMenuOpen = false;
+	  $scope.openSideMenu = function(){
+        $scope.sideMenuOpen = ! $scope.sideMenuOpen;
+    }
+    
+    $scope.isSideMenuOpened = function(){
+      console.log($scope.sideMenuOpen);
+      if($scope.sideMenuOpen){
+        return 'menu open';
+      }
+      return '';
     }
 
     $scope.logout = function(){
-      userService.logout();
-      $state.go('index');
-      LxNotificationService.notify('You Logged Out, See You Soon');
-
-    }
-
-    $scope.getGravatar = function(){
-      if(userService.getLogged()){
-        var email = userService.getLogged().email;
-        return md5(email);
+      $scope.sideMenuOpen = false;
+      if(loginService.logout()){
+        $state.go('login');
       }
-        return null;
     }
-    */
 }
 
 

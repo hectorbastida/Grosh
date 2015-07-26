@@ -15,7 +15,12 @@ html {
 body {
     background-color: transparent;
 }
-
+.header {
+  background-color: #009688;
+}
+.m-main{
+  margin-top: 56px;
+}
 .c-white{
 	color:#fff;
 }
@@ -164,6 +169,9 @@ body {
     .radio-group{
     margin-left: 30px;
     }
+    .radio-group-l{
+    margin-left: 63px;
+    }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -175,6 +183,9 @@ body {
     }
     .radio-group{
     margin-left: 30px;
+    }
+    .radio-group-l{
+    margin-left: 80px;
     }
 }
 
@@ -276,3 +287,21 @@ header{
 }
 
 
+@media only screen and (min-width: 992px){
+  .col-card-form {
+  width: 80%;
+  }
+}
+
+@media only screen and (min-width: 768px){
+    .col-card-form {
+  width: 80%;
+  }
+}
+
+
+@media only screen and (min-width: 1440px){
+  .col-card-form {
+  width: 70%;
+  }
+}

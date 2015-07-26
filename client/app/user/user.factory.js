@@ -20,18 +20,26 @@ var factory = function($http){
 		    
 	}
 	function get(email){
+		return $http.get('http://localhost:8000/user/'+email);
 
 	}
 
-    function modify(user){
-
+    function update(user){
+    	return $http.put('http://localhost:8000/user/'+user._id,{
+    		name:user.name,
+    		last_name:user.last_name,
+    		password:user.password,
+    		status:user.status,
+    		email:user.email,
+    		sex:user.sex
+    	});
 	}
 
 
 	return {
 		add:add,
 		get:get,
-		modify:modify
+		update:update
 	}
 }
 

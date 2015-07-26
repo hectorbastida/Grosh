@@ -8,6 +8,8 @@ var dependencies = [
 The controller's functionality
 */
 var controller = function($scope,$state,userService,loginService){
+	var html = document.querySelector('html');
+	html.id = 'login'
 	$scope.loginPartial = 'signIn';
 	$scope.newUser = {
 		name:'',
@@ -49,11 +51,31 @@ var controller = function($scope,$state,userService,loginService){
 
 	$scope.login = function(){
 		if($scope.user.password !== '' && $scope.user.email !==''){
-			loginService.login($scope.user.email,$scope.user.password);
+			loginService.login($scope.user.email,$scope.user.password)
+		            .success(function(data, status, headers, config) {
+                       loginService.setProfile(data.email,data.name,
+                           data.last_name,
+                           data.access_token);
+                       $state.go('home');
+		            })
+		            .error(function(data, status, headers, config) {
+		               console.error('error'); 
+		               console.info(data); 
+		            }); 
+
+
+
+
+				                        
+
+                        
+			
+ 			
 		}else{
 			alert('Please complete all fields');
 		}
 	}
+
 
 	$scope.addNewUser = function(){
 		if($scope.newUser.name !== '' && $scope.newUser.lastName !== '' && $scope.newUser.email !== ''
@@ -78,6 +100,8 @@ var controller = function($scope,$state,userService,loginService){
 			alert('Please omplete all fields');
 		}
 	}
+
+
 }
 
 
