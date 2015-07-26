@@ -107,6 +107,8 @@ function credsFromBasic(req) {
  * @return {Object} Client
  */
 function credsFromBody(req) {
+    req.body.client_id = '449363d8187d9898abb265e50d1adc20';
+    req.body.client_secret = 'ec899ab5530e0cd33e4aa4815d927477';
     return new Client(req.body.client_id, req.body.client_secret);
 }
 
@@ -216,7 +218,6 @@ function usePasswordGrant(done) {
         if (!user) {
             return done(error('invalid_grant', 'User credentials are invalid'));
         }
-        console.log(user);
         self.user = user;
         done();
     });
@@ -451,7 +452,7 @@ function sendResponse(done) {
     };
 
     response.name = this.user.name;
-
+    response.last_name = this.user.last_name;
     response.email = this.user.email;
 
     if (this.config.accessTokenLifetime !== null) {
