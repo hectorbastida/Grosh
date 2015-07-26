@@ -35,15 +35,19 @@ function OAuth2Error(error, description, err) {
             /* falls through */
         case 'invalid_grant':
         case 'invalid_request':
+            this.status = 400;
             this.code = 400;
             break;
         case 'invalid_token':
+            this.status = 401;
             this.code = 401;
             break;
         case 'server_error':
+            this.status = 503;
             this.code = 503;
             break;
         default:
+            this.status = 500;
             this.code = 500;
     }
 
