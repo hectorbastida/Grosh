@@ -564,7 +564,7 @@ module.exports = function(server) {
     //API Routes
     server.get('/user', server.oauth.authorise(), findAllUsers);
     server.get('/user/:id', server.oauth.authorise(), findByID);
-    server.post('/user', server.oauth.authorise(), addUser);
+    server.post('/user', addUser);
     server.put('/user/:id', server.oauth.authorise(), updateUser);
     server.delete('/user/:id', server.oauth.authorise() ,deleteUser);
 }

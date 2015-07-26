@@ -1,0 +1,143 @@
+<div class="content no-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-push-4 col-sm-6 col-sm-push-3 col-sm-push-g col-sm-g">
+                <section class="content-inner">
+                    <div class="card-wrap">
+                        <div class="card card-login">
+                            <div class="card-main" ng-class="activeLoginPartial('signIn')">
+                                <div class="card-inner card-inner-0">
+                                    <p class="text-center logo-login">
+                                        <span class="avatar avatar-inline avatar-lg index">
+                                            <img alt="Login" src="images/Letter Grosh.png">
+                                        </span>
+                                    </p>
+                                    <form class="form" action="index.html">
+                                        <div class="form-group form-group-label">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <label class="floating-label" for="login-email">Email</label>
+                                                    <input ng-model="user.email" class="form-control c-gray" id="login-email" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-label">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <label class="floating-label " for="login-password">Password</label>
+                                                    <input ng-model="user.password" class="form-control c-gray" id="login-password" type="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1 btn-login">
+                                                    <a href="javascript:void(0)" ng-click="login()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">Sign In</a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1 btn-login">
+                                                    <a href="javascript:void(0)" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh btn-social-facebook"><span class="fa fa-facebook"></span></a>
+                                                    <a href="javascript:void(0)" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh btn-social-twitter"><span class="fa fa-twitter"></span></a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1 sign-up-text">
+                                                    Don't have an account?
+                                                    <a href="javascript:void(0);" ng-click="toggleLoginPartial()">Sign up</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-main" ng-class="activeLoginPartial('signUp')">
+                                <div class="card-header">
+                                    <div class="card-inner">
+                                        <h1 class="card-heading c-white">Sign Up</h1>
+                                    </div>
+                                </div>
+                                <div class="card-inner card-inner-0">
+                                    <form class="form" action="index.html">
+                                        <div class="form-group form-group-label">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <label class="floating-label" for="login-name">Name</label>
+                                                    <input ng-model="newUser.name" class="form-control c-gray" id="login-name" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-label">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <label class="floating-label" for="login-lastName">Last Name</label>
+                                                    <input ng-model="newUser.lastName" class="form-control c-gray" id="login-lastName" type="text">
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="form-group form-group-label">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <label class="floating-label" for="login-username">Email</label>
+                                                    <input ng-model="newUser.email" class="form-control c-gray" id="login-username" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-label">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <label class="floating-label " for="login-password">Password</label>
+                                                    <input ng-model="newUser.password" class="form-control c-gray" id="login-password" type="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-label">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1">
+                                                    <label class="floating-label " for="login-password">Repeat Password</label>
+                                                    <input ng-model="newUser.rePassword" class="form-control c-gray" id="login-password" type="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group radio-group"> <div class="radio radio-adv radio-inline">
+                                                <label for="input-radio-inline-1" class="c-gray">
+                                                    <input ng-model="newUser.gender" class="access-hide c-gray" id="input-radio-inline-1" name="input-radio-inline" type="radio" value="female">Female
+                                                <span class="circle"></span><span class="circle-check"></span></label>
+                                            </div>
+                                            <div class="radio radio-adv radio-inline">
+                                                <label for="input-radio-inline-2" class="c-gray">
+                                                    <input ng-model="newUser.gender" class="access-hide" id="input-radio-inline-2" name="input-radio-inline" type="radio" value="male">Male
+                                                <span class="circle"></span><span class="circle-check"></span></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1 btn-login">
+                                                    <a href="javascript:void(0)" ng-click="addNewUser()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">Sign Up</a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-10 col-md-push-1 sign-up-text">
+                                                    Already have an account?
+                                                    <a href="javascript:void(0);" ng-click="toggleLoginPartial()">Sign In</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            <!--div class="btn-grosh-circular-cont">
+                                        <a class="fbtn fbtn-red fbtn-lg btn-grosh-circular" data-toggle="dropdown"><span class="fbtn-text">Information</span><span class="fbtn-ori icon">edit</span></a>
+                                </div-->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

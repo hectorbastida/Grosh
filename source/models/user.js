@@ -17,8 +17,8 @@ var userSchema=new Schema({
     sex               :{
                             type:String,
                             enum:[
-                                'Femenino',
-                                'Masculino'
+                                'female',
+                                'male'
                             ]
                         },
     phone             :{type:String},
