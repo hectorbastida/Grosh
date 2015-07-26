@@ -1,7 +1,8 @@
 var auth = require('basic-auth'),
     error = require('./error'),
     runner = require('./runner'),
-    token = require('./token');
+    token = require('./token'),
+    User = require('../../../models/user');
 
 module.exports = Grant;
 
@@ -106,6 +107,8 @@ function credsFromBasic(req) {
  * @return {Object} Client
  */
 function credsFromBody(req) {
+    req.body.client_id = '449363d8187d9898abb265e50d1adc20';
+    req.body.client_secret = 'ec899ab5530e0cd33e4aa4815d927477';
     return new Client(req.body.client_id, req.body.client_secret);
 }
 
@@ -117,6 +120,7 @@ function credsFromBody(req) {
  */
 function checkClient(done) {
     var self = this;
+
     this.model.getClient(this.client.clientId, this.client.clientSecret,
         function(err, client) {
             if (err) return done(error('server_error', false, err));
@@ -214,7 +218,6 @@ function usePasswordGrant(done) {
         if (!user) {
             return done(error('invalid_grant', 'User credentials are invalid'));
         }
-
         self.user = user;
         done();
     });
@@ -246,11 +249,7 @@ function useRefreshTokenGrant(done) {
                 'No user/userId parameter returned from getRefreshToken'));
         }
 
-        /*
-        self.user = refreshToken.user || {
-            id: refreshToken.userId
-        };
-        */
+        self.user = refreshToken.userId;
         
         if (self.model.revokeRefreshToken) {
             return self.model.revokeRefreshToken(token, function(err) {
@@ -345,7 +344,6 @@ function checkGrantTypeAllowed(done) {
  */
 function exposeUser(done) {
     this.req.user = this.user;
-
     done();
 }
 
@@ -448,6 +446,10 @@ function sendResponse(done) {
         token_type: 'bearer',
         access_token: this.accessToken
     };
+
+    response.name = this.user.name;
+    response.last_name = this.user.last_name;
+    response.email = this.user.email;
 
     if (this.config.accessTokenLifetime !== null) {
         response.expires_in = this.config.accessTokenLifetime;
