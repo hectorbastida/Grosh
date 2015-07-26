@@ -452,7 +452,7 @@ function sendResponse(done) {
     };
 
     response.name = this.user.name;
-
+    response.last_name = this.user.last_name;
     response.email = this.user.email;
 
     if (this.config.accessTokenLifetime !== null) {
