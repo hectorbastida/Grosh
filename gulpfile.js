@@ -6,7 +6,9 @@ var gutil = require('gulp-util'),
 source = require('vinyl-source-stream'),
 browserify = require('browserify'),
 watchify = require('watchify'),
-connect = require('gulp-connect');
+connect = require('gulp-connect'),
+uglify = require('gulp-uglify')
+streamify = require('gulp-streamify');
 
 gulp.task('minify-css', function() {
   return gulp.src('css/baseRec.css')
@@ -30,7 +32,7 @@ gulp.task('webserver', function() {
 
 gulp.task('browse',function(){
 	var bundler = watchify(browserify({
-		entries:['./client/src/module/grosh.js'],
+		entries:['./client/app/grosh.module.js'],
 		extensions:['.js'],
 		debug:true,
 		cache:{},
@@ -43,6 +45,7 @@ gulp.task('browse',function(){
 			.bundle()
 			.on('error',gutil.log.bind(gutil,'Browserify Error'))
 			.pipe(source('bundle.js'))
+		//	.pipe(streamify(uglify()))
 			.pipe(gulp.dest('./client/dist'))
 	}
 	build()
