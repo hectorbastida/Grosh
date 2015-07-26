@@ -71,7 +71,11 @@ body {
 }
 
 .menu-bar-inactive {
-    background-color: transparent!important;
+  display: none;
+}
+
+.menu-bar-transparent {
+  background-color: transparent!important;
 }
 
 .page-header-active{
@@ -141,6 +145,12 @@ body {
     color: #009688;
 }
 
+.radio-adv input.access-hide:checked~.circle-check {
+  background-color: #009688;
+}
+
+
+
 @media only screen and (min-width: 1024px) {
     .col-sm-push-g {
         left: 29.5%;
@@ -151,6 +161,9 @@ body {
     .col-sm-g {
         width: 370px;
     }
+    .radio-group{
+    margin-left: 30px;
+    }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -159,6 +172,9 @@ body {
     }
     .card-inner-0 {
         margin: 0;
+    }
+    .radio-group{
+    margin-left: 30px;
     }
 }
 
@@ -258,3 +274,5 @@ header{
   width: 30px;
   margin-top: -5.4px!important;
 }
+
+
