@@ -29,20 +29,6 @@ define({ "api": [
             "optional": false,
             "field": "grant_type",
             "description": "<p>Grant type that you will use (password).</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "client_id",
-            "description": "<p>Is a static id.</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "client_secret",
-            "description": "<p>Is a hash MD5 which is static.</p> "
           }
         ]
       }
@@ -120,20 +106,6 @@ define({ "api": [
             "optional": false,
             "field": "grant_type",
             "description": "<p>Grant type that you will use (refresh_token).</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "client_id",
-            "description": "<p>Is a static id to this App.</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "<p>String</p> ",
-            "optional": false,
-            "field": "client_secret",
-            "description": "<p>Is a hash MD5 which is static.</p> "
           }
         ]
       }
