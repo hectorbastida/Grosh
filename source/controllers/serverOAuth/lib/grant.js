@@ -1,7 +1,8 @@
 var auth = require('basic-auth'),
     error = require('./error'),
     runner = require('./runner'),
-    token = require('./token');
+    token = require('./token'),
+    User = require('../../../models/user');
 
 module.exports = Grant;
 
@@ -117,6 +118,7 @@ function credsFromBody(req) {
  */
 function checkClient(done) {
     var self = this;
+
     this.model.getClient(this.client.clientId, this.client.clientSecret,
         function(err, client) {
             if (err) return done(error('server_error', false, err));
@@ -214,7 +216,7 @@ function usePasswordGrant(done) {
         if (!user) {
             return done(error('invalid_grant', 'User credentials are invalid'));
         }
-
+        console.log(user);
         self.user = user;
         done();
     });
@@ -345,7 +347,6 @@ function checkGrantTypeAllowed(done) {
  */
 function exposeUser(done) {
     this.req.user = this.user;
-
     done();
 }
 
@@ -448,6 +449,10 @@ function sendResponse(done) {
         token_type: 'bearer',
         access_token: this.accessToken
     };
+
+    response.name = this.user.name;
+
+    response.email = this.user.email;
 
     if (this.config.accessTokenLifetime !== null) {
         response.expires_in = this.config.accessTokenLifetime;
