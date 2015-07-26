@@ -1,43 +1,81 @@
-<header class="header menu-bar-inactive">
-    <ul class="nav nav-list pull-left">
-        <li class=" icon-menu">
-            <a data-toggle="menu" href="#menu">
-                <span class="icon icon-lg">menu</span>
-            </a>
-        </li>
-        <li>
-            <a href="grosh-index.html">
-                <span class="avatar avatar-border"><img alt="alt text for John Smith avatar" src="images/grosh-app.png"></span>
-            </a>
-        </li>
-    </ul>
-    <!--a class="header-logo" href="index.html">Home</a-->
-    <ul class="nav nav-list pull-right">
-        <li class="dropdown icon-menu">
-            <a class="dropdown-toggle " data-toggle="dropdown"><span class="icon icon-lg">notifications_none</span></a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="javascript:void(0)"><span class="icon margin-right-sm">loop</span>&nbsp;Lorem Ipsum</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><span class="icon margin-right-sm">replay</span>&nbsp;Consectetur Adipiscing</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><span class="icon margin-right-sm">shuffle</span>&nbsp;Sed Ornare</a>
-                </li>
-            </ul>
-        </li>
-        <li class=" icon-menu">
-            <a>
-                <span class="icon icon-lg">question_answer</span>
-            </a>
-        </li>
-        <li>
-            <!--a data-toggle="menu" href="#profile"-->
-            <a>
-                <span class="access-hide">Hector Bastida</span>
-                <span class="avatar avatar-grosh"><img alt="alt text for John Smith avatar" src="images/users/avatar-001.jpg"></span>
-            </a>
-        </li>
-    </ul>
-</header>
+<div  >
+    <header class="header" ng-class="menuBarActive()">
+        <ul class="nav nav-list pull-left">
+            <li class=" icon-menu">
+                <a id="menu-button" ng-click="openSideMenu()" href="javascript:void(0)">
+                    <span class="icon icon-lg">menu</span>
+                </a>
+            </li>
+            <li>
+                <a ui-sref="home">
+                    <span class="avatar avatar-border"><img alt="alt text for John Smith avatar" src="images/grosh-app.png"></span>
+                </a>
+            </li>
+        </ul>
+        <!--a class="header-logo" href="index.html">Home</a-->
+        <ul class="nav nav-list pull-right">
+            <li class="dropdown icon-menu">
+                <a class="dropdown-toggle " data-toggle="dropdown"><span class="icon icon-lg">notifications_none</span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="javascript:void(0)"><span class="icon margin-right-sm">loop</span>&nbsp;Lorem Ipsum</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span class="icon margin-right-sm">replay</span>&nbsp;Consectetur Adipiscing</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><span class="icon margin-right-sm">shuffle</span>&nbsp;Sed Ornare</a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" icon-menu">
+                <a  href="javascript:void(0)">
+                    <span class="icon icon-lg">question_answer</span>
+                </a>
+            </li>
+            <li>
+                <!--a data-toggle="menu" href="#profile"-->
+                <a>
+                    <span class="access-hide">{{user.name + ' '+ user.lastName}}</span>
+                    <span class="avatar avatar-grosh"><img alt="alt text for John Smith avatar" src="images/users/avatar-001.jpg"></span>
+                </a>
+            </li>
+        </ul>
+    </header>
+    <nav class="menu" ng-class="{'open':sideMenuOpen}">
+        <div class="menu-scroll" id="menu-container" click-outside="closeThis()" outside-if-not="menu-button">
+            <div class="menu-wrap">
+                <div class="menu-top">
+                    <div class="menu-top-img">
+                        <img alt="John Smith" src="images/samples/landscape.jpg">
+                    </div>
+                    <div class="menu-top-info">
+                        <a class="menu-top-user" href="javascript:void(0)"><span class="avatar pull-left"><img alt="alt text for John Smith avatar" src="images/users/avatar-001.jpg"></span>{{user.name + ' '+ user.lastName}}</a>
+                    </div>
+                    <div class="menu-top-info-sub">
+                        <small>{{user.email}}</small>
+                    </div>
+                </div>
+                <div class="menu-content">
+                    <ul class="nav">
+                        <li class="active">
+                            <a ui-sref="home"><span class="icon icon-lg">home</span>Home</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><span class="icon icon-lg">account_box</span>Profile</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><span class="icon icon-lg">language</span>G Cloud</a>
+                        </li>
+                        <li>
+                            <a ui-sref="settings"><span class="icon icon-lg">settings</span>Settings</a>
+                        </li>
+                        <li>
+                            <a ng-click="logout()" href="javascript:void(0)"><span class="icon icon-lg">exit_to_app</span>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
