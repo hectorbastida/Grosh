@@ -7,8 +7,6 @@
      * @apiParam {String} email The mail of user.
      * @apiParam {String} password Password of user.
      * @apiParam {String} grant_type Grant type that you will use (password).
-     * @apiParam {String} client_id Is a static id.
-     * @apiParam {String} client_secret Is a hash MD5 which is static.
      *
      * @apiSuccessExample Success-Response:
      *
@@ -56,8 +54,6 @@
      *
      * @apiParam {String} refresh_token Hash that you got when called this endpoint with a password.
      * @apiParam {String} grant_type Grant type that you will use (refresh_token).
-     * @apiParam {String} client_id Is a static id to this App.
-     * @apiParam {String} client_secret Is a hash MD5 which is static.
      *
      * @apiSuccessExample Success-Response:
      *
