@@ -10,9 +10,26 @@ The controller's functionality
 var controller = function($scope,userService,loginService){
 	var html = document.querySelector('html');
 	html.id = 'home'
+	$scope.user = '';
+	userService.get(loginService.getLoggedUser().email)
+		.success(function(data, status, headers, config) {
+      		  $scope.user = data;
+		})
+		.error(function(data, status, headers, config) {
+		   console.error('error'); 
+		   console.info(data); 
+		});
 
-
-
+	$scope.updateUser = function(){
+		userService.update($scope.user)
+		.success(function(data, status, headers, config) {
+      		  $scope.user = data;
+      		  alert('Your information was updated successfully!');
+		})
+		.error(function(data, status, headers, config) {
+		   console.error('error'); 
+		   console.info(data); 
+		})};
 
 
 

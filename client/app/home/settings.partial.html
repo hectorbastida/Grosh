@@ -1,4 +1,4 @@
-<div class="content m-main" >
+<div class="content m-main">
     <div class="content-heading page-header-inactive">
         <div class="container">
             <h1 class="heading">Settings</h1>
@@ -20,65 +20,80 @@
                                         <small>
                                            Here you can edit your personal information.
                                         </small>
-
-
                                         <form class="form">
-                                            <div class="form-group form-group-label">
+                                            <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-10 col-md-push-1">
-                                                        <label class="floating-label" for="login-name">Name</label>
-                                                        <input ng-model="newUser.name" class="form-control c-gray" id="login-name" type="text">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="input-name">Name</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-8 col-sm-8">
+                                                        <input ng-model="user.name" class="form-control" id="input-name" type="name">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-group-label">
+                                            <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-10 col-md-push-1">
-                                                        <label class="floating-label" for="login-lastName">Last Name</label>
-                                                        <input ng-model="newUser.lastName" class="form-control c-gray" id="login-lastName" type="text">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="input-lastName">Last Name</label>
                                                     </div>
-                                                </div>
-                                            </div>                                        
-                                            <div class="form-group form-group-label">
-                                                <div class="row">
-                                                    <div class="col-md-10 col-md-push-1">
-                                                        <label class="floating-label" for="login-username">Email</label>
-                                                        <input ng-model="newUser.email" class="form-control c-gray" id="login-username" type="text">
+                                                    <div class="col-lg-4 col-md-8 col-sm-8">
+                                                        <input ng-model="user.last_name" class="form-control" id="input-lastName" type="name">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-group-label">
+                                            <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-10 col-md-push-1">
-                                                        <label class="floating-label " for="login-password">Password</label>
-                                                        <input ng-model="newUser.password" class="form-control c-gray" id="login-password" type="password">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="input-email">Email</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-8 col-sm-8">
+                                                        <input ng-model="user.email" class="form-control" id="input-email" type="name">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group form-group-label">
+                                            <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-10 col-md-push-1">
-                                                        <label class="floating-label " for="login-password">Repeat Password</label>
-                                                        <input ng-model="newUser.rePassword" class="form-control c-gray" id="login-password" type="password">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="input-password">Password</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-8 col-sm-8">
+                                                        <input ng-model="user.password" class="form-control" id="input-password" type="password">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group radio-group-l"> <div class="radio radio-adv radio-inline">
-                                                    <label for="input-radio-inline-1" class="c-gray">
-                                                        <input ng-model="newUser.gender" class="access-hide c-gray" id="input-radio-inline-1" name="input-radio-inline" type="radio" value="female">Female
-                                                    <span class="circle"></span><span class="circle-check"></span></label>
-                                                </div>
-                                                <div class="radio radio-adv radio-inline">
-                                                    <label for="input-radio-inline-2" class="c-gray">
-                                                        <input ng-model="newUser.gender" class="access-hide" id="input-radio-inline-2" name="input-radio-inline" type="radio" value="male">Male
-                                                    <span class="circle"></span><span class="circle-check"></span></label>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="input-password">Password</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-8 col-sm-8">
+                                                        <input ng-model="user.password" class="form-control" id="input-password" type="password">
+                                                    </div>
                                                 </div>
                                             </div>
-
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <span class="form-label">Gender</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-8">
+                                                        <div class="radio radio-adv radio-inline">
+                                                            <label for="input-radio-female" class="c-gray">
+                                                                <input ng-model="user.sex" class="access-hide" id="input-radio-female" name="input-radio-female" type="radio" value="female">Female
+                                                                <span class="circle"></span><span class="circle-check"></span></label>
+                                                        </div>
+                                                        <div class="radio radio-adv radio-inline">
+                                                            <label for="input-radio-male" class="c-gray">
+                                                                <input ng-model="user.sex" class="access-hide" id="input-radio-male" name="input-radio-male" type="radio" value="male">Male
+                                                                <span class="circle"></span><span class="circle-check"></span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-3 col-md-push-8 btn-login">
-                                                        <a href="javascript:void(0)" ng-click="addNewUser()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">Apply Changes</a>
+                                                        <a href="javascript:void(0)" ng-click="updateUser()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">Apply Changes</a>
                                                     </div>
                                                 </div>
                                             </div>

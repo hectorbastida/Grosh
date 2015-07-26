@@ -217,7 +217,7 @@ module.exports = function(server) {
      *
      */
     findByID = function(req, res) {
-        User.findById(req.params.id, function(err, user) {
+        User.findOne({'email': req.params.email }, function(err, user) {
             if(!err) 
                 res.send(user);
             else 
@@ -448,18 +448,18 @@ module.exports = function(server) {
      */
     updateUser = function(req, res) {
         User.findById(req.params.id, function(err, user) {
-            user.id_social_network =req.body.id_social_network;
+       //     user.id_social_network =req.body.id_social_network;
             user.email             =req.body.email;
             user.password          =req.body.password;
             user.name              =req.body.name;
             user.last_name         =req.body.last_name;
-            user.age               =req.body.age;
+          //  user.age               =req.body.age;
             user.sex               =req.body.sex;
-            user.phone             =req.body.phone;
-            user.state             =req.body.state;
-            user.city              =req.body.city;
+         //   user.phone             =req.body.phone;
+          //  user.state             =req.body.state;
+          //  user.city              =req.body.city;
             user.status            =req.body.status;
-            user.url_image         =req.body.url_image;
+        //    user.url_image         =req.body.url_image;
         
             user.save(function(err) {
                 if(!err) 
@@ -563,7 +563,7 @@ module.exports = function(server) {
 
     //API Routes
     server.get('/user', server.oauth.authorise(), findAllUsers);
-    server.get('/user/:id', server.oauth.authorise(), findByID);
+    server.get('/user/:email', server.oauth.authorise(), findByID);
     server.post('/user', addUser);
     server.put('/user/:id', server.oauth.authorise(), updateUser);
     server.delete('/user/:id', server.oauth.authorise() ,deleteUser);

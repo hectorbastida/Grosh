@@ -6,6 +6,7 @@ var user = require('./user/user.module');
 var menuBar = require('./menu-bar/menu-bar.module');
 var login = require('./login/login.module');
 var home = require('./home/home.module');
+
 var Grosh = angular.module('grosh',['ui.router','menuBar','user','login','home','LocalStorageModule']);
 
 Grosh.run(['$rootScope', '$state','loginService', function($rootScope, $state,loginService) {
@@ -27,6 +28,7 @@ Grosh.config([
 	function($stateProvider,$urlRouterProvider,localStorageServiceProvider,$locationProvider,$httpProvider){
 		//$locationProvider.html5Mode(true);
 		 $httpProvider.interceptors.push("addTokenService");
+		 $httpProvider.interceptors.push("responseErrorService");
 		 localStorageServiceProvider.setPrefix('grosh')
 		 .setStorageCookie(45,'/')
 		 .setStorageCookieDomain('')
