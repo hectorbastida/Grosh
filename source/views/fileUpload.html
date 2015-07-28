@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="js/src/angular-file-upload.js"></script> 
+        <script src="js/src/fileUpload.js"></script>
+    </head>
+    <body ng-app="appAdministrador" ng-controller="administrador">
+        <hr>
+        <h1>Image</h1>
+        <div class="form-group">
+            <input id="imageID" type="file" ng-model="image" title="Imagen"/> 
+            <br>
+            <input type="text" placeholder="Contenido" ng-model="contentImage"/>
+            <hr>
+            <input type="button" ng-click="uploadImage()" value="Enviar"/>
+        </div>
+
+        <br style="margin: 50px;">
+        <h1>File</h1>
+        <div class="form-group">
+            <input id="fileID" type="file" ng-model="file" title="Archivo"/> 
+            <br>
+            <input type="text" placeholder="Contenido" ng-model="contentFile"/>
+            <hr>
+            <input type="button" ng-click="uploadFile()" value="Enviar"/>
+        </div>
+    </body>
+</html>

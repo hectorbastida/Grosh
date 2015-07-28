@@ -7,6 +7,11 @@ var homeController=function(server){
 		get(function(req,res){
 			req.logout();
 		});
+
+	server.route('/fileUpload').
+		get(function(req,res){
+			res.render('../source/views/fileUpload.html');
+		});
 }
 
 module.exports = homeController;
