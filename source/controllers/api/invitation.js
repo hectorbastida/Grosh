@@ -1,5 +1,6 @@
-module.exports = function(server){
-	var Invitation = require('../../models/invitation');
+module.exports = function(server, io){
+	var Invitation = require('../../models/invitation'),
+        Group      = require('../../models/group');
 	 
 
     /**
@@ -201,9 +202,17 @@ module.exports = function(server){
         var currentdate = new Date();
         var newInvitation = new Invitation({
             id_group     :req.body.id_group,
-            sender_user  :userAdmin,
+            sender_user  :req.user.id,
             invited_user :req.body.invited_user,
             create_date  :currentdate
+        });
+
+        //invitation
+        Group.findById(req.body.id_group, function(err, group){
+            if (group) {
+                var user = req.body.invited_user;
+                io.sockets.emit( "invitation"+user , {'group':group});
+            }
         });
 
         newInvitation.save(function(err) {

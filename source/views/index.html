@@ -26,7 +26,16 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/base.min.js"></script>
     <script src="dist/bundle.js"></script>
-
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        var socket = io();
+        socket.on('request559786baa361ca280ffa15f0', function (data) {
+            console.log(data);
+        });
+        socket.on('invitation559786baa361ca280ffa15f0', function (data) {
+            console.log(data);
+        });
+    </script>
 </body>
 
 </html>
