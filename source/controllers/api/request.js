@@ -1,87 +1,98 @@
-module.exports = function(server){
-	var Request = require('../../models/request'),
+module.exports = function(server, io) {
+    var Request = require('../../models/request'),
+        Group = require('../../models/group'),
         User = require('./../../models/user');
 
     findAllRequests = function(req, res) {
         Request.find(function(err, request) {
-            if(!err) 
+            if (!err)
                 res.send(request);
-            else 
-                console.log('ERROR: ' +err);
+            else
+                console.log('ERROR: ' + err);
         });
     };
 
     findRequestsByUser = function(req, res) {
-        User.findById(req.user.id, function(err, user){
+        User.findById(req.user.id, function(err, user) {
             var groups_create = user.groups_created;
             var groups = [];
             for (var i = 0; i < groups_create.length; i++) {
                 groups.push(groups_create[i]._id);
             };
-            
-            Request.find({'id_group' : groups}, function(err, request) {
-                if(!err) {
+
+            Request.find({
+                'id_group': groups
+            }, function(err, request) {
+                if (!err) {
                     res.send(request);
-                }else{
+                } else {
                     res.send(err);
-                } 
+                }
             });
         });
-        
+
     };
 
     findByID = function(req, res) {
         Request.findById(req.params.id, function(err, request) {
-            if(!err) 
+            if (!err)
                 res.send(request);
-            else 
-                console.log('ERROR: ' +err);
+            else
+                console.log('ERROR: ' + err);
         });
     };
 
     addRequest = function(req, res) {
         var currentdate = new Date();
         var newRequest = new Request({
-            id_group     :req.body.id_group,
-            requester_user  :req.user.id,
-            status :'En espera',
-            create_date  :currentdate
+            id_group: req.body.id_group,
+            requester_user: req.user.id,
+            status: 'En espera',
+            create_date: currentdate
         });
         
-     
+        //request
+        Group.findById(req.body.id_group, function(err, group){
+            if (group) {
+                var admin = group.administrators[0];
+                io.sockets.emit( "request"+admin , {'request':newRequest});
+            }
+        });
 
         newRequest.save(function(err) {
-            if(!err) 
+            if (!err)
                 console.log('request Successfully Saved');
-            else 
-                console.log('ERROR: ' +err);
-       });
+            else
+                console.log('ERROR: ' + err);
+        });
 
         res.send(newRequest);
     };
 
 
-     
-    readRequests = function(req, res){
-    	userAdmin = '559786baa361ca280ffa15f0';
-    	Request.update({'sender_user' : userAdmin}, function(err){
-    		if (err) {
-    			console.log('ERROR: '+err);
-    		}else{
-    			console.log('Leyo sus requests');
-    		}
-    	});	
+
+    readRequests = function(req, res) {
+        userAdmin = '559786baa361ca280ffa15f0';
+        Request.update({
+            'sender_user': userAdmin
+        }, function(err) {
+            if (err) {
+                console.log('ERROR: ' + err);
+            } else {
+                console.log('Leyo sus requests');
+            }
+        });
     }
 
 
     deleteRequest = function(req, res) {
         Request.findById(req.params.id, function(err, request) {
             request.remove(function(err) {
-                if(!err) 
+                if (!err)
                     console.log('request Successfully Deleted');
-                else 
-                    console.log('ERROR: ' +err);  
-            });    
+                else
+                    console.log('ERROR: ' + err);
+            });
         });
     }
 

@@ -44,12 +44,5 @@
 				<li>&copy; XenonDev</li>
 			</ul>
 		</div>
-		<script type="text/javascript">
-			var socket = io();
-			socket.on('nuevoMensaje', function (data) {
-				console.log(data);
-				socket.emit('getMensaje', { my: 'respondiendo desde el cliente' });
-			});
-		</script>
 	</body>
 </html>
