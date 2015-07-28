@@ -1,7 +1,7 @@
 module.exports = function(server) {
-	
-	var User = require('../../models/user');
-      
+
+    var User = require('../../models/user');
+
 
     /**
      * @api {get} /user/ Return a list of users
@@ -11,7 +11,7 @@ module.exports = function(server) {
      *
      *
      * @apiSuccessExample Success-Response:
-     * 
+     *
      * [
      *     {
      *       "_id": "559784231b993bfe0e8667b7",
@@ -84,7 +84,7 @@ module.exports = function(server) {
      *       "status": true
      *     }
      *  ]
-     * 
+     *
      * @apiHeaderExample {json} Header-Request:
      *     {
      *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
@@ -105,43 +105,43 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     findAllUsers = function(req, res) {
-    	User.find(function(err, user) {
-    		if(!err) 
+        User.find(function(err, user) {
+            if (!err)
                 res.send(user);
-    		else 
-                console.log('ERROR: ' +err);
-    	});
+            else
+                console.log('ERROR: ' + err);
+        });
     };
 
-     /**
+    /**
      * @api {get} /user/:id Gets a specific user
      * @apiVersion 1.0.0
      * @apiName GetUser
      * @apiGroup user
      *
      * @apiParam {String} id User to look for.
-     * 
+     *
      * @apiSuccessExample Success-Response:
-     *    
+     *
      * [
      *     {
      *       "_id": "559784231b993bfe0e8667b7",
@@ -198,30 +198,32 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     findByID = function(req, res) {
-        User.findOne({'email': req.params.email }, function(err, user) {
-            if(!err) 
+        User.findOne({
+            'email': req.params.email
+        }, function(err, user) {
+            if (!err)
                 res.send(user);
-            else 
-                console.log('ERROR: ' +err);
+            else
+                console.log('ERROR: ' + err);
         });
     };
 
@@ -300,51 +302,53 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     addUser = function(req, res) {
-        var currentdate = new Date(); 
+        var currentdate = new Date();
         var newUser = new User({
-            id_social_network :req.body.id_social_network,
-            email             :req.body.email,
-            password          :req.body.password,
-            name              :req.body.name,
-            last_name         :req.body.last_name,
-            age               :req.body.age,
-            sex               :req.body.sex,
-            phone             :req.body.phone,
-            state             :req.body.state,
-            city              :req.body.city,
-            date_registry     :currentdate,
-            url_image         :req.body.url_image        
+            email: req.body.email,
+            password: req.body.password,
+            name: req.body.name,
+            last_name: req.body.last_name,
+            age: req.body.age,
+            sex: req.body.sex,
+            phone: req.body.phone,
+            state: req.body.state,
+            city: req.body.city,
+            date_registry: currentdate,
+            url_image: req.body.url_image
         });
 
         newUser.save(function(err) {
-            if(err) 
-                console.log('ERROR: ' +err);
-            else {
+            if (err) {
+                console.log('ERROR: ' + err);
+                res.statusCode = 409;
+                res.send('Duplicated email');
+            } else {
                 console.log('User Successfully Saved');
                 createGCloud(newUser);
+                res.send(newUser);
             }
         });
 
-        res.send(newUser);
+        //res.send(newUser);
     };
 
     /**
@@ -353,7 +357,7 @@ module.exports = function(server) {
      * @apiName UpdateUser
      * @apiGroup user
      *
-     * @apiParam {String} id Id of User to update.      
+     * @apiParam {String} id Id of User to update.
      * @apiParam {String} id_social_network Id generated by the user's social network.
      * @apiParam {String} email Email address to log in, it is used as a username.
      * @apiParam {String} password Password to log into the app.
@@ -428,46 +432,46 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     updateUser = function(req, res) {
         User.findById(req.params.id, function(err, user) {
-       //     user.id_social_network =req.body.id_social_network;
-            user.email             =req.body.email;
-            user.password          =req.body.password;
-            user.name              =req.body.name;
-            user.last_name         =req.body.last_name;
-          //  user.age               =req.body.age;
-            user.sex               =req.body.sex;
-         //   user.phone             =req.body.phone;
-          //  user.state             =req.body.state;
-          //  user.city              =req.body.city;
-            user.status            =req.body.status;
-        //    user.url_image         =req.body.url_image;
-        
+            //     user.id_social_network =req.body.id_social_network;
+            user.email = req.body.email;
+            user.password = req.body.password;
+            user.name = req.body.name;
+            user.last_name = req.body.last_name;
+            //  user.age               =req.body.age;
+            user.sex = req.body.sex;
+            //   user.phone             =req.body.phone;
+            //  user.state             =req.body.state;
+            //  user.city              =req.body.city;
+            user.status = req.body.status;
+            //    user.url_image         =req.body.url_image;
+
             user.save(function(err) {
-                if(!err) 
+                if (!err)
                     console.log('User Successfully Updated');
-                else 
-                    console.log('ERROR: ' +err);  
-            });   
-            res.send(user);     
+                else
+                    console.log('ERROR: ' + err);
+            });
+            res.send(user);
         });
     };
 
@@ -478,7 +482,7 @@ module.exports = function(server) {
      * @apiGroup user
      *
      * @apiParam {String} id User to delete.
-     * 
+     *
      * @apiSuccessExample Success-Response:
      *     {
      *        "msg":"User Successfully Deleted"
@@ -505,55 +509,55 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     deleteUser = function(req, res) {
         User.findById(req.params.id, function(err, user) {
             user.remove(function(err) {
-                if(!err) 
+                if (!err)
                     console.log('User Successfully Deleted');
-                else 
-                    console.log('ERROR: ' +err);  
-            });  
+                else
+                    console.log('ERROR: ' + err);
+            });
         });
     }
 
 
-    function createGCloud(user){
+    function createGCloud(user) {
         var Group = require('../../models/group');
         var admins = [user.id];
         var newGroup = new Group({
-            name            :"my g-cloud",
-            description     :"My personal folder",
-            date_creation   :currentdate,
-            privileges      :"personal",
-            administrators  :admins 
+            name: "my g-cloud",
+            description: "My personal folder",
+            date_creation: currentdate,
+            privileges: "personal",
+            administrators: admins
         });
 
-        newGroup.save(function(err){
+        newGroup.save(function(err) {
             if (err) {
-                console.log('ERROR: '+err);
-            }else{
+                console.log('ERROR: ' + err);
+            } else {
                 user.groups_created.push(newGroup);
-                user.save(function(err){
+                user.save(function(err) {
                     if (err)
-                        console.log("ERROR: "+err);
+                        console.log("ERROR: " + err);
                     else
                         console.log("g-cloud creado");
                 });
@@ -566,5 +570,5 @@ module.exports = function(server) {
     server.get('/user/:email', server.oauth.authorise(), findByID);
     server.post('/user', addUser);
     server.put('/user/:id', server.oauth.authorise(), updateUser);
-    server.delete('/user/:id', server.oauth.authorise() ,deleteUser);
+    server.delete('/user/:id', server.oauth.authorise(), deleteUser);
 }
