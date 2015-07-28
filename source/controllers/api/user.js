@@ -475,6 +475,33 @@ module.exports = function(server) {
         });
     };
 
+    addURLImage = function(req, res){
+        User.findById(req.params.id, function(err, user){
+            user.url_image = req.body.url_image;
+            user.save(function(err){
+                if (!err) {
+                    res.send('Updated');
+                }else{
+                    console.log('error: '+ err);
+                    res.send('error');
+                }
+            });
+        });
+    }
+
+    addURLFrontImage = function(req, res){
+        User.findById(req.params.id, function(err, user){
+            user.url_front_image = req.body.url_front_image;
+            user.save(function(err){
+                if (!err) {
+                    res.send('Updated');
+                }else{
+                    res.send('error');
+                }
+            });
+        });
+    }
+
     /**
      * @api {delete} /user/:id Delete a specific user
      * @apiVersion 1.0.0
@@ -570,5 +597,7 @@ module.exports = function(server) {
     server.get('/user/:email', server.oauth.authorise(), findByID);
     server.post('/user', addUser);
     server.put('/user/:id', server.oauth.authorise(), updateUser);
+    server.patch('/userImage/:id/', server.oauth.authorise(), addURLImage);
+    server.patch('/userFrontImage/:id/', server.oauth.authorise(), addURLFrontImage);
     server.delete('/user/:id', server.oauth.authorise(), deleteUser);
 }
