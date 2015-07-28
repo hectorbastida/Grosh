@@ -50,7 +50,7 @@ var controller = function($scope,$state,loginService,$rootScope){
     }
 
     $scope.viewProfile = function(){
-      $state.go('profile',{profile:$scope.user.email});
+      $state.go('profile',{profile:$scope.user._id});
     }
 
 

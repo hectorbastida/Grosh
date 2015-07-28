@@ -19,10 +19,12 @@ var factory = function($http){
 		    return $http.post('/user/',data);
 		    
 	}
-	function get(email){
+	function get(id){
+		return $http.get('/user/'+id);
+	}
+	function getByEmail(email){
 		return $http.get('/user/'+email);
 	}
-
     function update(user){
     	return $http.put('/user/'+user._id,{
     		name:user.name,
@@ -38,6 +40,7 @@ var factory = function($http){
 	return {
 		add:add,
 		get:get,
+		getByEmail:getByEmail,
 		update:update
 	}
 }

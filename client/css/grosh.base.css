@@ -365,8 +365,10 @@ header{
 
 
 .active-profile{
-      background-color: rgba(0, 210, 191, 0.85);
+      background-color: #009688;
+      color:#fff!important;
 }
+
 
 
 .txt-shadow {

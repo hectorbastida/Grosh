@@ -8,19 +8,17 @@ The controller's functionality
 */
 var factory = function($http){
 
-	function add(user){
+	function add(idUser,group){
 			var data = {
-				name:user.name,
-				last_name:user.lastName,
-				email:user.email,
-				sex:user.gender,
-				password:user.password
+				id:group.idUser,
+				name:group.name,
+				description:group.description
 			}
-		    return $http.post('/user/',data);
+		    return $http.post('/group/',data);
 		    
 	}
-	function get(email){
-		return $http.get('/user/'+email);
+	function get(id){
+		return $http.get('/group/'+id);
 	}
 
     function update(user){
@@ -34,10 +32,19 @@ var factory = function($http){
     	});
 	}
 
+	function getGroupsCreated(id){
+		return $http.get('/groupUser/'+id);
+	}
+
+	function getGroupsJoined(id){
+		return $http.get('/groupUserBelongs/'+id);
+	}
 
 	return {
 		add:add,
 		get:get,
+		getGroupsCreated:getGroupsCreated,
+		getGroupsJoined:getGroupsJoined,
 		update:update
 	}
 }

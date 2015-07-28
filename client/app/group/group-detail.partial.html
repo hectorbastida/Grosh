@@ -1,26 +1,33 @@
 <div class="content m-main" >
-    <div class="content-heading page-header-inactive">
-        <div class="container">
-            <h1 class="heading">Groups</h1>
+    <div class="content-heading profile-header">
+
+        <div class="container profile-header-container">
+            <h2 class="heading profile-title ">{{currentGroup.name}}</h2>
+            <p class="heading">{{currentGroup.description}}</p>
+
         </div>
     </div>
-    <div class="container">
-        <section class="content-inner">
-            <h2 class="content-sub-heading">Popular Groups</h2>
-            <div class="card-wrap">
+    <div class="container container-profile ">  
+        <section class="content-inner ">
+                        <ul class="nav nav-justified">
+                            <li>
+                                <a class="tile active-profile" href="javascript:void(0)">Admin Groups</a>
+                            </li>
+                            <li>
+                                <a class="tile" href="javascript:void(0)">Member Groups</a>
+                            </li>
+                        </ul>
+            <div class="card-wrap ">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card">
                             <div class="card-main">
+
                                 <div class="">
                                     <div class="card-img">
                                         <img alt="alt text" src="images/samples/landscape.jpg">
-                                        <p class="card-img-heading">Group Name</p>
-                                    </div>
-                                    <div class="card-inner">
-                                        <p>
-                                            Lorem ipsum dolor sit amet. Consectetur adipiscing elit.
-                                        </p>
+                                        <p class="card-img-heading txt-shadow">Group Name <small class="no-txt-shadow">Lorem ipsum dolor sit amet. Consectetur adipiscing elit.</small></p>
+
                                     </div>
                                 </div>
                                 <div class="card-action">
@@ -44,16 +51,9 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </section>
-    </div>
-</div>
-<div class="fbtn-container">
-    <div class="fbtn-inner">
-        <a ui-sref="createGroup" class="fbtn fbtn-red fbtn-lg btn-grosh-circular">
-       	 <span class="fbtn-ori icon">add</span>
-       	 <span class="fbtn-text">Create New Group!</span>
-        </a>
     </div>
 </div>

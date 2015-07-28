@@ -6,23 +6,22 @@ var dependencies = [
 /*
 The controller's functionality
 */
-var factory = function($q,$injector){
+var factory = function($q,$injector,$state){
 
         var lastState = "login";
         var responseError = function (response) {
             var loginService = $injector.get('loginService');
-            var state = $injector.get('$state');
 
             if (response.status == 401) {
-                lastState = $state.name;
+               //        lastState = $state.name;
                 if(loginService.logout()){
-                  state.go('login');
+                  $state.go('login');
                 }
 
             }
             if (response.status == 500) {
                 if(loginService.logout()){
-                  state.go('login');
+                  $state.go('login');
                 }
             }
             return $q.reject(response);
