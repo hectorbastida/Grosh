@@ -647,6 +647,20 @@ module.exports = function(server) {
         });
     };
 
+
+    addURLImage = function(req, res){
+        Group.findById(req.params.id, function(err, group){
+            group.url_image = req.body.url_image;
+            group.save(function(err){
+                if (!err) {
+                    res.send('Updated');
+                }else{
+                    res.send('error');
+                }
+            });
+        });
+    }
+
     /**
      * @api {delete} /group/:id Delete a specific Group
      * @apiVersion 1.0.0
@@ -715,8 +729,9 @@ module.exports = function(server) {
     server.get('/groupUser/:idUser', server.oauth.authorise(), findAllGroupsUser);
     server.get('/groupUserBelongs/:idUser', server.oauth.authorise(), findAllGroupsUserBelongs);
     server.get('/personalUserGroup/:idUser', server.oauth.authorise(), findPersonalGroup);
-    server.get('/group/:id', server.oauth.authorise(), findByID);
-    server.post('/group', server.oauth.authorise(), addGroup);
-    server.put('/group/:id', server.oauth.authorise(), updateGroup);
+    server.get('/group/:id/', server.oauth.authorise(), findByID);
+    server.post('/group/', server.oauth.authorise(), addGroup);
+    server.put('/group/:id/', server.oauth.authorise(), updateGroup);
+    server.patch('/group/:id/', server.oauth.authorise(), addURLImage);
     server.delete('/group/:id', server.oauth.authorise(), deleteGroup);
 }
