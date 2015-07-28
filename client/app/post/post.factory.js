@@ -8,19 +8,19 @@ The controller's functionality
 */
 var factory = function($http){
 
-	function add(idUser,group){
+	function add(content,idUser,idGroup){
 			var data = {
-				id:group.idUser,
-				name:group.name,
-				description:group.description
+				name:user.name,
 			}
-		    return $http.post('/group/',data);
+		    return $http.post('/post/',data);
 		    
 	}
 	function get(id){
-		return $http.get('/group/'+id);
+		return $http.get('/user/'+id);
 	}
-
+	function getByEmail(email){
+		return $http.get('/user/'+email);
+	}
     function update(user){
     	return $http.put('/user/'+user._id,{
     		name:user.name,
@@ -32,23 +32,11 @@ var factory = function($http){
     	});
 	}
 
-	function getGroupsCreated(id){
-		return $http.get('/groupUser/'+id);
-	}
 
-	function getGroupsJoined(id){
-		return $http.get('/groupUserBelongs/'+id);
-	}
-
-	function addImgUrl(){
-		
-	}
-	
 	return {
 		add:add,
 		get:get,
-		getGroupsCreated:getGroupsCreated,
-		getGroupsJoined:getGroupsJoined,
+		getByEmail:getByEmail,
 		update:update
 	}
 }

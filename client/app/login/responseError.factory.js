@@ -2,20 +2,20 @@
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$q','$injector'];
+	'$q','$location','$injector'];
 /*
 The controller's functionality
 */
-var factory = function($q,$injector,$state){
+var factory = function($q,$location,$injector){
 
         var lastState = "login";
         var responseError = function (response) {
-            var loginService = $injector.get('loginService');
+        var loginService = $injector.get('loginService');
 
-            if (response.status == 401) {
+            if (response.status == 401 || response.status == 400) {
                //        lastState = $state.name;
                 if(loginService.logout()){
-                  $state.go('login');
+                  $location.path("/");
                 }
 
             }

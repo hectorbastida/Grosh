@@ -20,27 +20,21 @@
                     <div ng-repeat="group in groups.slice().reverse()" class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card">
                             <div class="card-main">
-
                                 <div class="">
-                                    <div class="card-img">
-                                        <img alt="alt text" src="images/samples/landscape.jpg">
-                                        <p class="card-img-heading txt-shadow">{{group.name}} <small class="no-txt-shadow">{{group.description}}</small></p>
-
+                                    <div class="card-img group-card">
+                                        <p class="card-img-heading">{{group.name}}</p>
                                     </div>
-                                </div>
-                                <div class="card-action">
-                                    <ul class="nav nav-list pull-right">
+                                    <div class="card-inner">
+                                        <p>
+                                            {{group.description}}
+                                        </p>
+                                    </div>
+                                    <ul class="nav nav-list options-card pull-right">
                                         <li class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">more_vert</span></a>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a href="javascript:void(0)"><span class="icon margin-right-sm">loop</span>&nbsp;Lorem Ipsum</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)"><span class="icon margin-right-sm">replay</span>&nbsp;Consectetur Adipiscing</a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)"><span class="icon margin-right-sm">shuffle</span>&nbsp;Sed Ornare</a>
+                                                    <a ui-sref="group({group:group._id})" href="javascript:void(0)"><span class="icon margin-right-sm">details</span>&nbsp;View</a>
                                                 </li>
                                             </ul>
                                         </li>

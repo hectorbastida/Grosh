@@ -38,7 +38,6 @@ var controller = function($scope,userService,loginService,$state,groupService){
 		groupService.getGroupsCreated(currentUser._id)
 		.then(function(response){
 			$scope.groups=response.data;
-			console.info($scope.groups);
 		})
 		.catch(function(response){
 			console.error(response.data);

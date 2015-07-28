@@ -11,12 +11,18 @@ var controller = function($scope,$state,loginService,$stateParams,userService){
 
     $scope.currentUser = '';
     init();
+    $scope.properties = {
+      "background": "linear-gradient( to bottom, rgba(0, 0, 0, 0), rgba(1, 140, 127, 0.84) ),url('http://daphne-scott.com/wp-content/uploads/2014/03/Group-Sharing-good-news-Medium.jpg')",
+    "background-attachment": "fixed",
+    "background-size": "cover"
+    }
     function init(){
        var current = loginService.getLoggedUser();
 
        userService.get($stateParams.profile)
        .then(function(response){
            $scope.currentUser = response.data;
+
        })
        .catch(function(response){
           console.log(response.data);

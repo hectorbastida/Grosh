@@ -11,11 +11,16 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 	var html = document.querySelector('html');
 	html.id = 'group'
 	$scope.currentGroup='';
-
+	$scope.groupId = '';
+	$scope.isAdmin = false;
 	if($stateParams.group){
+		$scope.groupId = $stateParams.group;
 		groupService.get($stateParams.group)
 		.then(function(response){
 			$scope.currentGroup=response.data;
+			if($scope.currentGroup.administrators[0]===loginService.getLoggedUser()._id){
+				$scope.isAdmin = true;
+			}
 		})
 		.catch(function(response){
 			console.error(response.data)
@@ -45,6 +50,17 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 
 		}
 
+	}
+	$scope.image = {
+		url:''
+	}
+
+	$scope.addUrlImage = function(){
+		if($scope.image.url !== ''){
+
+		}else{
+			alert('Please complete iamge url field')
+		}
 	}
 
 

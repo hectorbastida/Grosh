@@ -8,8 +8,9 @@ var login = require('./login/login.module');
 var home = require('./home/home.module');
 var profile = require('./profile/profile.module');
 var group = require('./group/group.module');
+var post = require('./post/post.module');
 
-var Grosh = angular.module('grosh',['ui.router','menuBar','user','login','home','profile', 'group','LocalStorageModule']);
+var Grosh = angular.module('grosh',['ui.router','menuBar','user','login','home','profile', 'group','post','LocalStorageModule']);
 
 Grosh.run(['$rootScope', '$state','loginService', function($rootScope, $state,loginService) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams){
@@ -21,6 +22,19 @@ Grosh.run(['$rootScope', '$state','loginService', function($rootScope, $state,lo
 		if(!(requireLogin) && loginService.loggedIn()){
 			event.preventDefault();
 			$state.go('home');
+		}
+
+		if(toState.name === 'group'){
+			if(!toParams.group){
+				event.preventDefault();
+				$state.go('home');
+			}
+		}
+		if(toState.name === 'profile'){
+			if(!toParams.profile){
+				event.preventDefault();
+				$state.go('home');
+			}
 		}
 	});
 }]);
@@ -91,6 +105,25 @@ Grosh.config([
 				      id:'home'
 				    }		           
 		        })
+		        .state('group.newPost', {
+		            url: '/newPost',
+		            templateUrl: './app/post/post.partial.html',
+		            controller: 'groupController',
+				    data: {
+				      requireLogin: true,
+				      id:'home'
+				    }		           
+		        })
+		        .state('group.addCover', {
+		            url: '/addCover',
+		            templateUrl: './app/home/add-img.partial.html',
+		            controller: 'groupController',
+				    data: {
+				      requireLogin: true,
+				      id:'home'
+				    }		           
+		        })
+
 		       .state('myGroups', {
 		            url: '/myGroups/',
 		            templateUrl: './app/group/group-list.partial.html',
