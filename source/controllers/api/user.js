@@ -545,7 +545,7 @@ module.exports = function(server) {
         var newGroup = new Group({
             name: "my g-cloud",
             description: "My personal folder",
-            date_creation: currentdate,
+            create_date: currentdate,
             privileges: "personal",
             administrators: admins
         });
