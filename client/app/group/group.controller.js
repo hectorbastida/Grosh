@@ -13,11 +13,20 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 	$scope.currentGroup='';
 	$scope.groupId = '';
 	$scope.isAdmin = false;
+    $scope.properties = {
+    "background": "",
+    "background-attachment": "fixed",
+    "background-size": "cover"
+    }
+
 	if($stateParams.group){
 		$scope.groupId = $stateParams.group;
 		groupService.get($stateParams.group)
 		.then(function(response){
 			$scope.currentGroup=response.data;
+
+			$scope.properties.background = 'linear-gradient( to bottom, rgba(0, 0, 0, 0), rgba(1, 140, 127, 0.84) ),url( '+ $scope.currentGroup.url_image +')'
+			
 			if($scope.currentGroup.administrators[0]===loginService.getLoggedUser()._id){
 				$scope.isAdmin = true;
 			}
@@ -57,7 +66,13 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 
 	$scope.addUrlImage = function(){
 		if($scope.image.url !== ''){
-
+			groupService.addImgUrl($scope.currentGroup._id,$scope.image.url)
+			.then(function(response){
+				$state.go('group',{group:$scope.groupId});
+			})
+			.catch(function(response){
+				console.error(response.data)
+			})
 		}else{
 			alert('Please complete iamge url field')
 		}

@@ -11,6 +11,7 @@ var controller = function($scope,userService,loginService,$state,groupService){
 	var html = document.querySelector('html');
 	html.id = 'mygroups'
 	$scope.groups=[];
+
 	var currentUser = '';
 
 	if(loginService.loggedIn()){
@@ -52,6 +53,14 @@ var controller = function($scope,userService,loginService,$state,groupService){
 		.catch(function(response){
 			console.error(response.data);
 		})
+	}
+
+	$scope.getUrlByGroup = function(group){
+
+		return 	{
+   	 "background": 'linear-gradient( to bottom, rgba(0, 0, 0, 0), rgba(1, 140, 127, 0.84) ),url( '+ group.url_image +')',
+    	"background-size": "cover"
+    	}
 	}
 
 }

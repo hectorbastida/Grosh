@@ -40,8 +40,11 @@ var factory = function($http){
 		return $http.get('/groupUserBelongs/'+id);
 	}
 
-	function addImgUrl(){
-		
+	function addImgUrl(id,url_image){
+		var data = {
+			url_image:url_image
+		}
+		return $http.patch('/group/'+id,data);
 	}
 	
 	return {
@@ -49,7 +52,8 @@ var factory = function($http){
 		get:get,
 		getGroupsCreated:getGroupsCreated,
 		getGroupsJoined:getGroupsJoined,
-		update:update
+		update:update,
+		addImgUrl:addImgUrl
 	}
 }
 
