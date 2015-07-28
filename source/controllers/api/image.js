@@ -310,6 +310,8 @@ module.exports = function(server) {
         res.send(newImage);
     };
 
+    
+
     /**
      * @api {post} /image/ Creates a image
      * @apiVersion 1.0.0

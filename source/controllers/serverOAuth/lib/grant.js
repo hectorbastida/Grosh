@@ -249,11 +249,7 @@ function useRefreshTokenGrant(done) {
                 'No user/userId parameter returned from getRefreshToken'));
         }
 
-        /*
-        self.user = refreshToken.user || {
-            id: refreshToken.userId
-        };
-        */
+        self.user = refreshToken.userId;
         
         if (self.model.revokeRefreshToken) {
             return self.model.revokeRefreshToken(token, function(err) {
@@ -451,6 +447,7 @@ function sendResponse(done) {
         access_token: this.accessToken
     };
 
+    response.id = this.user.id;
     response.name = this.user.name;
     response.last_name = this.user.last_name;
     response.email = this.user.email;
