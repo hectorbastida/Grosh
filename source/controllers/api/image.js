@@ -1,9 +1,12 @@
 module.exports = function(server) {
-    
-    var Image = require('../../models/image');
-    var Group = require('../../models/group');
-   
-  
+
+    var Image      = require('../../models/image');
+    var Group      = require('../../models/group');
+    var Formidable = require('formidable');
+    var fs         = require('fs');
+    var path       = require("path")
+
+
     /**
      * @api {get} /image/ Return a list of images
      * @apiVersion 1.0.0
@@ -35,7 +38,7 @@ module.exports = function(server) {
      *       "status": false
      *     }
      *  ]
-     * 
+     *
      * @apiHeaderExample {json} Header-Request:
      *     {
      *       "Authorization": "Bearer 2af428236a809a023e68ec543a61b9366da7b56f",
@@ -56,30 +59,30 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     findAllImages = function(req, res) {
         Image.find(function(err, image) {
-            if(!err) 
+            if (!err)
                 res.send(image);
-            else 
-                console.log('ERROR: ' +err);
+            else
+                console.log('ERROR: ' + err);
         });
     };
 
@@ -90,9 +93,9 @@ module.exports = function(server) {
      * @apiGroup image
      *
      * @apiParam {String} id Group from you want to reach the images.
-     * 
+     *
      * @apiSuccessExample Success-Response:
-     *    
+     *
      *     {
      *       "_id": "559793914fc9bea00a464a6d",
      *       "content": "Work In Progress",
@@ -134,31 +137,31 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
-     * 
+     * }
+     *
      */
     findAllImagesGroup = function(req, res) {
         Group.findById(req.params.idGroup, function(err, group) {
-            if(!err && group) 
+            if (!err && group)
                 res.send(group.image);
-            else 
-                console.log('ERROR: ' +err);
-                res.send('Sin imagenes');
+            else
+                console.log('ERROR: ' + err);
+            res.send('Sin imagenes');
         });
     };
 
@@ -169,9 +172,9 @@ module.exports = function(server) {
      * @apiGroup image
      *
      * @apiParam {String} id Image to look for.
-     * 
+     *
      * @apiSuccessExample Success-Response:
-     *    
+     *
      *   {
      *     "_id": "559793914fc9bea00a464a6d",
      *     "content": "Work In Progress",
@@ -181,7 +184,7 @@ module.exports = function(server) {
      *     "__v": 0,
      *     "answer": [],
      *     "status": true
-     *   }  
+     *   }
      *
      * @apiHeaderExample {json} Header-Request:
      *     {
@@ -203,30 +206,30 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     findByID = function(req, res) {
         Image.findById(req.params.id, function(err, image) {
-            if(!err) 
+            if (!err)
                 res.send(image);
-            else 
-                console.log('ERROR: ' +err);
+            else
+                console.log('ERROR: ' + err);
         });
     };
 
@@ -251,7 +254,7 @@ module.exports = function(server) {
      *       "__v": 0,
      *       "answer": [],
      *       "status": true
-     *     } 
+     *     }
      *
      * @apiHeaderExample {json} Header-Request:
      *     {
@@ -273,44 +276,84 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     addImage = function(req, res) {
-        var currentdate = new Date(); 
-        var newImage = new Image({
-            content      :req.body.content,
-            name         :req.body.name,
-            user_creator :req.body.user_creator,
-            create_date  :currentdate
+        var form = new Formidable.IncomingForm(); // parse a file upload
+        form.parse(req, function(err, fields, files) {
+            var tmp_path = files.file.path; //ruta del archivo
+            var tipo = files.file.type; //tipo del archivo
+            
+            if (tipo == 'image/jpeg' || tipo=='image/png') { //Si el tipo de archivo no es imagen
+                var aleatorio = Math.floor((Math.random() * 9999) + 1); //Variable aleatoria
+                var nombrearchivo = aleatorio + '' + files.file.name; //nombre del archivo mas variable aleatoria
+
+                var target_path = path.join(__dirname, ("./../../../client/uploads/" + nombrearchivo));//hacia donde subiremos nuestro archivo dentro de nuestro servidor
+                fs.rename(tmp_path, target_path, function(err) { //Escribimos el archivo
+                    
+                    fs.unlink(tmp_path, function(err) { //borramos el archivo tmp
+                        
+                        var currentdate = new Date();
+                        var newImage = new Image({
+                            content: req.query.content,
+                            name: files.file.name,
+                            user_creator: req.user.id,
+                            create_date: currentdate,
+                            url_image : nombrearchivo
+                        });
+
+                        newImage.save(function(err) {
+                            if (!err){
+                                Group.findById(req.query.id_group, function(err, group){
+                                    if (group) {
+                                        group.image.push(newImage);
+                                        group.save(function(err){
+                                            if (!err) {
+                                                res.send({
+                                                    nombreArchivo: files.file.name,
+                                                    random: aleatorio
+                                                });
+                                                res.end();
+                                            }else{
+                                                res.send('error');
+                                            }
+                                        });
+                                    }else{
+                                        res.send('error');
+                                    }
+                                });
+                            }else{
+                                console.log('ERROR: ' + err);
+                                res.send('error');
+                            }
+                        });
+                    });
+                });
+
+            } else {
+                res.send('Tipo de archivo no soportado');
+                res.end();
+            }
         });
-
-        newImage.save(function(err) {
-            if(!err) 
-                console.log('Image Successfully Saved');
-            else 
-                console.log('ERROR: ' +err);
-       });
-
-        res.send(newImage);
     };
 
-    
+
 
     /**
      * @api {post} /image/ Creates a image
@@ -334,7 +377,7 @@ module.exports = function(server) {
      *       "__v": 0,
      *       "answer": [],
      *       "status": true
-     *     } 
+     *     }
      *
      * @apiHeaderExample {json} Header-Request:
      *     {
@@ -356,36 +399,36 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     updateImage = function(req, res) {
         Image.findById(req.params.id, function(err, image) {
-            image.content     = req.body.content;
-            image.name        = req.body.name;
-            image.status      = req.body.status;
-            
+            image.content = req.body.content;
+            image.name = req.body.name;
+            image.status = req.body.status;
+
             image.save(function(err) {
-                if(!err) 
+                if (!err)
                     console.log("Image Successfully Updated");
-                else 
-                    console.log('ERROR: ' +err); 
-                
+                else
+                    console.log('ERROR: ' + err);
+
             });
             res.send(image);
         });
@@ -398,7 +441,7 @@ module.exports = function(server) {
      * @apiGroup image
      *
      * @apiParam {String} id Image to delete.
-     * 
+     *
      * @apiSuccessExample Success-Response:
      *     {
      *        "msg":"Image Successfully Deleted"
@@ -425,32 +468,32 @@ module.exports = function(server) {
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token was not found.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "The access token provided has expired.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Malformed auth header.",
-     * } 
+     * }
      *
      * @apiErrorExample Error-500:
      *{
      *  "OAuth2Error": "Only one method may be used to authenticate at a time (Auth header, GET or POST).",
-     * } 
+     * }
      *
      */
     deleteImage = function(req, res) {
         Image.findById(req.params.id, function(err, image) {
             image.remove(function(err) {
-                if(!err) 
+                if (!err)
                     console.log('Image Successfully Deleted');
-                else 
-                    console.log('ERROR: ' +err);  
-            });    
+                else
+                    console.log('ERROR: ' + err);
+            });
         });
     }
 

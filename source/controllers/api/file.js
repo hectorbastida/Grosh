@@ -2,6 +2,9 @@ module.exports = function(server) {
     
     var File = require('../../models/file');
     var Group = require('../../models/group');
+    var Formidable = require('formidable');
+    var fs         = require('fs');
+    var path       = require("path")
      
 
      /**
@@ -294,22 +297,63 @@ module.exports = function(server) {
      *
      */
     addFile = function(req, res) {
-        var currentdate = new Date(); 
-        var newFile = new File({
-            content      :req.body.content,
-            name         :req.body.name,
-            user_creator :req.body.user_creator,
-            create_date  :currentdate
+
+        var form = new Formidable.IncomingForm(); // parse a file upload
+        form.parse(req, function(err, fields, files) {
+            var tmp_path = files.file.path; //ruta del archivo
+            var tipo = files.file.type; //tipo del archivo
+            
+            if (tipo == 'application/pdf' || tipo == 'application/zip' || 
+                tipo == 'application/x-rar' || tipo=='video/mp4') {
+                
+                var aleatorio = Math.floor((Math.random() * 9999) + 1); //Variable aleatoria
+                var nombrearchivo = aleatorio + '' + files.file.name; //nombre del archivo mas variable aleatoria
+
+                var target_path = path.join(__dirname, ("./../../../client/uploads/" + nombrearchivo));//hacia donde subiremos nuestro archivo dentro de nuestro servidor
+                fs.rename(tmp_path, target_path, function(err) { //Escribimos el archivo
+                    
+                    fs.unlink(tmp_path, function(err) { //borramos el archivo tmp
+                        var currentdate = new Date();
+                        var newFile = new File({
+                            content      :req.query.content,
+                            name         :files.file.name,
+                            user_creator :req.user.id,
+                            create_date  :currentdate
+                        });
+
+                        newFile.save(function(err) {
+                            if (!err){
+                                Group.findById(req.query.id_group, function(err, group){
+                                    if (group) {
+                                        group.file.push(newFile);
+                                        group.save(function(err){
+                                            if (!err) {
+                                                res.send({
+                                                    nombreArchivo: files.file.name,
+                                                    random: aleatorio
+                                                });
+                                                res.end();
+                                            }else{
+                                                res.send('error');
+                                            }
+                                        });
+                                    }else{
+                                        res.send('error');
+                                    }
+                                });
+                            }else{
+                                console.log('ERROR: ' + err);
+                                res.send('error');
+                            }
+                        });
+                    });
+                });
+
+            } else {
+                res.send('Tipo de archivo no soportado');
+                res.end();
+            }
         });
-
-        newFile.save(function(err) {
-            if(!err) 
-                console.log('File Successfully Saved');
-            else 
-                console.log('ERROR: ' +err);
-       });
-
-        res.send(newFile);
     };
 
     /**
