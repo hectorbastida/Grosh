@@ -6,8 +6,8 @@ var user = require('./user/user.module');
 var menuBar = require('./menu-bar/menu-bar.module');
 var login = require('./login/login.module');
 var home = require('./home/home.module');
-
-var Grosh = angular.module('grosh',['ui.router','menuBar','user','login','home','LocalStorageModule']);
+var profile = require('./profile/profile.module');
+var Grosh = angular.module('grosh',['ui.router','menuBar','user','login','home','profile','LocalStorageModule']);
 
 Grosh.run(['$rootScope', '$state','loginService', function($rootScope, $state,loginService) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams){
@@ -57,6 +57,15 @@ Grosh.config([
 		            url: '/settings',
 		            templateUrl: './app/home/settings.partial.html',
 		            controller: 'settingsController',
+				    data: {
+				      requireLogin: true,
+				      id:'home'
+				    }		           
+		        })
+		        .state('profile', {
+		            url: '/profile/:profile',
+		            templateUrl: './app/profile/profile.partial.html',
+		            controller: 'profileController',
 				    data: {
 				      requireLogin: true,
 				      id:'home'

@@ -9,10 +9,15 @@ The controller's functionality
 */
 var controller = function($scope,userService,loginService,$state){
 	var html = document.querySelector('html');
-	html.id = 'home'
+	html.id = 'group'
 
+$scope.group = {
+	name:'',
+	description:''
+}
+$scope.createGroup = function(){
 
-
+}
 
 
 }
