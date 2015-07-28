@@ -27,6 +27,7 @@ var userSchema=new Schema({
     date_registry     :{type:Date,required:true},
     status            :{type:Boolean,required:true,default:true},
     url_image         :{type:String},
+    url_front_image   :{type:String},
     groups            :{type:Array},
     groups_created    :{type:Array}
 });
