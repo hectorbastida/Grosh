@@ -546,7 +546,7 @@ module.exports = function(server) {
             privileges      :req.body.privileges,
             administrators  :[]
         });
-        newGroup.administrators.push(req.user.id);
+        newGroup.administrators.push(req.body.id);
         newGroup.save(function(err) {
             if(!err) 
                 console.log('Group Successfully Saved');

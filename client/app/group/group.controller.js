@@ -44,7 +44,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 
 	$scope.createGroup = function(){
 		if($scope.group !== '' && $scope.group.description !== ''){
-			groupService.add(loginService.getLoggedUser(),$scope.group)
+			groupService.add(loginService.getLoggedUser()._id,$scope.group)
 			.then(function(response){
 				$scope.group = {
 					name:'',
