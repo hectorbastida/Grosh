@@ -10,7 +10,7 @@ var factory = function($http){
 
 	function add(idUser,group){
 			var data = {
-				id:group.idUser,
+				id:idUser,
 				name:group.name,
 				description:group.description
 			}
