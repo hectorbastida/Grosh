@@ -269,18 +269,34 @@ module.exports = function(server) {
         var currentdate = new Date(); 
         var newPost = new Post({
             content      :req.body.content,
-            user_creator :req.body.user_creator,
+            user_creator :req.user.id,
             create_date  :currentdate
         });
 
         newPost.save(function(err) {
-            if(!err) 
+            if(!err){
+                Group.findById(req.body.id_group, function(err, group){
+                    if (group) {
+                        group.post.push(newPost);
+                        group.save(function(err){
+                            if (!err) {
+                                res.send('Post Saved');
+                            }else{
+                                console.log(err);
+                                res.send('Post Saved but dont added in the group');
+                            }
+                        });
+                    }else{
+                        res.send('error');
+                    }
+                });
                 console.log('Post Successfully Saved');
-            else 
+            }
+            else {
                 console.log('ERROR: ' +err);
+                res.send('error');
+            }
        });
-
-        res.send(newPost);
     };
 
     /**
