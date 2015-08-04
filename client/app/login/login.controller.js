@@ -1,3 +1,5 @@
+require('toastr');
+var toastr = require("toastr")
 
 /*
 This array contains the name of the injected dependencies, this is for minification purposes
@@ -34,13 +36,32 @@ var controller = function($scope,$state,userService,loginService){
 			gender:''
 		}
 	} 
-
+	
 	$scope.activeLoginPartial = function(partial){
 		if($scope.loginPartial === partial){
 			return '';
 		}
 		return 'card-hide';
 	}
+	
+	
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-full-width",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "2000",
+  "extendedTimeOut": "500",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 	$scope.toggleLoginPartial = function(){
 		if($scope.loginPartial === 'signIn'){
 			$scope.loginPartial = 'signUp';
@@ -56,21 +77,16 @@ var controller = function($scope,$state,userService,loginService){
                        loginService.setProfile(data.id,data.email,data.name,
                            data.last_name,
                            data.access_token);
+                       toastr.success('Welcome Back '+data.name+' '+data.last_name)
                        $state.go('home');
 		            })
 		            .error(function(data, status, headers, config) {
 		               console.error('error'); 
-		               console.info(data); 
+		               toastr.error('User credentials are invalid')
+
 		            }); 
-
-
-
-
-
-			
- 			
 		}else{
-			alert('Please complete all fields');
+			toastr.info('Please Complete all the fields')
 		}
 	}
 
@@ -82,7 +98,7 @@ var controller = function($scope,$state,userService,loginService){
 					userService.add($scope.newUser)
 		            .success(function(data, status, headers, config) {
 		               restarForm();
-		               alert('You have been registered correctly ' + data.name + ' '+ data.last_name);
+		               toastr.success('You have been registered correctly ' + data.name + ' '+ data.last_name)
 		            	$scope.loginPartial = 'signIn';
 		            })
 		            .error(function(data, status, headers, config) {
@@ -91,11 +107,12 @@ var controller = function($scope,$state,userService,loginService){
 		            }); 
 
 				}else{
-					alert('Password and Repeat Password fields do not match');
+					toastr.info('Password and Repeat Password fields do not match')
 				}
 
 		}else{
-			alert('Please omplete all fields');
+			toastr.info('Please Complete all the fields, all field are required')
+
 		}
 	}
 

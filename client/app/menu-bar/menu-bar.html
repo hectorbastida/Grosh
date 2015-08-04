@@ -7,7 +7,7 @@
                 </a>
             </li>
             <li>
-                <a ui-sref="home">
+                <a ui-sref="home" class="home-logo">
                     <span class="avatar avatar-border"><img alt="alt text for John Smith avatar" src="images/grosh-app.png"></span>
                 </a>
             </li>
@@ -65,7 +65,7 @@
                             <a ng-click="viewProfile()" href="javascript:void(0)"><span class="icon icon-lg">account_box</span>Profile</a>
                         </li>
                         <li  id="groupseView">
-                            <a ui-sref="myGroups" href="javascript:void(0)"><span class="icon icon-lg">group</span>My Groups</a>
+                            <a ng-click="viewGroups()" href="javascript:void(0)"><span class="icon icon-lg">group</span>My Groups</a>
                         </li>
 
                         <!--li id="gcloudView">

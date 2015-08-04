@@ -7,8 +7,9 @@ source = require('vinyl-source-stream'),
 browserify = require('browserify'),
 watchify = require('watchify'),
 connect = require('gulp-connect'),
-uglify = require('gulp-uglify')
-streamify = require('gulp-streamify');
+uglify = require('gulp-uglify'),
+streamify = require('gulp-streamify'),
+debowerify = require("debowerify");
 
 gulp.task('minify-css', function() {
   return gulp.src('css/baseRec.css')
@@ -33,6 +34,7 @@ gulp.task('webserver', function() {
 gulp.task('browse',function(){
 	var bundler = watchify(browserify({
 		entries:['./client/app/grosh.module.js'],
+		transform:[debowerify],
 		extensions:['.js'],
 		debug:true,
 		cache:{},

@@ -8,7 +8,7 @@ html {
 }
 
 #login{
-	    background-image: url("http://i.imgur.com/UP7fWfg.jpg");
+	    background-image: url("/images/login-back.jpg");
 
 }
 
@@ -312,6 +312,7 @@ header{
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
+        min-height: 230px;
 }
 
 .group-card{
@@ -319,7 +320,9 @@ header{
     background-size: cover;
     background-position: center center;
 }
-
+.group-inner{
+    min-height:40px;
+}
 .options-card{
       position: absolute;
     top: -24px;
@@ -340,30 +343,60 @@ header{
 }
 
 .btn-add-img a{
-    background-color: rgba(4, 4, 4, 0.1);
+    background-color:transparent;
     font-size: 23px;
     box-shadow: none;
     padding-left: 20px;
     padding-right: 20px;
 }
 
+
+.btn-add-img a:hover{
+     box-shadow: none; 
+     color: #fff; 
+     background-color: rgba(4, 4, 4, 0.1);
+
+}
+
+.btn-add-img a:focus{
+     box-shadow: none; 
+     color: #fff; 
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.33);
+}
+
 .profile-header-container{
       padding-top: 110px;
       margin-bottom: -20px;
+          position: absolute;
+    left: 200px;
+    bottom: 104px;
 }
+
+
+.profile-header-container-group{
+padding-top: 110px;
+}
+
 
 .profile-title {
- text-shadow: 0 1px 0 black;
+         text-shadow: 0 1px 8px rgba(0,0,0,0.9);
 }
 
+
 .profile-image{
-  border-radius: 50%;
-  position:absolute;
+ /* border-radius: 50%;*/
+ /* position:absolute;*/
   z-index:9;
   margin: 0 auto;
   top:165px;
   right:20px;
   height: 180px;
+      float: left;
+    /* padding: 200px; */
+    /* margin-bottom: 20px; */
+    margin-top: -160px;
+    border: 6px solid #fff;
+    margin-left: 20px;
 }
 
 .container-profile{
@@ -377,22 +410,41 @@ header{
     top: 200px;
     right: 20px;
     height: 130px;
+    left:0;
+
   }
   .profile-title{
     font-size: 24px;
   }
+  
+  .profile-header-container{
+    left: 150px;
+}
+  
+  .home-logo{
+      display:none!important;
+  }
+  
+  
 }
 
 
 @media screen and (min-width: 481px) and (max-width: 1023px) {
 .profile-image{
+        left:0;
 }
+  .profile-title{
+    font-size: 27px;
+  }
 }
 
 @media screen and (min-width: 1024px) {
 .profile-image{
     left:0;
 }
+  .profile-title{
+    font-size: 30px;
+  }
 }
 
 
@@ -410,3 +462,81 @@ header{
 .no-txt-shadow {
  text-shadow: none;
 }
+
+
+html{
+    margin-left:4px;
+     margin-right:4px;
+}
+
+body{
+    margin-left:8px;
+     margin-right:8px;
+}
+html{
+    background-color:#fff!important;
+}
+
+.m-main{
+  background-color: #ECECEC!important;
+  min-height: 100vh;
+
+}
+
+.content-heading{
+}
+
+.btn-add-img a {
+    color: #fff;
+}
+
+
+.toast-success{
+    background-color: #00BFA5!important;
+}
+.toast-error{
+    background-color: #D50000!important;
+}
+.toast-info{
+    background-color: #0091EA!important;
+}
+.toast{
+    border: 0!important;
+    border-radius: 2px!important;
+    box-shadow: 0 1px 5px rgba(0,0,0,.15),0 1px 5px 1px rgba(0,0,0,.15)!important;
+}
+.toast div{
+    font-weight: 400;
+}
+#toast-container > div{
+
+}
+
+.toast-top-bottom-width {
+    width: 100%;
+    
+}
+
+.toast-message{
+    line-height:30px;
+        font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+@media screen and (max-width: 480px) {
+    .toast-bottom-full-width {
+        right: 0;
+        width: 100%;
+    }
+    .toast{
+    height:50px!important;
+    }
+    
+}
+@media screen and (min-width: 1024px) {
+    .toast-bottom-full-width {
+     right: 10px!important;    
+        
+    }
+}
+
+   

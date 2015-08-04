@@ -10,6 +10,9 @@
     <!-- css -->
     <link href="css/base.min.css" rel="stylesheet">
     <link href="css/grosh.base.css" rel="stylesheet">
+    <link rel="stylesheet" href="/bower_components/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css">
+
     <!-- favicon -->
     <!-- ... -->
     <!-- ie -->
@@ -21,7 +24,9 @@
 <body id="nav-container">
 
     <menu-bar></menu-bar>
-    <div id="app-content" ui-view>
+    <div class=" ui-view-container" style="position: relative;">
+        <div id="app-content" class="anim-in-out anim-fade" ui-view data-anim-speed="700"  >
+        </div>
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/base.min.js"></script>

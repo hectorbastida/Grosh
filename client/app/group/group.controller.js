@@ -3,30 +3,28 @@
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$scope','userService','loginService','$state','groupService','$stateParams'];
+	'$scope','userService','loginService','$state','groupService','$stateParams','$timeout'];
 /*
 The controller's functionality
 */
-var controller = function($scope,userService,loginService,$state,groupService,$stateParams){
+var controller = function($scope,userService,loginService,$state,groupService,$stateParams,$timeout){
 	var html = document.querySelector('html');
 	html.id = 'group'
 	$scope.currentGroup='';
 	$scope.groupId = '';
 	$scope.isAdmin = false;
-    $scope.properties = {
-    "background": "",
-    "background-attachment": "fixed",
-    "background-size": "cover"
-    }
+    $scope.back = ''
 
+	init();
+	function init(){
 	if($stateParams.group){
+		console.log('how many times')
 		$scope.groupId = $stateParams.group;
 		groupService.get($stateParams.group)
 		.then(function(response){
 			$scope.currentGroup=response.data;
+			$scope.back = $scope.currentGroup.url_image;
 
-			$scope.properties.background = 'linear-gradient( to bottom, rgba(0, 0, 0, 0), rgba(1, 140, 127, 0.84) ),url( '+ $scope.currentGroup.url_image +')'
-			
 			if($scope.currentGroup.administrators[0]===loginService.getLoggedUser()._id){
 				$scope.isAdmin = true;
 			}
@@ -35,7 +33,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			console.error(response.data)
 		})
 	}
-
+}
 	$scope.group = {
 		name:'',
 		description:''
@@ -68,7 +66,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 		if($scope.image.url !== ''){
 			groupService.addImgUrl($scope.currentGroup._id,$scope.image.url)
 			.then(function(response){
-				$state.go('group',{group:$scope.groupId});
+				$state.go('group',{group:$scope.groupId},{reload: true})
 			})
 			.catch(function(response){
 				console.error(response.data)
