@@ -198,13 +198,11 @@ module.exports = function(server, io){
      *
      */
     addInvitation = function(req, res) {
-        userAdmin = "559786baa361ca280ffa15f0";// will be replaced by the id_user in session
-        var currentdate = new Date();
         var newInvitation = new Invitation({
             id_group     :req.body.id_group,
             sender_user  :req.user.id,
             invited_user :req.body.invited_user,
-            create_date  :currentdate
+            create_date  :new Date()
         });
 
         //invitation
@@ -299,8 +297,7 @@ module.exports = function(server, io){
 
      
     readInvitations = function(req, res){
-    	userAdmin = '559786baa361ca280ffa15f0';
-    	Invitation.update({'sender_user' : userAdmin}, function(err){
+    	Invitation.update({'sender_user' : req.user.id}, function(err){
     		if (err) {
     			console.log('ERROR: '+err);
     		}else{

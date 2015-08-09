@@ -26,13 +26,19 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/base.min.js"></script>
     <script src="dist/bundle.js"></script>
-    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
         var socket = io();
-        socket.on('request559786baa361ca280ffa15f0', function (data) {
+        socket.on('request55b54d0ca8954d1008f52788', function (data) {
             console.log(data);
         });
-        socket.on('invitation559786baa361ca280ffa15f0', function (data) {
+        socket.on('invitation55b54d0ca8954d1008f52788', function (data) {
+            console.log(data);
+        });
+        socket.on('newChatInvitation55b54d0ca8954d1008f52788', function (data){
+            console.log(data);
+        });
+        socket.on('newMessage55b54d0ca8954d1008f52788', function (data){
             console.log(data);
         });
     </script>

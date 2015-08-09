@@ -4,6 +4,7 @@ var Schema   = mongoose.Schema;
 var messageSchema=new Schema({
     chat_id     :{type: Schema.Types.ObjectId, ref: 'chat'},
     content     :{type:String,required:true},
+    author      :{type : Schema.Types.ObjectId, ref: 'user'},
     create_date :{type:Date,required:true}
 });
 

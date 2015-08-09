@@ -217,7 +217,10 @@ module.exports = function(server) {
      *
      */
     findAllGroupsUser = function(req, res) {
-        Group.find({'administrators' : req.params.idUser }, function(err, groups) {
+        Group.find({
+            'administrators' : req.params.idUser,
+            'privileges' : {$ne : "personal"}
+        }, function(err, groups) {
             if(!err) 
                 res.send(groups);
             else 
@@ -536,7 +539,6 @@ module.exports = function(server) {
      *
      */
     addGroup = function(req, res) {
-        userAdmin = "559786baa361ca280ffa15f0";// will be replaced by the id_user in session
         var currentdate = new Date(); 
         var newGroup = new Group({
             name            :req.body.name,
@@ -661,6 +663,23 @@ module.exports = function(server) {
         });
     }
 
+    findByName = function(req, res){
+        Group.find(
+            {
+                $or : [
+                        {'name' : new RegExp('^'+req.params.name+'', "i")},
+                        {'name' : new RegExp(''+req.params.name+'$', "i")}
+                    ],
+                'privileges' : 'public'
+            }, function(err, groups){
+            if (err) {
+                res.send('err');
+            }else{
+                res.send(groups);
+            }
+        });
+    }
+
     /**
      * @api {delete} /group/:id Delete a specific Group
      * @apiVersion 1.0.0
@@ -730,6 +749,7 @@ module.exports = function(server) {
     server.get('/groupUserBelongs/:idUser', server.oauth.authorise(), findAllGroupsUserBelongs);
     server.get('/personalUserGroup/:idUser', server.oauth.authorise(), findPersonalGroup);
     server.get('/group/:id/', server.oauth.authorise(), findByID);
+    server.get('/groupByName/:name', server.oauth.authorise(), findByName);
     server.post('/group/', server.oauth.authorise(), addGroup);
     server.put('/group/:id/', server.oauth.authorise(), updateGroup);
     server.patch('/group/:id/', server.oauth.authorise(), addURLImage);

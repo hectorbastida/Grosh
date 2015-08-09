@@ -383,7 +383,7 @@ function saveAccessToken(done) {
     }
 
     this.model.saveAccessToken(accessToken, this.client.clientId, expires,
-        this.user, function(err) {
+        this.user.id, function(err) {
             if (err) return done(error('server_error', false, err));
             done();
         });

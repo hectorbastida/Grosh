@@ -14,7 +14,8 @@ var groupSchema=new Schema({
                             'personal',
                             'public',
                             'private'
-                        ]
+                        ],
+                        default : 'public'
                     },
     members        :{type:Array},            
     administrators :{type:Array},
