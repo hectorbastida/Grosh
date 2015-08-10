@@ -3,6 +3,7 @@ require('angular-ui-router');
 require('angular-local-storage');
 require('angular-animate');
 require("angular-ui-router-anim-in-out")
+var ngUpload = require('ng-file-upload');
 
 var user = require('./user/user.module');
 var menuBar = require('./menu-bar/menu-bar.module');
@@ -11,9 +12,9 @@ var home = require('./home/home.module');
 var profile = require('./profile/profile.module');
 var group = require('./group/group.module');
 var post = require('./post/post.module');
+var ngFoobar = require('ng-foobar');
 
-
-var Grosh = angular.module('grosh',['ngAnimate','ui.router','menuBar','user','login','home','profile', 'group','post','LocalStorageModule','anim-in-out']);
+var Grosh = angular.module('grosh',['ngAnimate','ngFoobar','ngFileUpload','ui.router','menuBar','user','login','home','profile', 'group','post','LocalStorageModule','anim-in-out']);
 
 Grosh.run(['$rootScope', '$state','loginService', function($rootScope, $state,loginService) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams){

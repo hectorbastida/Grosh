@@ -19,6 +19,8 @@
     "jquery": "~2.1.4",
     "toastr": "~2.1.1",
     "angular-ui-router-anim-in-out": "~0.0.13",
-    "alertify.js": "~0.3.11"
+    "alertify.js": "~0.3.11",
+    "Hover": "~2.0.2",
+    "ng-foobar": "~0.1.0"
   }
 }

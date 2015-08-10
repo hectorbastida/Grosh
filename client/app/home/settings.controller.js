@@ -1,3 +1,4 @@
+var toastr = require("toastr")
 
 /*
 This array contains the name of the injected dependencies, this is for minification purposes
@@ -19,12 +20,28 @@ var controller = function($scope,userService,loginService){
 		   console.error('error'); 
 		   console.info(data); 
 		});
-
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-full-width",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "2000",
+  "extendedTimeOut": "500",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 	$scope.updateUser = function(){
 		userService.update($scope.user)
 		.success(function(data, status, headers, config) {
       		  $scope.user = data;
-      		  alert('Your information was updated successfully!');
+      		  toastr.success('Your information was updated successfully!')
 		})
 		.error(function(data, status, headers, config) {
 		   console.error('error'); 

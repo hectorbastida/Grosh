@@ -6,7 +6,10 @@ html {
     /* background-image: url(http://marketplace.infusionsoft.com/sites/default/files/media/consultants/people.png); */
     /* background-color: rgba(73,155,234,1); */
 }
-
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
 #login{
 	    background-image: url("/images/login-back.jpg");
 
@@ -72,7 +75,8 @@ body {
 
 .menu-bar-active {
     background-color: #009688!important;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, .5)!important;
+ /*   box-shadow: 0 1px 10px rgba(0, 0, 0, .5)!important;*/
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.3)!important;
 }
 
 .menu-bar-inactive {
@@ -312,7 +316,8 @@ header{
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
-        min-height: 230px;
+        min-height: 320px;
+            background-position: 60% 10%!important;
 }
 
 .group-card{
@@ -374,12 +379,18 @@ header{
 
 
 .profile-header-container-group{
-padding-top: 110px;
+    position: absolute;
+    bottom: 0;
+    width: 100%!important;
+    max-width: 100%;
+    background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0),rgba(0,0,0,.3));
 }
+
 
 
 .profile-title {
          text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+         margin:2px;
 }
 
 
@@ -540,3 +551,282 @@ html{
 }
 
    
+/*Chat Styles*/
+.chat-menu{
+    
+}
+
+.chat-content{
+    width: 260px;
+}
+.chat-contact{
+    border-radius: 50%;
+    width: 40px;
+    margin-right: 10px;
+}
+
+
+.chat-search{
+    margin-top:10px;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+}
+
+.chat-s-icon{
+        margin-left: 20px;
+        
+        
+}
+
+.chat-s-input{
+         border-bottom: none; 
+}
+
+.card{
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.2);
+}
+
+.chat-wrap{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.chat-sender{
+    background-image: url(http://cdn0.dailydot.com/cache/e3/91/e3917694eb603b7b20d5d9758750ebfa.jpg);
+    max-height: 500px;
+    min-height: 150px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.07);
+    position:relative;
+}
+
+.sender-reciber{
+    width: 100%;
+    bottom: 0!important;
+    background-image: -webkit-linear-gradient(top,transparent,rgba(0,0,0,.5));
+    background-image: linear-gradient(to bottom,transparent,rgba(0,0,0,.5));
+    position: absolute;
+}
+
+
+.sender-reciber small{
+    color:#fff;
+    font-size:17px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+}
+
+.sender-back a span{
+    color:#fff;
+    font-size:20px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+}
+
+.chat-messages{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #ECECEC!important;
+    height: 100%;
+    padding-bottom: 250px;
+}
+
+.message-send{
+    font-size: 13px;
+    position: relative;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.message-recibe{
+    font-size: 13px;
+    position: relative;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.row.message.send {
+    background-color: #4DB6AC;
+    float: right;
+    margin-right: 12px;
+    margin-left: 22px;
+}
+
+.row.message {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 9px;
+    content: '';
+    display: table;
+    clear: both;
+    padding: 8px;
+    box-shadow: 0 1px .5px rgba(0,0,0,.13);
+    border-radius: 7.5px;
+    position: relative;
+}
+
+.row.message.recibe {
+    background-color: #fff;
+    margin-left: 12px;
+    margin-right: 22px;
+}
+
+.row.message.send:after {
+    border-color: transparent rgb(85, 190, 180);
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 0 6px 16px;
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-top: -12px;
+    right: -16px;
+    top: 50%;
+}
+
+.row.message.recibe:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 6px 16px 6px 0;
+    border-color: transparent #FFFFFF;
+    display: block;
+    width: 0;
+    z-index: 1;
+    margin-top: -12px;
+    left: -16px;
+    top: 50%;
+}
+
+
+.write-tool{
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 0;
+    border-left: 1px solid rgba(0,0,0,.08);
+    background-color: #D9D7D7!important; 
+}
+.write.input {
+    border-radius: 5px;
+    width: 200px;
+   /* height: 100%;*/
+    background-color: #fff;
+    margin-top: 10px;
+    margin-left: 5px;
+    word-wrap: break-word;
+    margin-bottom: 7px;
+    min-height: 2.5em;
+    line-height: 20px;
+    border: none;
+    padding: 10px 12px;
+    outline: none;
+    max-height: 79px;
+    overflow-y: scroll;
+}
+
+.btn-send{
+border-radius: 50%;
+    position: absolute;
+    /* right: 10px; */
+    bottom: 10px;
+    left: 215px;
+    padding: 6px;
+    line-height: 1px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.2);
+        background-color: #00D2BF;
+            -webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+    transition: all .3s cubic-bezier(.4,0,.2,1);
+    -webkit-transition-property: background-color,box-shadow,opacity,-webkit-transform;
+    transition-property: background-color,box-shadow,opacity,transform;
+}
+
+.btn-send:hover{
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.4);
+}
+.btn-send:active{
+    background-color: #01A395;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.3),0 6px 9px rgba(0,0,0,.15);
+        
+}
+
+
+.btn-send span{
+    color: #fff;
+    font-size: 24px!important;
+}
+
+
+.menu.open {
+     background-color: transparent; 
+
+}
+
+.container.group-detail{
+    position:relative;
+}
+.fbtn-group-detail{
+    position: absolute;
+    top: -40px;
+    z-index: 9;
+    right: 20%;
+}
+
+.fbtn-group-detail div a{
+    padding-top: 15px;
+    -webkit-transition: all .3s cubic-bezier(.4,0,.2,1);
+    transition: all .3s cubic-bezier(.4,0,.2,1);
+    -webkit-transition-property: background-color,box-shadow,opacity,-webkit-transform;
+    transition-property: background-color,box-shadow,opacity,transform;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.06),0 2px 5px 0 rgba(0,0,0,.3)!important;
+}
+a.fbtn.fbtn-red.fbtn-lg.btn-grosh-circular:active {
+    background-color: #01A395;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.3),0 6px 9px rgba(0,0,0,.15);
+}
+
+/*tabs*/
+.tabs {padding-top:14px;}
+.tabs ul {list-style:none;margin:0;width:100%;overflow:hidden;padding:0;margin-left:16px;}
+.tabs ul li {float:left;width:100px;margin-top:-15px;}
+.tabs a {position:relative;color:#000;text-decoration:none;display:block;width:100px;height:50px;text-align:center;line-height:52px;font-weight:500;font-size:14px;color:#000;overflow:hidden;}
+.tabs .active a {color:#000;}
+.tabs .active a:after {height:2.5px;width:100%;display:block;content:" ";bottom:0px;left:0px;position:absolute;background:#00D2BF;
+-webkit-animation: border-expand 0.2s cubic-bezier(0.4, 0.0, 0.4, 1) 0s alternate forwards;-moz-animation: border-expand 0.2s cubic-bezier(0.4, 0.0, 0.4, 1) 0s alternate forwards;transition:all 1s cubic-bezier(0.4, 0.0, 1, 1);}
+.tabs a span {position:absolute;margin-left:-40px;margin-top:-24px;width:80px;background:rgba(255,255,141,1);height:100%;display:block;border-radius:50%;opacity:0;}
+.tabs a span.clicked {-webkit-animation: expand 0.6s cubic-bezier(0.4, 0.0, 0.4, 1) 0s normal;-moz-animation: expand 0.6s cubic-bezier(0.4, 0.0, 0.4, 1) 0s normal;border-bottom:2px solid #FFFF8D;}
+.overlay{
+  position: absolute;
+  content:"";
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  opacity: .3;
+}
+
+/*more stuff*/
+.card-wrap .card {
+    margin-top: 0;
+    padding: 0;
+    border-radius: 2px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    color: #616161 !important;
+    align-items: stretch;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.col-post{
+        width: 100%!important;
+}
+
+.img-group img{
+    max-height:600px;
+}
+
+.card-file{
+        padding: 20px;
+    padding-bottom: 0;
+}

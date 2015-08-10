@@ -1,15 +1,14 @@
-require('toastr');
-var toastr = require("toastr")
+
 
 /*
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$scope','$state','userService','loginService'];
+	'$scope','$state','userService','loginService','ngFoobar'];
 /*
 The controller's functionality
 */
-var controller = function($scope,$state,userService,loginService){
+var controller = function($scope,$state,userService,loginService,ngFoobar){
 	var html = document.querySelector('html');
 	html.id = 'login'
 	$scope.loginPartial = 'signIn';
@@ -25,7 +24,6 @@ var controller = function($scope,$state,userService,loginService){
 		email:'',
 		password:''
 	}
-
 	function restarForm(){
 		$scope.newUser = {
 			name:'',
@@ -45,23 +43,6 @@ var controller = function($scope,$state,userService,loginService){
 	}
 	
 	
-toastr.options = {
-  "closeButton": false,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": false,
-  "positionClass": "toast-bottom-full-width",
-  "preventDuplicates": true,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "1000",
-  "timeOut": "2000",
-  "extendedTimeOut": "500",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}
 	$scope.toggleLoginPartial = function(){
 		if($scope.loginPartial === 'signIn'){
 			$scope.loginPartial = 'signUp';
@@ -77,16 +58,16 @@ toastr.options = {
                        loginService.setProfile(data.id,data.email,data.name,
                            data.last_name,
                            data.access_token);
-                       toastr.success('Welcome Back '+data.name+' '+data.last_name)
+                       ngFoobar.show("success", 'Welcome Back '+data.name+' '+data.last_name);
                        $state.go('home');
 		            })
 		            .error(function(data, status, headers, config) {
-		               console.error('error'); 
-		               toastr.error('User credentials are invalid')
-
+		               console.error(data); 
+		               ngFoobar.show("error", 'User credentials are invalid');
 		            }); 
 		}else{
-			toastr.info('Please Complete all the fields')
+
+			ngFoobar.show("info", 'Please Complete all the fields');
 		}
 	}
 
@@ -98,7 +79,7 @@ toastr.options = {
 					userService.add($scope.newUser)
 		            .success(function(data, status, headers, config) {
 		               restarForm();
-		               toastr.success('You have been registered correctly ' + data.name + ' '+ data.last_name)
+		               ngFoobar.show("success", 'You have been registered correctly ' + data.name + ' '+ data.last_name);
 		            	$scope.loginPartial = 'signIn';
 		            })
 		            .error(function(data, status, headers, config) {
@@ -107,11 +88,12 @@ toastr.options = {
 		            }); 
 
 				}else{
-					toastr.info('Password and Repeat Password fields do not match')
+						ngFoobar.show("info", 'Password and Repeat Password fields do not match');
+
 				}
 
 		}else{
-			toastr.info('Please Complete all the fields, all field are required')
+				ngFoobar.show("info", 'Please Complete all the fields, all field are required');
 
 		}
 	}

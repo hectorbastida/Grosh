@@ -47,7 +47,7 @@ gulp.task('browse',function(){
 			.bundle()
 			.on('error',gutil.log.bind(gutil,'Browserify Error'))
 			.pipe(source('bundle.js'))
-		//	.pipe(streamify(uglify()))
+			.pipe(streamify(uglify()))
 			.pipe(gulp.dest('./client/dist'))
 	}
 	build()

@@ -9,23 +9,23 @@
             <h2 class="content-sub-heading">Latest Groups</h2>
             <div class="card-wrap">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div ng-repeat="group in groups.slice().reverse().slice(0,9)" class="col-lg-3 col-md-4 col-sm-6">
                         <div class="card">
                             <div class="card-main">
                                 <div class="">
-                                    <div class="card-img group-card">
-                                        <p class="card-img-heading">Group Name</p>
+                                    <div class="card-img group-card" ng-style="getUrlByGroup(group)">
+                                        <p class="card-img-heading">{{group.name}}</p>
                                     </div>
-                                    <div class="card-inner">
+                                    <div class="card-inner group-inner">
                                         <p>
-                                            Lorem ipsum dolor sit amet. Consectetur adipiscing elit.
+                                            {{group.description}}
                                         </p>
                                     </div>
                                     <ul class="nav nav-list options-card pull-right">
                                         <li class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">more_vert</span></a>
                                             <ul class="dropdown-menu">
-                                                 <li>
+                                                <li>
                                                     <a ui-sref="group({group:group._id})" href="javascript:void(0)"><span class="icon margin-right-sm">details</span>&nbsp;View</a>
                                                 </li>
                                             </ul>

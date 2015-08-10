@@ -2,7 +2,7 @@
     <header class="header" ng-class="menuBarActive()">
         <ul class="nav nav-list pull-left">
             <li class=" icon-menu">
-                <a id="menu-button" ng-click="openSideMenu()" href="javascript:void(0)">
+                <a id="menu-button" ng-click="openSideMenu('menu')" href="javascript:void(0)">
                     <span class="icon icon-lg">menu</span>
                 </a>
             </li>
@@ -29,7 +29,7 @@
                 </ul>
             </li>
             <li class=" icon-menu">
-                <a  href="javascript:void(0)">
+                <a  id="chat-button"  ng-click="openSideMenu('chat')" href="javascript:void(0)">
                     <span class="icon icon-lg">question_answer</span>
                 </a>
             </li>
@@ -37,7 +37,7 @@
                 <!--a data-toggle="menu" href="#profile"-->
                 <a>
                     <span class="access-hide">{{user.name + ' '+ user.lastName}}</span>
-                    <span class="avatar avatar-grosh"><img alt="alt text for John Smith avatar" src="images/users/avatar-001.jpg"></span>
+                    <span class="avatar avatar-grosh"><img alt="alt text" src="images/users/avatar-001.jpg"></span>
                 </a>
             </li>
         </ul>
@@ -82,4 +82,130 @@
             </div>
         </div>
     </nav>
+    <nav class="menu menu-right chat-menu"  ng-class="{'open':sideChatOpen}" ng-class="menuBarActive()">
+		<div class="menu-scroll chat-content" id="chat-container" click-outside="closeThis2()" outside-if-not="chat-button">
+			<div class="menu-wrap" ng-show="false">
+				<div class="chat-search" >
+                    <div class="row">
+						<div class="col-lg-6 col-sm-8">
+							<div class="media">
+								<div class="media-object pull-left">
+									<label class="form-icon-label chat-s-icon" for="input-address"><span class="icon">search</span></label>
+								</div>
+								<div class="media-inner">
+									<input class="form-control chat-s-input"  id="input-address" placeholder="Search" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="menu-content">
+					<ul class="nav">
+						<li>
+							<a href="javascript:void(0)"><span class=""><img alt="alt text" class="chat-contact" src="images/users/avatar-001.jpg"></span>Mario Bastida</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="menu-wrap chat-wrap">
+				<div class="chat-sender" >
+				    <div class="menu-top-info-sub sender-reciber">
+                        <small>Hector Bastida</small>
+                    </div>
+                    <div class="menu-top-info-sub sender-back">
+                        <a class="" href="javascript:void(0)"><span class="icon icon-2x">arrow_back</span></a>
+                    </div>
+				</div>
+				<div class="menu-content chat-messages">
+                    <div class="row message send">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-send">Holaaaaa como estas? que haces? que cuentas?</div>
+                                </div>
+                            </div>
+					</div>
+					   <div class="row message recibe">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-recibe ">Que onda, todo bien muchas gracias, todo tranquilo, como estas tu?</div>
+                                </div>
+                            </div>
+					</div>
+					                    <div class="row message send">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-send">Holaaaaa como estas? que haces? que cuentas?</div>
+                                </div>
+                            </div>
+					</div>
+					   <div class="row message recibe">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-recibe ">Que onda, todo bien muchas gracias, todo tranquilo, como estas tu?</div>
+                                </div>
+                            </div>
+					</div>
+					                    <div class="row message send">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-send">Holaaaaa como estas? que haces? que cuentas?</div>
+                                </div>
+                            </div>
+					</div>
+					   <div class="row message recibe">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-recibe ">Que onda, todo bien muchas gracias, todo tranquilo, como estas tu?</div>
+                                </div>
+                            </div>
+					</div>
+					                    <div class="row message send">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-send">Holaaaaa como estas? que haces? que cuentas?</div>
+                                </div>
+                            </div>
+					</div>
+					   <div class="row message recibe">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-recibe ">Que onda, todo bien muchas gracias, todo tranquilo, como estas tu?</div>
+                                </div>
+                            </div>
+					</div>
+										   <div class="row message recibe">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-recibe ">Que onda, todo bien muchas gracias, todo tranquilo, como estas tu?</div>
+                                </div>
+                            </div>
+					</div>
+										   <div class="row message recibe">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-recibe ">Que onda, todo bien muchas gracias, todo tranquilo, como estas tu?</div>
+                                </div>
+                            </div>
+					</div>
+										   <div class="row message recibe">
+                            <div class="message-container">
+                                <div class="message-content ">
+                                    <div class="message-recibe ">Que onda, todo bien muchas gracias, todo tranquilo, como estas tu?</div>
+                                </div>
+                            </div>
+					</div>
+				</div>
+				<div class="menu-content ">
+			        <div class="write-tool">
+			            <div class="write input" contenteditable>
+			            </div>
+			            <a class="btn-send" href="javascript:void(0)"><span class="icon icon-2x">send</span></a>
+			        </div>
+			        
+			    </div>
+
+			</div>
+		</div>
+	</nav>
+	
 </div>

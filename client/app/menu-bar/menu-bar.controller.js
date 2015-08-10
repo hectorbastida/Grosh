@@ -24,25 +24,44 @@ var controller = function($scope,$state,loginService,$rootScope){
       if($scope.sideMenuOpen){
         $scope.sideMenuOpen = false;
         $scope.$apply();
-      }        
-    }
+      }
 
+    }
+    $scope.closeThis2 = function () {
+
+      if($scope.sideChatOpen){
+        $scope.sideChatOpen = false;
+                $scope.$apply();
+
+      } 
+    }
     $scope.menuBarActive = function(){
+      
         if(loginService.loggedIn()){
               $scope.user = loginService.getLoggedUser();
               return 'menu-bar-active';
-
         }
         return 'menu-bar-inactive';
     }
 
     $scope.sideMenuOpen = false;
-	  $scope.openSideMenu = function(){
-        $scope.sideMenuOpen = ! $scope.sideMenuOpen;
+    $scope.sideChatOpen = false;
+	  $scope.openSideMenu = function(menuName){
+
+	      if(menuName === 'menu'){
+          $scope.sideMenuOpen = ! $scope.sideMenuOpen;
+          $scope.sideChatOpen = false;
+
+	      }else if(menuName === 'chat'){
+           $scope.sideChatOpen = ! $scope.sideChatOpen;
+           $scope.sideMenuOpen = false;
+
+	      }
+	        
+	      
     }
     
     $scope.isSideMenuOpened = function(){
-      console.log($scope.sideMenuOpen);
       if($scope.sideMenuOpen){
         return 'menu open';
       }
