@@ -308,40 +308,50 @@ module.exports = function(server) {
                 fs.rename(tmp_path, target_path, function(err) { //Escribimos el archivo
                     
                     fs.unlink(tmp_path, function(err) { //borramos el archivo tmp
-                        
-                        var currentdate = new Date();
-                        var newImage = new Image({
-                            content: req.query.content,
-                            name: files.file.name,
-                            user_creator: req.user.id,
-                            create_date: currentdate,
-                            url_image : nombrearchivo,
-                            group : req.query.id_group
-                        });
+                        userCreator = User.findById(req.user.id, function(err, user){
+                            if (user) {
+                                user_creator = {
+                                    'id': user.id,
+                                    'name' : user.name,
+                                    'last_name' : user.last_name,
+                                    'url_image' : user.url_image
+                                };
+                                var newImage = new Image({
+                                    content: req.query.content,
+                                    name: files.file.name,
+                                    user_creator: user_creator,
+                                    create_date: new Date(),
+                                    url_image : nombrearchivo,
+                                    group : req.query.id_group
+                                });
 
-                        newImage.save(function(err) {
-                            if (!err){
-                                Group.findById(req.query.id_group, function(err, group){
-                                    if (group) {
-                                        group.image.push(newImage);
-                                        group.save(function(err){
-                                            if (!err) {
-                                                res.send({
-                                                    nombreArchivo: files.file.name,
-                                                    random: aleatorio
+                                newImage.save(function(err) {
+                                    if (!err){
+                                        Group.findById(req.query.id_group, function(err, group){
+                                            if (group) {
+                                                group.image.push(newImage);
+                                                group.save(function(err){
+                                                    if (!err) {
+                                                        res.send({
+                                                            nombreArchivo: files.file.name,
+                                                            random: aleatorio
+                                                        });
+                                                        res.end();
+                                                    }else{
+                                                        res.send('error');
+                                                    }
                                                 });
-                                                res.end();
                                             }else{
                                                 res.send('error');
                                             }
                                         });
                                     }else{
+                                        console.log('ERROR: ' + err);
                                         res.send('error');
                                     }
                                 });
                             }else{
-                                console.log('ERROR: ' + err);
-                                res.send('error');
+                                res.send('error, user not found.');
                             }
                         });
                     });
