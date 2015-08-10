@@ -268,15 +268,16 @@ module.exports = function(server) {
      *
      */
     addPost = function(req, res) {
-
         userCreator = User.findById(req.user.id, function(err, user){
             if (user) {
-                user_creator = new User({
+                user_creator = {
                                     'id': user.id,
                                     'name' : user.name,
                                     'last_name' : user.last_name,
                                     'url_image' : user.url_image
-                            });
+                                };
+
+
                 var newPost = new Post({
                     content      :req.body.content,
                     user_creator : user_creator,
@@ -308,11 +309,6 @@ module.exports = function(server) {
                         res.send('error');
                     }
                });
-
-
-
-
-
             }else{
                 res.send('error, user not found.');
             }
