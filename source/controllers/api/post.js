@@ -2,6 +2,7 @@ module.exports = function(server) {
     
     var Post = require('../../models/post');
     var Group = require('../../models/group');
+    var User = require('../../models/user');
     var currentdate = new Date(); 
 
     /**
@@ -266,38 +267,56 @@ module.exports = function(server) {
      *
      */
     addPost = function(req, res) {
-        var currentdate = new Date(); 
-        var newPost = new Post({
-            content      :req.body.content,
-            user_creator :req.user.id,
-            create_date  :currentdate,
-            group : req.body.id_group
-        });
+        userCreator = User.findById(req.user.id, function(err, user){
+            if (user) {
+                user_creator = new User({
+                                    'id': user.id,
+                                    'name' : user.name,
+                                    'last_name' : user.last_name,
+                                    'url_image' : user.url_image
+                                });
 
-        newPost.save(function(err) {
-            if(!err){
-                Group.findById(req.body.id_group, function(err, group){
-                    if (group) {
-                        group.post.push(newPost);
-                        group.save(function(err){
-                            if (!err) {
-                                res.send('Post Saved');
+
+                var newPost = new Post({
+                    content      :req.body.content,
+                    user_creator : user_creator,
+                    create_date  :new Date(),
+                    group : req.body.id_group
+                });
+
+                newPost.save(function(err) {
+                    if(!err){
+                        Group.findById(req.body.id_group, function(err, group){
+                            if (group) {
+                                group.post.push(newPost);
+                                group.save(function(err){
+                                    if (!err) {
+                                        res.send('Post Saved');
+                                    }else{
+                                        console.log(err);
+                                        res.send('Post Saved but dont added in the group');
+                                    }
+                                });
                             }else{
-                                console.log(err);
-                                res.send('Post Saved but dont added in the group');
+                                res.send('error');
                             }
                         });
-                    }else{
+                        console.log('Post Successfully Saved');
+                    }
+                    else {
+                        console.log('ERROR: ' +err);
                         res.send('error');
                     }
-                });
-                console.log('Post Successfully Saved');
+               });
+
+
+
+
+
+            }else{
+                res.send('error, user not found.');
             }
-            else {
-                console.log('ERROR: ' +err);
-                res.send('error');
-            }
-       });
+        });
     };
 
     /**
