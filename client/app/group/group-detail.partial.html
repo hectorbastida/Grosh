@@ -1,53 +1,196 @@
-<div class="content m-main" >
-    <div class="content-heading profile-header" ng-style="properties">
-<div class="form-group-btn btn-add-img" style="float:right" ng-show="isAdmin">
-        <a ui-sref=".addCover" class="btn waves-attach waves-button waves-effect" href="#/home"><span class="fbtn-ori icon">add_to_photos</span></a>                                
+<div class="content m-main " >
+
+        
+    <div class="content-heading profile-header" back-img="{{back}}">
+        <div class="form-group-btn btn-add-img" style="float:right" ng-show="isAdmin">
+        <a  class="btn waves-attach waves-button waves-effect " ngf-select ng-model="file" ngf-multiple="false" href="#/home"><span class="fbtn-ori icon hvr-bounce-in">add_to_photos</span></a>                                
+        <!--a ui-sref=".addCover" class="btn waves-attach waves-button waves-effect " href="#/home"><span class="fbtn-ori icon hvr-bounce-in">add_to_photos</span></a-->                                
         </div>
-        <div class="container profile-header-container">
+        <div class="container profile-header-container-group" >
             <h2 class="heading profile-title ">{{currentGroup.name}}</h2>
-            <p class="heading txt-shadow">{{currentGroup.description}}</p>
+        </div>
+    </div>        
+
+    <div class="container group-detail">  
+    <div class="fbtn-group-detail">
+        <div class="fbtn-inner">
+            <a class="fbtn fbtn-red fbtn-lg btn-grosh-circular">
+             <span class="fbtn-ori icon icon-lg">more_horiz</span>
+             <span class="fbtn-text">More Info about {{currentGroup.name}}</span>
+            </a>
         </div>
     </div>
-    <div class="container">  
         <section class="content-inner ">
+            <div ui-view></div>
+			<div class="dropdown-wrap">
+					<div class="dropdown dropdown-inline">
+						<a class="btn dropdown-toggle-btn" data-toggle="dropdown" aria-expanded="true">Filter Posts<span class="icon margin-left-sm">keyboard_arrow_down</span></a>
+						<ul class="dropdown-menu nav" style="max-width: 968px;">
+							<li>
+								<a href="javascript:void(0)">All</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">Text</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">Images</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)">Files</a>
+							</li>						
+						</ul>
+					</div>
+			</div>
             <div class="card-wrap ">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-card-form" ui-view>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-post">
+							<div class="card">
+								<div class="card-main">
+									<div class="card-header">
+										<div class="card-header-side pull-left">
+											<div class="avatar">
+												<img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
+											</div>
+										</div>
+										<div class="card-inner">
+											<span>User</span>
+										</div>
+									</div>
+									<div class="card-img img-group">
+										<img alt="alt text" src="https://s-media-cache-ak0.pinimg.com/736x/e9/38/62/e938621a890d631c2a33f9611836110a.jpg">
+									</div>
+									<div class="card-inner">
+										<p>
+											Lorem ipsum dolor sit amet.
+											Consectetur adipiscing elit.
+										</p>
+									</div>
+									<div class="card-action">
+										<ul class="nav nav-list pull-left">
+											<li>
+												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">5 Answers</span></a>
+											</li>
+										</ul>
+										<ul class="nav nav-list pull-right">
+											<li class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">keyboard_arrow_down</span></a>
+												<ul class="dropdown-menu">
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_1</span>&nbsp;Lorem Ipsum</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_2</span>&nbsp;Consectetur Adipiscing</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_3</span>&nbsp;Sed Ornare</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+                </div>
+                                <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-post">
+							<div class="card">
+								<div class="card-main">
+									<div class="card-header">
+										<div class="card-header-side pull-left">
+											<div class="avatar">
+												<img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
+											</div>
+										</div>
+										<div class="card-inner">
+											<span>User</span>
+										</div>
+									</div>
+									<div class="card-file">
+										<a href="javascript:void(0)"><span class="icon margin-right-sm icon-3x">attach_file</span>&nbsp;Atacchment Name</a>
+									</div>
+									<div class="card-inner">
+										<p>
+											Lorem ipsum dolor sit amet.
+											Consectetur adipiscing elit.
+										</p>
+									</div>
+									<div class="card-action">
+										<ul class="nav nav-list pull-left">
+											<li>
+												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">5 Answers</span></a>
+											</li>
+										</ul>
+										<ul class="nav nav-list pull-right">
+											<li class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">keyboard_arrow_down</span></a>
+												<ul class="dropdown-menu">
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_1</span>&nbsp;Lorem Ipsum</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_2</span>&nbsp;Consectetur Adipiscing</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_3</span>&nbsp;Sed Ornare</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+                </div>
+                
+                
+                 <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-post">
+							<div class="card">
+								<div class="card-main">
+									<div class="card-header">
+										<div class="card-header-side pull-left">
+											<div class="avatar">
+												<img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
+											</div>
+										</div>
+										<div class="card-inner">
+											<span>User</span>
+										</div>
+									</div>
 
-                    </div>
-                    <!--div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="card">
-                                <div class="card-main">
-                                    <div class="card-header">
-                                        <div class="card-header-side pull-left">
-                                            <div class="avatar">
-                                                <img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
-                                            </div>
-                                        </div>
-                                        <div class="card-inner">
-                                            <span>Some Text!</span>
-                                        </div>
-                                    </div>
-                                    <div class="card-inner" style="margin-top: 10px;">
-                                        <p>
-                                               La verdad esque no se como decirles esto amigos mio, estamos jodidamente reprobados y todo es mi culpa; lo siento                                              
-                                        </p>
-                                    </div>
-                                    <div class="card-action">
-
-                                    <ul class="nav nav-list pull-right">
-                                        <li class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">more_vert</span></a>
-                                            <ul class="dropdown-menu">
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div-->
-
-                    
+									<div class="card-inner">
+										<p>
+											Lorem ipsum dolor sit amet.
+											Consectetur adipiscing elit.
+										</p>
+									</div>
+									<div class="card-action">
+										<ul class="nav nav-list pull-left">
+											<li>
+												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">5 Answers</span></a>
+											</li>
+										</ul>
+										<ul class="nav nav-list pull-right">
+											<li class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">keyboard_arrow_down</span></a>
+												<ul class="dropdown-menu">
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_1</span>&nbsp;Lorem Ipsum</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_2</span>&nbsp;Consectetur Adipiscing</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_3</span>&nbsp;Sed Ornare</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
                 </div>
             </div>
         </section>

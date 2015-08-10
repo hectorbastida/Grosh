@@ -20,7 +20,9 @@ var factory = function($http){
 	function get(id){
 		return $http.get('/group/'+id);
 	}
-
+	function getAll(){
+		return $http.get('/group/');
+	}
     function update(user){
     	return $http.put('/user/'+user._id,{
     		name:user.name,
@@ -50,6 +52,7 @@ var factory = function($http){
 	return {
 		add:add,
 		get:get,
+		getAll:getAll,
 		getGroupsCreated:getGroupsCreated,
 		getGroupsJoined:getGroupsJoined,
 		update:update,

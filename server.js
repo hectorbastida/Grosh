@@ -51,6 +51,8 @@ server.set('view engine','html');
 server.set('views',__dirname + '/client');//<------------------en donde van a estar las vistas o templates
 server.set('uploadDir', './client/uploads');//<----------------carpeta en la que se guardaran las cosas que subamos
 server.use(express.static('./client'));//<---------------------aqui colocamos los ccs,js,img y toda la informacion publica.
+server.use('/bower_components',  express.static(__dirname + '/bower_components'));
+server.use('/node_modules',  express.static(__dirname + '/node_modules'));
 
 
 

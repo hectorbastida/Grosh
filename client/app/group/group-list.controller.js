@@ -58,7 +58,7 @@ var controller = function($scope,userService,loginService,$state,groupService){
 	$scope.getUrlByGroup = function(group){
 
 		return 	{
-   	 "background": 'linear-gradient( to bottom, rgba(0, 0, 0, 0), rgba(1, 140, 127, 0.84) ),url( '+ group.url_image +')',
+   	 "background":'url( '+ group.url_image +')',
     	"background-size": "cover"
     	}
 	}

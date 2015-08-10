@@ -5,11 +5,17 @@
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="initial-scale=1.0, width=device-width" name="viewport">
+    <link rel="shortcut icon" type="image/png" href="/images/favicon/favicon.png"/>
+
     <!--base href="/"-->
     <title>Grosh</title>
     <!-- css -->
     <link href="css/base.min.css" rel="stylesheet">
     <link href="css/grosh.base.css" rel="stylesheet">
+    <link rel="stylesheet" href="/bower_components/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css">
+    <link rel="stylesheet" href="/bower_components/Hover/css/hover-min.css">
+    <link rel="stylesheet" href="/bower_components/ng-foobar/ng-foobar.css">
     <!-- favicon -->
     <!-- ... -->
     <!-- ie -->
@@ -21,7 +27,9 @@
 <body id="nav-container">
 
     <menu-bar></menu-bar>
-    <div id="app-content" ui-view>
+    <div class=" ui-view-container" style="position: relative;">
+        <div id="app-content" class="anim-in-out anim-fade" ui-view data-anim-speed="700"  >
+        </div>
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/base.min.js"></script>

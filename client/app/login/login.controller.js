@@ -1,13 +1,14 @@
 
+
 /*
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$scope','$state','userService','loginService'];
+	'$scope','$state','userService','loginService','ngFoobar'];
 /*
 The controller's functionality
 */
-var controller = function($scope,$state,userService,loginService){
+var controller = function($scope,$state,userService,loginService,ngFoobar){
 	var html = document.querySelector('html');
 	html.id = 'login'
 	$scope.loginPartial = 'signIn';
@@ -23,7 +24,6 @@ var controller = function($scope,$state,userService,loginService){
 		email:'',
 		password:''
 	}
-
 	function restarForm(){
 		$scope.newUser = {
 			name:'',
@@ -34,13 +34,15 @@ var controller = function($scope,$state,userService,loginService){
 			gender:''
 		}
 	} 
-
+	
 	$scope.activeLoginPartial = function(partial){
 		if($scope.loginPartial === partial){
 			return '';
 		}
 		return 'card-hide';
 	}
+	
+	
 	$scope.toggleLoginPartial = function(){
 		if($scope.loginPartial === 'signIn'){
 			$scope.loginPartial = 'signUp';
@@ -56,21 +58,16 @@ var controller = function($scope,$state,userService,loginService){
                        loginService.setProfile(data.id,data.email,data.name,
                            data.last_name,
                            data.access_token);
+                       ngFoobar.show("success", 'Welcome Back '+data.name+' '+data.last_name);
                        $state.go('home');
 		            })
 		            .error(function(data, status, headers, config) {
-		               console.error('error'); 
-		               console.info(data); 
+		               console.error(data); 
+		               ngFoobar.show("error", 'User credentials are invalid');
 		            }); 
-
-
-
-
-
-			
- 			
 		}else{
-			alert('Please complete all fields');
+
+			ngFoobar.show("info", 'Please Complete all the fields');
 		}
 	}
 
@@ -82,7 +79,7 @@ var controller = function($scope,$state,userService,loginService){
 					userService.add($scope.newUser)
 		            .success(function(data, status, headers, config) {
 		               restarForm();
-		               alert('You have been registered correctly ' + data.name + ' '+ data.last_name);
+		               ngFoobar.show("success", 'You have been registered correctly ' + data.name + ' '+ data.last_name);
 		            	$scope.loginPartial = 'signIn';
 		            })
 		            .error(function(data, status, headers, config) {
@@ -91,11 +88,13 @@ var controller = function($scope,$state,userService,loginService){
 		            }); 
 
 				}else{
-					alert('Password and Repeat Password fields do not match');
+						ngFoobar.show("info", 'Password and Repeat Password fields do not match');
+
 				}
 
 		}else{
-			alert('Please omplete all fields');
+				ngFoobar.show("info", 'Please Complete all the fields, all field are required');
+
 		}
 	}
 

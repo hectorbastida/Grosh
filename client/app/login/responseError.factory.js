@@ -21,7 +21,7 @@ var factory = function($q,$location,$injector){
             }
             if (response.status == 500) {
                 if(loginService.logout()){
-                  $state.go('login');
+                 $location.path("/");
                 }
             }
             return $q.reject(response);
