@@ -156,12 +156,12 @@ module.exports = function(server) {
      *
      */
     findAllImagesGroup = function(req, res) {
-        Group.findById(req.params.idGroup, function(err, group) {
-            if (!err && group)
-                res.send(group.image);
-            else
-                console.log('ERROR: ' + err);
-            res.send('Sin imagenes');
+        Image.find({group : req.params.idGroup}, function(err, images){
+            if (!err) {
+                res.send(images);
+            }else{
+                res.send('error');
+            }
         });
     };
 
@@ -315,7 +315,8 @@ module.exports = function(server) {
                             name: files.file.name,
                             user_creator: req.user.id,
                             create_date: currentdate,
-                            url_image : nombrearchivo
+                            url_image : nombrearchivo,
+                            group : req.query.id_group
                         });
 
                         newImage.save(function(err) {

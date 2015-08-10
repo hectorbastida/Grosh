@@ -8,7 +8,8 @@ var imagesSchema = new Schema({
     url_image    :{type:String},
     status       :{type:Boolean,required:true,default:true},
     create_date  :{type:Date,required:true},
-    answer       :{type:Array}
+    answer       :{type:Array},
+    group        :{type:String}
 });
 
 var Images = mongoose.model('images', imagesSchema);
