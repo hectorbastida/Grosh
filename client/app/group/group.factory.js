@@ -49,6 +49,7 @@ var factory = function($http){
 		return $http.patch('/group/'+id,data);
 	}
 	
+
 	return {
 		add:add,
 		get:get,

@@ -10,34 +10,32 @@ var factory = function($http){
 
 	function add(content,idUser,idGroup){
 			var data = {
-				name:user.name,
+				content:content,
+				id_group:idGroup
 			}
 		    return $http.post('/post/',data);
 		    
 	}
-	function get(id){
-		return $http.get('/user/'+id);
+	function getByGroup(id){
+		return $http.get('/postGroup/'+id);
 	}
-	function getByEmail(email){
-		return $http.get('/user/'+email);
-	}
-    function update(user){
-    	return $http.put('/user/'+user._id,{
-    		name:user.name,
-    		last_name:user.last_name,
-    		password:user.password,
-    		status:user.status,
-    		email:user.email,
-    		sex:user.sex
+
+    function update(post){
+    	return $http.put('/post/'+post._id,{
+    		name:post.content,
+    		status:post.status
     	});
 	}
 
+	function remove(id){
+		return $http.delete('/post/'+id);
+	}
 
 	return {
 		add:add,
-		get:get,
-		getByEmail:getByEmail,
-		update:update
+		getByGroup:getByGroup,
+		update:update,
+		remove:remove
 	}
 }
 

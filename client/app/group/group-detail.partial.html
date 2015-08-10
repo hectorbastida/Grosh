@@ -15,7 +15,7 @@
     <div class="fbtn-group-detail">
         <div class="fbtn-inner">
             <a class="fbtn fbtn-red fbtn-lg btn-grosh-circular">
-             <span class="fbtn-ori icon icon-lg">more_horiz</span>
+             <span class="fbtn-ori icon icon-lg">details</span>
              <span class="fbtn-text">More Info about {{currentGroup.name}}</span>
             </a>
         </div>
@@ -42,7 +42,8 @@
 					</div>
 			</div>
             <div class="card-wrap ">
-                <div class="row">
+
+                 <div class="row" ng-repeat="post in posts.slice().reverse()" >
                         <div class="col-lg-6 col-md-6 col-sm-6 col-post">
 							<div class="card">
 								<div class="card-main">
@@ -53,122 +54,19 @@
 											</div>
 										</div>
 										<div class="card-inner">
-											<span>User</span>
-										</div>
-									</div>
-									<div class="card-img img-group">
-										<img alt="alt text" src="https://s-media-cache-ak0.pinimg.com/736x/e9/38/62/e938621a890d631c2a33f9611836110a.jpg">
-									</div>
-									<div class="card-inner">
-										<p>
-											Lorem ipsum dolor sit amet.
-											Consectetur adipiscing elit.
-										</p>
-									</div>
-									<div class="card-action">
-										<ul class="nav nav-list pull-left">
-											<li>
-												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">5 Answers</span></a>
-											</li>
-										</ul>
-										<ul class="nav nav-list pull-right">
-											<li class="dropdown">
-												<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">keyboard_arrow_down</span></a>
-												<ul class="dropdown-menu">
-													<li>
-														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_1</span>&nbsp;Lorem Ipsum</a>
-													</li>
-													<li>
-														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_2</span>&nbsp;Consectetur Adipiscing</a>
-													</li>
-													<li>
-														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_3</span>&nbsp;Sed Ornare</a>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-                </div>
-                                <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-post">
-							<div class="card">
-								<div class="card-main">
-									<div class="card-header">
-										<div class="card-header-side pull-left">
-											<div class="avatar">
-												<img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
-											</div>
-										</div>
-										<div class="card-inner">
-											<span>User</span>
-										</div>
-									</div>
-									<div class="card-file">
-										<a href="javascript:void(0)"><span class="icon margin-right-sm icon-3x">attach_file</span>&nbsp;Atacchment Name</a>
-									</div>
-									<div class="card-inner">
-										<p>
-											Lorem ipsum dolor sit amet.
-											Consectetur adipiscing elit.
-										</p>
-									</div>
-									<div class="card-action">
-										<ul class="nav nav-list pull-left">
-											<li>
-												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">5 Answers</span></a>
-											</li>
-										</ul>
-										<ul class="nav nav-list pull-right">
-											<li class="dropdown">
-												<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">keyboard_arrow_down</span></a>
-												<ul class="dropdown-menu">
-													<li>
-														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_1</span>&nbsp;Lorem Ipsum</a>
-													</li>
-													<li>
-														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_2</span>&nbsp;Consectetur Adipiscing</a>
-													</li>
-													<li>
-														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_3</span>&nbsp;Sed Ornare</a>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-                </div>
-                
-                
-                 <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-post">
-							<div class="card">
-								<div class="card-main">
-									<div class="card-header">
-										<div class="card-header-side pull-left">
-											<div class="avatar">
-												<img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
-											</div>
-										</div>
-										<div class="card-inner">
-											<span>User</span>
+											<span>{{post.user_creator.name + ' '+ post.user_creator.last_name}}</span>
 										</div>
 									</div>
 
 									<div class="card-inner">
 										<p>
-											Lorem ipsum dolor sit amet.
-											Consectetur adipiscing elit.
+											{{post.content}}
 										</p>
 									</div>
 									<div class="card-action">
 										<ul class="nav nav-list pull-left">
 											<li>
-												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">5 Answers</span></a>
+												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">{{post.answers.length}} Answers</span></a>
 											</li>
 										</ul>
 										<ul class="nav nav-list pull-right">
@@ -192,15 +90,19 @@
 							</div>
 						</div>
                 </div>
+
+
             </div>
         </section>
     </div>
 </div>
 <div class="fbtn-container">
-    <div class="fbtn-inner">
-        <a ui-sref="group.newPost" class="fbtn fbtn-red fbtn-lg btn-grosh-circular">
-         <span class="fbtn-ori icon">edit</span>
-         <span class="fbtn-text">Post Something!</span>
-        </a>
-    </div>
+		<div class="fbtn-inner">
+			<a class="fbtn fbtn-red fbtn-lg btn-grosh-circular" data-toggle="dropdown" aria-expanded="false"><span class="fbtn-text">Express Something!</span><span class="fbtn-ori icon">edit</span><span class="fbtn-sub icon">close</span></a>
+			<div class="fbtn-dropdown">
+				<a ng-click="showNewPost('text')" class="fbtn" href="javascript:void(0)" ><span class="fbtn-text">Text</span><span class="fa fa-pencil-square-o"></span></a>
+				<a ng-click="showNewPost('image')" class="fbtn fbtn-blue" href="javascript:void(0)"><span class="fbtn-text">Image</span><span class="fa fa-picture-o"></span></a>
+				<a ng-click="showNewPost('file')" class="fbtn fbtn-alt" href="javascript:void(0)"><span class="fbtn-text">File</span><span class="fa fa-file-o"></span></a>
+			</div>
+		</div>
 </div>

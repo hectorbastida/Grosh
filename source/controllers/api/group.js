@@ -760,7 +760,7 @@ module.exports = function(server) {
                 fs.rename(tmp_path, target_path, function(err) {
                     
                     fs.unlink(tmp_path, function(err) {
-                        Group.findById(req.query.id_group, function(err, group){
+                        Group.findById(req.params.id_group, function(err, group){
                             if (group) {
                                 group.url_front_image = "./uploads/" + nombrearchivo;
                                 group.save(function(err){
@@ -796,14 +796,14 @@ module.exports = function(server) {
             if (tipo == 'image/jpeg' || tipo=='image/png') {
                 var aleatorio = Math.floor((Math.random() * 9999999999) + 1);
                 var nombrearchivo = aleatorio + '' + files.file.name;
-
-                var target_path = path.join(__dirname, ("./../../../client/uploads/" + aleatorio));
+                
+                var target_path = path.join(__dirname, ("./../../../client/uploads/" + nombrearchivo));
                 fs.rename(tmp_path, target_path, function(err) {
                     
                     fs.unlink(tmp_path, function(err) {
-                        Group.findById(req.query.id_group, function(err, group){
+                        Group.findById(req.params.id, function(err, group){
                             if (group) {
-                                group.url_image = "./uploads/" + nombrearchivo;
+                                group.url_image = "/uploads/" + nombrearchivo;
                                 group.save(function(err){
                                     if (!err) {
                                         res.send({
@@ -815,6 +815,7 @@ module.exports = function(server) {
                                     }
                                 });
                             }else{
+                                
                                 res.send('error, group not found');
                             }
                         }); 
