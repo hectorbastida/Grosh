@@ -8,7 +8,8 @@ var fileSchema = new Schema({
     url_file     :{type:String},
     status       :{type:Boolean,required:true,default:true},
     create_date  :{type:Date,required:true},
-    answer       :{type:Array}
+    answer       :{type:Array},
+    group        :{type:String}
 });
 
 var File = mongoose.model('file', fileSchema);

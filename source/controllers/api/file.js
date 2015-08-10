@@ -158,12 +158,12 @@ module.exports = function(server) {
      *
      */
     findAllFilesGroup = function(req, res) {
-        Group.findById(req.params.idGroup, function(err, group) {
-            if(!err && group) 
-                res.send(group.file);
-            else 
-                console.log('ERROR: ' +err);
-                res.send('Sin archivos');
+        File.find({group : req.params.idGroup}, function(err, files){
+            if (!err) {
+                res.send(files);
+            }else{
+                res.send('error');
+            }
         });
     };
 
@@ -318,7 +318,8 @@ module.exports = function(server) {
                             content      :req.query.content,
                             name         :files.file.name,
                             user_creator :req.user.id,
-                            create_date  :currentdate
+                            create_date  :currentdate,
+                            group : req.query.id_group
                         });
 
                         newFile.save(function(err) {

@@ -6,7 +6,8 @@ var postSchema = new Schema({
     user_creator :{type:String,required:true},
     status       :{type:Boolean,required:true,default:true},
     create_date  :{type:Date,required:true},
-    answers      :{type:Array}
+    answers      :{type:Array},
+    group        :{type:String}
 });
 
 var Post = mongoose.model('post', postSchema);

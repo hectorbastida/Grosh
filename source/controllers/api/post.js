@@ -130,12 +130,12 @@ module.exports = function(server) {
      *
      */
     findAllPostsGroup = function(req, res) {
-        Group.findById(req.params.idGroup, function(err, group) {
-            if(!err && group) 
-                res.send(group.post);
-            else 
-                console.log('ERROR: ' +err);
-                res.send('Sin post');
+        Post.find({group : req.params.idGroup}, function(err, posts){
+            if (!err) {
+                res.send(posts);
+            }else{
+                res.send('error');
+            }
         });
     };
 
@@ -270,7 +270,8 @@ module.exports = function(server) {
         var newPost = new Post({
             content      :req.body.content,
             user_creator :req.user.id,
-            create_date  :currentdate
+            create_date  :currentdate,
+            group : req.body.id_group
         });
 
         newPost.save(function(err) {
