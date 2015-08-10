@@ -8,6 +8,7 @@ var groupSchema=new Schema({
     create_date    :{type:Date,required:true},
     status         :{type:Boolean,required:true,default:true},
     url_image      :{type:String},
+    url_front_image:{type:String},
     privileges     :{
                         type:String,
                         enum:[

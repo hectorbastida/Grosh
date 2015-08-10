@@ -1,6 +1,9 @@
 module.exports = function(server) {
     
-    var Group = require('../../models/group');
+    var Group      = require('../../models/group');
+    var Formidable = require('formidable');
+    var fs         = require('fs');
+    var path       = require("path")
     
   
     /**
@@ -742,6 +745,88 @@ module.exports = function(server) {
             });    
         });
     }
+
+    addFrontImage = function(req, res) {
+        var form = new Formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var tmp_path = files.file.path;
+            var tipo = files.file.type;
+            
+            if (tipo == 'image/jpeg' || tipo=='image/png') {
+                var aleatorio = Math.floor((Math.random() * 9999999999) + 1);
+                var nombrearchivo = aleatorio + '' + files.file.name;
+
+                var target_path = path.join(__dirname, ("./../../../client/uploads/" + aleatorio));
+                fs.rename(tmp_path, target_path, function(err) {
+                    
+                    fs.unlink(tmp_path, function(err) {
+                        Group.findById(req.query.id_group, function(err, group){
+                            if (group) {
+                                group.url_front_image = "./uploads/" + nombrearchivo;
+                                group.save(function(err){
+                                    if (!err) {
+                                        res.send({
+                                            url_front_image: group.url_front_image,
+                                        });
+                                        res.end();
+                                    }else{
+                                        res.send('error');
+                                    }
+                                });
+                            }else{
+                                res.send('error, group not found');
+                            }
+                        }); 
+                    });
+                });
+
+            } else {
+                res.send('Tipo de archivo no soportado');
+                res.end();
+            }
+        });
+    };
+
+    addURLImage = function(req, res) {
+        var form = new Formidable.IncomingForm();
+        form.parse(req, function(err, fields, files) {
+            var tmp_path = files.file.path;
+            var tipo = files.file.type;
+            
+            if (tipo == 'image/jpeg' || tipo=='image/png') {
+                var aleatorio = Math.floor((Math.random() * 9999999999) + 1);
+                var nombrearchivo = aleatorio + '' + files.file.name;
+
+                var target_path = path.join(__dirname, ("./../../../client/uploads/" + aleatorio));
+                fs.rename(tmp_path, target_path, function(err) {
+                    
+                    fs.unlink(tmp_path, function(err) {
+                        Group.findById(req.query.id_group, function(err, group){
+                            if (group) {
+                                group.url_image = "./uploads/" + nombrearchivo;
+                                group.save(function(err){
+                                    if (!err) {
+                                        res.send({
+                                            url_image: group.url_image,
+                                        });
+                                        res.end();
+                                    }else{
+                                        res.send('error');
+                                    }
+                                });
+                            }else{
+                                res.send('error, group not found');
+                            }
+                        }); 
+                    });
+                });
+
+            } else {
+                res.send('Tipo de archivo no soportado');
+                res.end();
+            }
+        });
+    };
 
     //API Routes
     server.get('/group/', server.oauth.authorise(), findAllGroups);
