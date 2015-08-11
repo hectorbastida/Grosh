@@ -830,3 +830,31 @@ a.fbtn.fbtn-red.fbtn-lg.btn-grosh-circular:active {
         padding: 20px;
     padding-bottom: 0;
 }
+
+    .image-post-upload{
+        padding: 160px;
+        padding-bottom: 0;
+            padding-top: 0;
+    }
+
+.image-post-upload img {
+    margin: auto;
+    width: 100%;
+    max-height: 500px;
+    max-width: 600px;
+}    
+
+@media screen and (max-width: 480px) {
+    .image-post-upload{
+        padding: 0!important;
+    }
+}
+@media screen and (min-width: 1024px) {
+
+}
+
+@media screen and (min-width: 481px) and (max-width: 1023px) {
+    .image-post-upload{
+        padding: 0!important;
+    }
+}

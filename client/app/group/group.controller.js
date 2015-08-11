@@ -155,8 +155,8 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 		$scope.newImage = {
 			content:''
 		}
-		$scope.addPostImage = function(){
-			 if($scope.file){
+		$scope.addPostImage = function(imagepost){
+			 if($scope.imagepost){
     			$scope.addImageGroup([$scope.imagepost]);
     		}else{
     			ngFoobar.show("info", 'Please complete image field');
