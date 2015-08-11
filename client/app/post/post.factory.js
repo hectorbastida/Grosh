@@ -16,9 +16,22 @@ var factory = function($http){
 		    return $http.post('/post/',data);
 		    
 	}
+	function addImage(content,idGroup,file){
+			var data = {
+				content:content,
+				id_group:idGroup,
+				file:file
+			}
+		    return $http.post('/image',data);
+	}
+	
 	function getByGroup(id){
 		return $http.get('/postGroup/'+id);
 	}
+	
+	function getImagesByGroup(id){
+		return $http.get('/imageGroup/'+id);
+	}	
 
     function update(post){
     	return $http.put('/post/'+post._id,{
@@ -34,6 +47,7 @@ var factory = function($http){
 	return {
 		add:add,
 		getByGroup:getByGroup,
+		getImagesByGroup:getImagesByGroup,
 		update:update,
 		remove:remove
 	}

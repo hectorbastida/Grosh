@@ -131,24 +131,13 @@ module.exports = function(server) {
      *
      */
     findAllPostsGroup = function(req, res) {
-<<<<<<< HEAD
-        Group.findById(req.params.idGroup, function(err, group) {
-            if(!err && group) {
-                res.send(group.post);
-            }
-            else {
-                console.log('ERROR: ' +err);
-                res.send('Sin post');
-            }
 
-=======
         Post.find({group : req.params.idGroup}, function(err, posts){
             if (!err) {
                 res.send(posts);
             }else{
                 res.send('error');
             }
->>>>>>> 3f8abba63f3d616676e880bada2f2c6209c3db7b
         });
     };
 
@@ -279,15 +268,7 @@ module.exports = function(server) {
      *
      */
     addPost = function(req, res) {
-<<<<<<< HEAD
-        var currentdate = new Date(); 
-        var newPost = new Post({
-            content      :req.body.content,
-            user_creator :req.user.id,
-            create_date  :currentdate,
-            group:req.body.id_group
-        });
-=======
+
         userCreator = User.findById(req.user.id, function(err, user){
             if (user) {
                 user_creator = new User({
@@ -295,10 +276,7 @@ module.exports = function(server) {
                                     'name' : user.name,
                                     'last_name' : user.last_name,
                                     'url_image' : user.url_image
-                                });
->>>>>>> 3f8abba63f3d616676e880bada2f2c6209c3db7b
-
-
+                            });
                 var newPost = new Post({
                     content      :req.body.content,
                     user_creator : user_creator,

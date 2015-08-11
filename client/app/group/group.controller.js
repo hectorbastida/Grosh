@@ -1,4 +1,3 @@
-var toastr = require("toastr")
 
 /*
 This array contains the name of the injected dependencies, this is for minification purposes
@@ -16,6 +15,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 	$scope.isAdmin = false;
     $scope.back = ''
 	$scope.posts = [];
+	$scope.images = [];
 	init();
 	function init(){
 	if($stateParams.group){
@@ -31,6 +31,14 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			postService.getByGroup($scope.currentGroup._id)
 			.then(function(response){
 				$scope.posts = response.data;
+
+			})	
+			.catch(function(response){
+				
+			})
+			postService.getImagesByGroup($scope.currentGroup._id)
+			.then(function(response){
+				$scope.images = response.data;
 			})
 			.catch(function(response){
 				
@@ -101,7 +109,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 				console.error(response.data)
 			})
 		}else{
-			ngFoobar.show("info", 'Please complete iamge url field');
+			ngFoobar.show("info", 'Please complete image url field');
 		}
 	}
 
@@ -143,14 +151,51 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
             }
         }
     };
-
-
-
+		
+		$scope.newImage = {
+			content:''
+		}
+		$scope.addPostImage = function(){
+			 if($scope.file){
+    			$scope.addImageGroup([$scope.imagepost]);
+    		}else{
+    			ngFoobar.show("info", 'Please complete image field');
+    		}
+		}
+	    $scope.addImageGroup = function (files) {
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                Upload.upload({
+                	method: 'POST',
+                    url: '/image',
+                    file: file,
+                    params:{
+                    	content:$scope.newImage.content,
+						id_group:$scope.currentGroup._id,
+                    }
+                }).progress(function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    $scope.log = 'progress: ' + progressPercentage + '% ' +
+                                evt.config.file.name + '\n' + $scope.log;
+                               // console.log($scope.log);
+                }).success(function (data, status, headers, config) {
+                    $timeout(function() {
+                        $scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
+                     //   console.log(data)
+                     $state.go('group',{group:$scope.groupId},{reload: true})
+                    });
+                }).error(function (data, status, headers, config) {
+                    console.log('error status: ' + status);
+                })
+            }
+        }
+    };
 	$scope.showNewPost = function(postType){
 		if(postType === 'text'){
 			$state.go('group.newPost');
 		}else if(postType === 'image'){
-			
+			$state.go('group.newImage');
 		}else if(postType === 'file'){
 			
 		}

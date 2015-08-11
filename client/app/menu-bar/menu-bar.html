@@ -83,7 +83,9 @@
         </div>
     </nav>
     <nav class="menu menu-right chat-menu"  ng-class="{'open':sideChatOpen}" ng-class="menuBarActive()">
-		<div class="menu-scroll chat-content" id="chat-container" click-outside="closeThis2()" outside-if-not="chat-button">
+		<div class="menu-scroll chat-content" id="chat-container">
+		<!--div class="menu-scroll chat-content" id="chat-container" click-outside="closeThis2()" outside-if-not="chat-button"-->
+
 			<div class="menu-wrap" ng-show="false">
 				<div class="chat-search" >
                     <div class="row">
@@ -112,8 +114,11 @@
 				    <div class="menu-top-info-sub sender-reciber">
                         <small>Hector Bastida</small>
                     </div>
-                    <div class="menu-top-info-sub sender-back">
+                    <div class="menu-top-info-sub sender-back" style="float:left">
                         <a class="" href="javascript:void(0)"><span class="icon icon-2x">arrow_back</span></a>
+                    </div>
+                    <div class="menu-top-info-sub sender-back" style="float:right">
+                        <a class="" ng-click="closeChat()" href="javascript:void(0)"><span class="icon icon-2x">close</span></a>
                     </div>
 				</div>
 				<div class="menu-content chat-messages">

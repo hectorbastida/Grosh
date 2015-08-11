@@ -1,14 +1,13 @@
-var toastr = require("toastr")
 
 /*
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$scope','userService','loginService'];
+	'$scope','userService','loginService','ngFoobar'];
 /*
 The controller's functionality
 */
-var controller = function($scope,userService,loginService){
+var controller = function($scope,userService,loginService,ngFoobar){
 	var html = document.querySelector('html');
 	html.id = 'home'
 	$scope.user = '';
@@ -20,28 +19,13 @@ var controller = function($scope,userService,loginService){
 		   console.error('error'); 
 		   console.info(data); 
 		});
-toastr.options = {
-  "closeButton": false,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": false,
-  "positionClass": "toast-bottom-full-width",
-  "preventDuplicates": true,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "1000",
-  "timeOut": "2000",
-  "extendedTimeOut": "500",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}
+
 	$scope.updateUser = function(){
 		userService.update($scope.user)
 		.success(function(data, status, headers, config) {
-      		  $scope.user = data;
-      		  toastr.success('Your information was updated successfully!')
+       $scope.user = data;
+       				ngFoobar.show("success", 'Your Information Was Updated');
+
 		})
 		.error(function(data, status, headers, config) {
 		   console.error('error'); 

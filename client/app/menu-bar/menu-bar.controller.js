@@ -31,8 +31,13 @@ var controller = function($scope,$state,loginService,$rootScope){
 
       if($scope.sideChatOpen){
         $scope.sideChatOpen = false;
-                $scope.$apply();
-
+        $scope.$apply();
+      } 
+    }
+    
+    $scope.closeChat = function(){
+      if($scope.sideChatOpen){
+        $scope.sideChatOpen = false;
       } 
     }
     $scope.menuBarActive = function(){
