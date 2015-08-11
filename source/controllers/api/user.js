@@ -2,7 +2,6 @@ module.exports = function(server) {
 
     var User = require('../../models/user');
 
-
     /**
      * @api {get} /user/ Return a list of users
      * @apiVersion 1.0.0
@@ -224,6 +223,25 @@ module.exports = function(server) {
                 res.send(user);
             else
                 console.log('ERROR: ' + err);
+        });
+    };
+
+    findByName = function(req, res) {
+        User.find(
+            {$or:[
+                {'name' : new RegExp('^'+req.params.name+'', "i")},
+                {'name' : new RegExp(''+req.params.name+'$', "i")},
+                {'last_name' : new RegExp('^'+req.params.name+'', "i")},
+                {'last_name' : new RegExp(''+req.params.name+'$', "i")},
+                {'email': new RegExp('^'+req.params.name+'', "i")},
+                {'email': new RegExp(''+req.params.name+'$', "i")}
+            ]}, function(err, users) {
+            if (!err){
+                res.send(users);
+            }else{
+                console.log('ERROR: ' + err);
+                res.send('error');
+            }
         });
     };
 
@@ -677,6 +695,7 @@ module.exports = function(server) {
     //API Routes
     server.get('/user', server.oauth.authorise(), findAllUsers);
     server.get('/user/:id', server.oauth.authorise(), findByID);
+    server.get('/userName/:name', server.oauth.authorise(), findByName);
     server.post('/user', addUser);
     server.put('/user/:id', server.oauth.authorise(), updateUser);
     server.patch('/userImage/:id/', server.oauth.authorise(), addURLImage);

@@ -4,8 +4,7 @@ module.exports = function(server, io){
 	require('./image')(server);
 	require('./file')(server);
 	require('./group')(server);
-	require('./invitation')(server, io);
-	require('./request')(server, io);
+	require('./notification')(server, io);
 	require('./chat')(server, io);
 
 	//connection with fb, twitter, google.
