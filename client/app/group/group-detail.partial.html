@@ -42,8 +42,7 @@
 					</div>
 			</div>
             <div class="card-wrap ">
-
-                 <div class="row" ng-repeat="post in posts.slice().reverse()" >
+                <div class="row" ng-repeat="post in posts.slice().reverse()" >
                         <div class="col-lg-6 col-md-6 col-sm-6 col-post">
 							<div class="card">
 								<div class="card-main">
@@ -53,12 +52,17 @@
 												<img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
 											</div>
 										</div>
-										<div class="card-inner">
+										<div  class="card-inner">
 											<span>{{ post.user_creator.name + ' '+ post.user_creator.last_name}}</span>
 										</div>
 									</div>
-
-									<div class="card-inner">
+									<div ng-show="post.postType === 'file'" class="card-file">
+										<a ng-href="/uploads/{{post.url_file}}" target="_blank"><span class="icon margin-right-sm icon-2x">attach_file</span>&nbsp;{{post.name}}</a>
+									</div>
+									<div ng-show="post.url_image" class="card-img img-group">
+										<img alt="alt text" ng-src="/uploads/{{post.url_image}}">
+									</div>
+									<div ng-show="post.content" class="card-inner">
 										<p>
 											{{post.content}}
 										</p>
@@ -90,8 +94,6 @@
 							</div>
 						</div>
                 </div>
-
-
             </div>
         </section>
     </div>

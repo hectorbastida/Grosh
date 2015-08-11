@@ -5,6 +5,7 @@ module.exports = function(server) {
     var Formidable = require('formidable');
     var fs         = require('fs');
     var path       = require("path")
+    var User = require('../../models/user');
 
 
     /**
