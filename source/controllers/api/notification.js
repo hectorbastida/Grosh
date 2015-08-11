@@ -80,10 +80,76 @@ module.exports = function(server, io){
         });
     };
 
+    /*
+        params:
+            @ idNotification
+    */
+    acceptInvitation = function(req, res) {
+        Notification.findById(req.body.idNotification, function(err, notification){
+            if (notification) {
+                notification.status = 'Aceptada';
+                notification.save(function(err){
+                    if (err) {
+                        res.send('error, notification not updated');
+                    }else{
+                        Group.findById(notification.id_group, function(err, group){
+                            if (group) {
+                                group.members.push(notification.to_user);
+                                group.save(function(err){
+                                    if (err) {
+                                        res.send('user not added to group');
+                                    }else{
+                                        res.send('added');
+                                    }
+                                });
+                            }else{
+                                res.send('error, group not found');
+                            }
+                        });
+                    }
+                });
+            }else{
+                res.send('error, notification not found');
+            }
+        });
+    };
+
+    acceptRequest = function(req, res) {
+        Notification.findById(req.body.idNotification, function(err, notification){
+            if (notification) {
+                notification.status = 'Aceptada';
+                notification.save(function(err){
+                    if (err) {
+                        res.send('error, notification not updated');
+                    }else{
+                        Group.findById(notification.id_group, function(err, group){
+                            if (group) {
+                                group.members.push(notification.from_user);
+                                group.save(function(err){
+                                    if (err) {
+                                        res.send('user not added to group');
+                                    }else{
+                                        res.send('added');
+                                    }
+                                });
+                            }else{
+                                res.send('error, group not found');
+                            }
+                        });
+                    }
+                });
+            }else{
+                res.send('error, notification not found');
+            }
+        });
+    };
+
 
     //API Routes
     server.get('/notification/', server.oauth.authorise(), findNotifications);
     server.get('/notification/:id', server.oauth.authorise(), findByID);
     server.post('/invitation/', server.oauth.authorise(), addInvitation);
     server.post('/request/', server.oauth.authorise(), addRequest);
+    server.patch('/acceptInvitation/', server.oauth.authorise(), acceptInvitation);
+    server.patch('/acceptRequest/', server.oauth.authorise(), acceptInvitation);
 }
