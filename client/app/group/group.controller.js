@@ -14,11 +14,12 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 	$scope.groupId = '';
 	$scope.isAdmin = false;
     $scope.back = ''
+    $scope.aux = [];
 	$scope.posts = [];
 	$scope.images = [];
 	$scope.files = [];
-	init();
-	function init(){
+	
+	$scope.init = function(){
 	if($stateParams.group){
 		$scope.groupId = $stateParams.group;
 		groupService.get($stateParams.group)
@@ -31,9 +32,9 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			}
 			postService.getByGroup($scope.currentGroup._id)
 			.then(function(response){
-				$scope.posts = response.data;
-				for(var i=0;i<$scope.posts.length;i++){
-					$scope.posts[i].postType = 'text'
+				$scope.aux = response.data;
+				for(var i=0;i<$scope.aux.length;i++){
+					$scope.aux[i].postType = 'text'
 				}	
 				
 					postService.getImagesByGroup($scope.currentGroup._id)
@@ -41,7 +42,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 						$scope.images = response.data;
 						for(var i=0;i<$scope.images.length;i++){
 							$scope.images[i].postType = 'image'
-							$scope.posts.push($scope.images[i]);
+							$scope.aux.push($scope.images[i]);
 						}
 						
 							postService.getFilesByGroup($scope.currentGroup._id)
@@ -49,12 +50,12 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 								$scope.files = response.data;
 								for(var i=0;i<$scope.files.length;i++){
 									$scope.files[i].postType = 'file'
-									$scope.posts.push($scope.files[i]);
+									$scope.aux.push($scope.files[i]);
 								}
-								console.info($scope.posts)
-								$scope.posts.sort(function(a,b){
+								$scope.aux.sort(function(a,b){
 								  return new Date(a.create_date) - new Date(b.create_date);
 								});
+								$scope.posts = $scope.aux;
 							})
 							.catch(function(response){
 								
@@ -78,6 +79,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 		})
 	}
 }
+	$scope.init();
 	$scope.group = {
 		name:'',
 		description:''
@@ -274,6 +276,92 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
             }
         }
     };
+    
+    
+    
+    
+    
+    
+    $scope.hasPermits = function(post){
+    	var postUser = post.user_creator;
+    	if(postUser.id === loginService.getLoggedUser()._id || $scope.isAdmin){
+    		return true;
+    	}
+    	return false;
+    }
+    $scope.deletePost = function(post){
+    	if(post.postType === 'text'){
+    		postService.remove(post._id)
+    		.then(function(response){
+    			console.log('imhere')
+    			$scope.init();
+    		})
+    	}else if(post.postType === 'image'){
+    		postService.removeImage(post._id)
+    		.then(function(response){
+    			$scope.init();
+    		})
+    		
+    	}else if(post.postType === 'file'){
+    		postService.removeFile(post._id)
+    		.then(function(response){
+    			$scope.init();
+    		})    		
+    	}
+    }
+    
+    
+    $scope.activePost = '';
+    $scope.postAnswerActive = function(post){
+    	if(!$scope.activePost){
+    		return false;
+    	}else 
+    	if(post._id === $scope.activePost._id){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    	
+    }
+    
+    $scope.setActivePost  = function(post){
+    	if(post._id===$scope.activePost._id){
+    		$scope.activePost = '';
+    	}else{
+    		$scope.activePost = post;
+    	}
+    	
+    }
+    
+    $scope.addAnswer = function(post){
+    	console.log(post.newAnswer)
+    	if(post.newAnswer){
+    		var answerObject = {
+    			content:post.newAnswer,
+    			date:new Date(),
+    			user:loginService.getLoggedUser().name + ' ' + loginService.getLoggedUser().lastName
+    		}
+	    	if(post.postType === 'text'){
+	    		postService.addTextAnswer(post._id,answerObject)
+	    		.then(function(response){
+	    			$scope.init();
+	    		})
+	    	}else if(post.postType === 'image'){
+	    		postService.addImageAnswer(post._id,answerObject)
+	    		.then(function(response){
+	    			$scope.init();
+	    		})
+	    		
+	    	}else if(post.postType === 'file'){
+	    		postService.addFileAnswer(post._id,answerObject)
+	    		.then(function(response){
+	    			$scope.init();
+	    		})    		
+	    	}
+    	}else{
+    		ngFoobar.show("info", 'Please complete Answer Field');
+    	}
+    }
     
 	$scope.showNewPost = function(postType){
 		if(postType === 'text'){

@@ -11,7 +11,7 @@ var controller = function($scope,$state,loginService,$rootScope){
     $scope.user = loginService.getLoggedUser();
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams,fromState,fromParams){
-        if(toState.name !== 'group.newPost' && toState.name !== 'group.newImage'){
+        if(toState.name !== 'group.newPost' || toState.name !== 'group.newImage' || toState.name !== 'group.newFile'){
             window.scrollTo(0,0);
         }
     });

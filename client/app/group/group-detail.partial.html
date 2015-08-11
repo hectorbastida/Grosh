@@ -67,24 +67,38 @@
 											{{post.content}}
 										</p>
 									</div>
+									<div  class="card-inner card-answers" ng-show="postAnswerActive(post)" >
+										
+										<div class="answer-container" ng-repeat="answer in post.answer">
+											<div class="answer-content">{{answer.user}}</div>{{': '+ answer.content + ' - ' + answer.date}}
+										</div>
+									</div>
+									<div  ng-show="postAnswerActive(post)" class="card-answers-write">
+										<input ng-click="addAnswer(post)" type="button" value="Answer" class="btn btn-answer" style="float: right" />
+										<div style="overflow: hidden; padding-right: .5em;">
+										   <textarea  ng-model="post.newAnswer" style="width: 100%;" class="text-write" />
+										</div>						
+										
+										</div>
+		
 									<div class="card-action">
 										<ul class="nav nav-list pull-left">
 											<li>
-												<a href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">{{post.answers.length}} Answers</span></a>
+												<a ng-click="setActivePost(post)" href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">{{post.answer.length}} Answers</span></a>
 											</li>
 										</ul>
-										<ul class="nav nav-list pull-right">
+										<ul  ng-show="hasPermits(post)" class="nav nav-list pull-right">
 											<li class="dropdown">
 												<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">keyboard_arrow_down</span></a>
 												<ul class="dropdown-menu">
-													<li>
+													<!--li>
 														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_1</span>&nbsp;Lorem Ipsum</a>
 													</li>
 													<li>
 														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_2</span>&nbsp;Consectetur Adipiscing</a>
-													</li>
+													</li-->
 													<li>
-														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_3</span>&nbsp;Sed Ornare</a>
+														<a ng-click="deletePost(post)" href="javascript:void(0)"><span class="icon margin-right-sm">delete</span>&nbsp;Delete</a>
 													</li>
 												</ul>
 											</li>

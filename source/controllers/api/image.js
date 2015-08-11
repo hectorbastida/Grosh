@@ -445,7 +445,20 @@ module.exports = function(server) {
             res.send(image);
         });
     };
+    
+    updateImageAnswer = function(req, res) {
+        Image.findById(req.params.id, function(err, image) {
+            image.answer.push(req.body.answer);
+            image.save(function(err) {
+                if (!err)
+                    console.log("Image Successfully Updated");
+                else
+                    console.log('ERROR: ' + err);
 
+            });
+            res.send(image);
+        });
+    };
     /**
      * @api {delete} /image/:id Delete a specific Image
      * @apiVersion 1.0.0
@@ -501,10 +514,12 @@ module.exports = function(server) {
     deleteImage = function(req, res) {
         Image.findById(req.params.id, function(err, image) {
             image.remove(function(err) {
-                if (!err)
+                if(!err){
                     console.log('Image Successfully Deleted');
-                else
-                    console.log('ERROR: ' + err);
+                    res.send('Image Successfully Deleted');
+                }else {
+                    console.log('ERROR: ' +err); 
+                }
             });
         });
     }
@@ -515,5 +530,6 @@ module.exports = function(server) {
     server.get('/image/:id', server.oauth.authorise(), findByID);
     server.post('/image', server.oauth.authorise(), addImage);
     server.put('/image/:id', server.oauth.authorise(), updateImage);
+    server.put('/imageAnswer/:id', server.oauth.authorise(), updateImageAnswer);
     server.delete('/image/:id', server.oauth.authorise(), deleteImage);
 }

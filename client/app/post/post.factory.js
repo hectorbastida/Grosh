@@ -45,14 +45,35 @@ var factory = function($http){
 	function remove(id){
 		return $http.delete('/post/'+id);
 	}
-
+	function removeImage(id){
+		return $http.delete('/image/'+id);
+	}
+	function removeFile(id){
+		return $http.delete('/file/'+id);
+	}	
+	function addFileAnswer(id,answer){
+		 return $http.put('/fileAnswer/'+id,{answer:answer});
+	}
+	function addImageAnswer(id,answer){
+		 return $http.put('/imageAnswer/'+id,{answer:answer});
+	}	
+	
+	function addTextAnswer(id,answer){
+		 return $http.put('/textAnswer/'+id,{answer:answer});
+	}	
+	
 	return {
 		add:add,
 		getByGroup:getByGroup,
 		getImagesByGroup:getImagesByGroup,
 		getFilesByGroup:getFilesByGroup,
 		update:update,
-		remove:remove
+		remove:remove,
+		removeImage:removeImage,
+		removeFile:removeFile,
+		addFileAnswer:addFileAnswer,
+		addImageAnswer:addImageAnswer,
+		addTextAnswer:addTextAnswer
 	}
 }
 

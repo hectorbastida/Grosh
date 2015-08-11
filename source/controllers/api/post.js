@@ -390,6 +390,20 @@ module.exports = function(server) {
             res.send(post);
         });
     };
+    
+    updatePostAnswers = function(req, res) {
+        Post.findById(req.params.id, function(err, post) {
+            post.answer.push(req.body.answer);
+            post.save(function(err) {
+                if(!err) 
+                    console.log("Post Successfully Updated");
+                else 
+                    console.log('ERROR: ' +err); 
+                
+            });
+            res.send(post);
+        });
+    };
 
     /**
      * @api {delete} /post/:id Delete a specific Post
@@ -446,10 +460,13 @@ module.exports = function(server) {
     deletePost = function(req, res) {
         Post.findById(req.params.id, function(err, post) {
             post.remove(function(err) {
-                if(!err) 
+                if(!err){
                     console.log('Post Successfully Deleted');
-                else 
-                    console.log('ERROR: ' +err);  
+                    res.send('Post Successfully Deleted');
+                }else {
+                    console.log('ERROR: ' +err); 
+                }
+                     
             });    
         });
     }
@@ -460,5 +477,6 @@ module.exports = function(server) {
     server.get('/post/:id', server.oauth.authorise(), findByID);
     server.post('/post', server.oauth.authorise(), addPost);
     server.put('/post/:id', server.oauth.authorise(), updatePost);
+    server.put('/textAnswer/:id', server.oauth.authorise(), updatePostAnswers);
     server.delete('/post/:id', server.oauth.authorise(), deletePost);
 }
