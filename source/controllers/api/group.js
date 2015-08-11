@@ -332,6 +332,49 @@ module.exports = function(server) {
         });
     };
 
+    /*
+        params:
+            @id_group
+            @id_user
+    */
+    addUserToGroup = function(req, res) {
+        Group.findById(req.body.id_group, function(err, group){
+            if (group) {
+                group.members.push(req.body.id_user);
+                group.save(function(err){
+                    if (err) {
+                        res.send('error');
+                    }else{
+                        res.send('added');
+                    }
+                });
+            }else{
+                res.send('group not found');
+            }
+        });
+    };
+
+    /*
+        params:
+            @id_group
+    */
+    addMeToGroup = function(req, res) {
+        Group.findById(req.body.id_group, function(err, group){
+            if (group) {
+                group.members.push(req.user.id);
+                group.save(function(err){
+                    if (err) {
+                        res.send('error');
+                    }else{
+                        res.send('added');
+                    }
+                });
+            }else{
+                res.send('group not found');
+            }
+        });
+    };
+
     /**
      * @api {get} /personalUserGroup/:idUser Gets the personal Group of a User.
      * @apiVersion 1.0.0
@@ -839,5 +882,7 @@ module.exports = function(server) {
     server.post('/group/', server.oauth.authorise(), addGroup);
     server.put('/group/:id/', server.oauth.authorise(), updateGroup);
     server.patch('/group/:id/', server.oauth.authorise(), addURLImage);
+    server.patch('/addUserGroup/', server.oauth.authorise(), addUserToGroup);
+    server.patch('/addMeGroup/', server.oauth.authorise(), addMeToGroup);
     server.delete('/group/:id', server.oauth.authorise(), deleteGroup);
 }
