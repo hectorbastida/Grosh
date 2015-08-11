@@ -40,9 +40,9 @@
             </li>
             <li>
                 <!--a data-toggle="menu" href="#profile"-->
-                <a>
+                <a ui-sref="profile({profile:currentUser._id})">
                     <span class="access-hide">{{user.name + ' '+ user.lastName}}</span>
-                    <span class="avatar avatar-grosh"><img alt="alt text" src="images/users/avatar-001.jpg"></span>
+                    <span class="avatar avatar-grosh"><img alt="alt text" ng-src="{{currentUser.url_image}}"></span>
                 </a>
             </li>
         </ul>
@@ -55,7 +55,7 @@
                         <img alt="John Smith" src="images/samples/landscape.jpg">
                     </div>
                     <div class="menu-top-info">
-                        <a class="menu-top-user" href="javascript:void(0)"><span class="avatar pull-left"><img alt="alt text for John Smith avatar" src="images/users/avatar-001.jpg"></span>{{user.name + ' '+ user.lastName}}</a>
+                        <a class="menu-top-user"  ui-sref="profile({profile:currentUser._id})" href="javascript:void(0)"><span class="avatar pull-left"><img alt="alt text for avatar" ng-src="{{currentUser.url_image}}"></span>{{user.name + ' '+ user.lastName}}</a>
                     </div>
                     <div class="menu-top-info-sub">
                         <small>{{user.email}}</small>

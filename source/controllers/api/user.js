@@ -1,7 +1,9 @@
 module.exports = function(server) {
 
     var User = require('../../models/user');
-
+    var Formidable = require('formidable');
+    var fs         = require('fs');
+    var path       = require("path")
     /**
      * @api {get} /user/ Return a list of users
      * @apiVersion 1.0.0
@@ -620,13 +622,13 @@ module.exports = function(server) {
                 var aleatorio = Math.floor((Math.random() * 9999999999) + 1);
                 var nombrearchivo = aleatorio + '' + files.file.name;
 
-                var target_path = path.join(__dirname, ("./../../../client/uploads/" + aleatorio));
+                var target_path = path.join(__dirname, ("./../../../client/uploads/" + nombrearchivo));
                 fs.rename(tmp_path, target_path, function(err) {
                     
                     fs.unlink(tmp_path, function(err) {
                         User.findById(req.user.id, function(err, user){
                             if (user) {
-                                user.url_front_image = "./uploads/" + nombrearchivo;
+                                user.url_front_image = "/uploads/" + nombrearchivo;
                                 user.save(function(err){
                                     if (!err) {
                                         res.send({
@@ -661,13 +663,13 @@ module.exports = function(server) {
                 var aleatorio = Math.floor((Math.random() * 9999999999) + 1);
                 var nombrearchivo = aleatorio + '' + files.file.name;
 
-                var target_path = path.join(__dirname, ("./../../../client/uploads/" + aleatorio));
+                var target_path = path.join(__dirname, ("./../../../client/uploads/" + nombrearchivo));
                 fs.rename(tmp_path, target_path, function(err) {
                     
                     fs.unlink(tmp_path, function(err) {
                         User.findById(req.user.id, function(err, user){
                             if (user) {
-                                user.url_image = "./uploads/" + nombrearchivo;
+                                user.url_image = "/uploads/" + nombrearchivo;
                                 user.save(function(err){
                                     if (!err) {
                                         res.send({

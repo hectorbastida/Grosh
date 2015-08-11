@@ -370,10 +370,8 @@ header{
 }
 
 .profile-header-container{
-      padding-top: 110px;
-      margin-bottom: -20px;
-          position: absolute;
-    left: 200px;
+position: absolute;
+    left: 220px;
     bottom: 104px;
 }
 
@@ -395,17 +393,18 @@ header{
 
 
 .profile-image{
- /* border-radius: 50%;*/
- /* position:absolute;*/
-  z-index:9;
-  margin: 0 auto;
-  top:165px;
-  right:20px;
-  height: 180px;
-      float: left;
+    /* border-radius: 50%; */
+    /* position: absolute; */
+    z-index: 9;
+    margin: 0 auto;
+    top: 165px;
+    right: 20px;
+    height: 200px;
+    width: 200px;
+    float: left;
     /* padding: 200px; */
     /* margin-bottom: 20px; */
-    margin-top: -160px;
+    margin-top: -110px;
     border: 6px solid #fff;
     margin-left: 20px;
 }
@@ -414,22 +413,35 @@ header{
   margin-top:60px;
 }
 
-
-
+.main-profile{
+        background-color: transparent!important;
+}
+.fixed-profile{
+    position: fixed;
+    right: 0;
+    /* top: 50%; */
+    /* left: 50%; */
+    margin-left: -400px;
+    z-index: 999;
+}
 @media screen and (max-width: 480px) {
   .profile-image {
-    top: 200px;
+    top: 180px;
     right: 20px;
-    height: 130px;
+    height: 180px;
+    width: 180px;
     left:0;
 
   }
   .profile-title{
-    font-size: 24px;
+    font-size: 28px;
+    margin-left: 20px;
   }
   
   .profile-header-container{
     left: 150px;
+    bottom: 0;
+    left: 0;
 }
   
   .home-logo{

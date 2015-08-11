@@ -5,6 +5,7 @@ require('angular-animate');
 require("angular-ui-router-anim-in-out")
 var ngUpload = require('ng-file-upload');
 
+
 var user = require('./user/user.module');
 var menuBar = require('./menu-bar/menu-bar.module');
 var login = require('./login/login.module');

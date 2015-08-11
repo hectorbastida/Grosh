@@ -44,7 +44,6 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 							$scope.images[i].postType = 'image'
 							$scope.aux.push($scope.images[i]);
 						}
-						
 							postService.getFilesByGroup($scope.currentGroup._id)
 							.then(function(response){
 								$scope.files = response.data;
@@ -143,7 +142,12 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			ngFoobar.show("info", 'Please complete image url field');
 		}
 	}
-
+       $scope.hasPermits = function(){
+               if($scope.currentGroup.administrators[0] === loginService.getLoggedUser()._id){
+                 return false;
+               }
+                return true;
+       }
 
 ///////////ng-file-upload
 

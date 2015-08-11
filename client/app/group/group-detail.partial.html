@@ -9,6 +9,7 @@
         <div class="container profile-header-container-group" >
             <h2 class="heading profile-title ">{{currentGroup.name}}</h2>
         </div>
+        <a ng-show="!isAdmin" ng-click="joinGroup()" class="btn waves-attach waves-button waves-effect fixed-profile">Join Group</a>
     </div>        
 
     <div class="container group-detail">  
