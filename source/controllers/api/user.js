@@ -2,7 +2,6 @@ module.exports = function(server) {
 
     var User = require('../../models/user');
 
-
     /**
      * @api {get} /user/ Return a list of users
      * @apiVersion 1.0.0

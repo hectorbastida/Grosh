@@ -1,11 +1,12 @@
 var mongoose = require('../connections/mongoose');
 var Schema   = mongoose.Schema;
 
-var requestSchema = new Schema({
+var notificationSchema = new Schema({
     id_group       :{type:String,required:true},
     from_user      :{type:String,required:true},
     to_user        :{type:String},
     create_date    :{type:Date,required:true},
+    type           :{type:String},
     status         :{
                         type:String,
                         enum:[
@@ -13,10 +14,11 @@ var requestSchema = new Schema({
                             'Aceptada',
                             'Declinada'
                         ],
-                        required:true
+                        required:true,
+                        default: 'En espera'
                     }
 });
 
-var Request = mongoose.model('request',requestSchema);
+var Notification = mongoose.model('notification',notificationSchema);
 
-module.exports = Request;
+module.exports = Notification;
