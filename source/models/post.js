@@ -13,7 +13,7 @@ var postSchema = new Schema({
     },
     status       :{type:Boolean,required:true,default:true},
     create_date  :{type:Date,required:true},
-    answers      :{type:Array},
+    answer       :{type:Array},
     group        :{type:String}
 });
 
