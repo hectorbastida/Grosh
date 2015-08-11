@@ -567,7 +567,7 @@ html{
 
 
 .chat-search{
-    margin-top:10px;
+  /*  margin-top:10px;*/
     border: 2px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -895,7 +895,7 @@ a.fbtn.fbtn-red.fbtn-lg.btn-grosh-circular:active {
 }
 
 .card-answers-write {
-    background-color: rgba(32, 178, 170, 0.83);
+        background-color: rgb(0, 210, 191);
 }
 
 

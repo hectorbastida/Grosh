@@ -14,6 +14,11 @@
         </ul>
         <!--a class="header-logo" href="index.html">Home</a-->
         <ul class="nav nav-list pull-right">
+            <li class=" icon-menu">
+                <a ui-sref="search"  id="chat-button" href="javascript:void(0)">
+                    <span class="icon icon-lg">search</span>
+                </a>
+            </li>
             <li class="dropdown icon-menu">
                 <a class="dropdown-toggle " data-toggle="dropdown"><span class="icon icon-lg">notifications_none</span></a>
                 <ul class="dropdown-menu">
@@ -87,6 +92,9 @@
 		<!--div class="menu-scroll chat-content" id="chat-container" click-outside="closeThis2()" outside-if-not="chat-button"-->
 
 			<div class="menu-wrap" >
+			     <div class="menu-top-info-sub sender-back" style="background-color: #009688;">
+                        <a style="float:right;position: relative;top: -15px;" class="" ng-click="closeChat()" href="javascript:void(0)"><span class="icon icon-2x" style="text-shadow:none!important">close</span></a>
+                </div>
 				<div class="chat-search" >
                     <div class="row">
 						<div class="col-lg-6 col-sm-8">

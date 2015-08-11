@@ -13,8 +13,9 @@ var profile = require('./profile/profile.module');
 var group = require('./group/group.module');
 var post = require('./post/post.module');
 var ngFoobar = require('ng-foobar');
+var search = require('./search/search.module');;
 
-var Grosh = angular.module('grosh',['ngAnimate','ngFoobar','ngFileUpload','ui.router','menuBar','user','login','home','profile', 'group','post','LocalStorageModule','anim-in-out']);
+var Grosh = angular.module('grosh',['ngAnimate','ngFoobar','ngFileUpload','ui.router','menuBar','user','login','home','profile', 'group','post','LocalStorageModule','anim-in-out','search']);
 
 Grosh.run(['$rootScope', '$state','loginService', function($rootScope, $state,loginService) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams){
@@ -109,6 +110,15 @@ Grosh.config([
 				      id:'home'
 				    }		           
 		        })
+		        .state('search', {
+		            url: '/search?query',
+		            templateUrl: './app/search/search.partial.html',
+		            controller: 'searchController',
+				    data: {
+				      requireLogin: true,
+				      id:'home'
+				    }		           
+		        })		        
 		        .state('group.newPost', {
 		            url: '/newPost',
 		            templateUrl: './app/post/post.partial.html',

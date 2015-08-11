@@ -1,0 +1,75 @@
+<div class="content m-main ">
+    <div class="content-heading ">
+        <div class="container">
+            <h2 class="heading">Search</h2>
+        </div>
+    </div>
+    <div class="container">
+        <section class="content-inner">
+            <div class="card-wrap">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-card-form">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="">
+                                    <div class="card-inner">
+                                        <p>
+                                            Here you can search for a group or user!.
+                                        </p>
+                                        <form class="form ng-pristine ng-valid">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-2 col-md-3 col-sm-4">
+                                                        <label class="form-label" for="input-name">Group/User Name</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-8 col-sm-8">
+                                                        <input ng-model="group.name" class="form-control ng-pristine ng-valid" id="input-name" type="name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group-btn" style="float:right">
+                                                <a ui-sref="home" class="btn waves-attach waves-button waves-effect" href="#/home">Cancel</a>                                                
+                                                <button ng-click="createGroup()" class="btn btn-blue waves-attach waves-button waves-light waves-effect btn-grosh" type="submit">Search Now!</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 ng-show="results" class="content-sub-heading">Results</h2>
+            <div class="card-wrap">
+                <div class="row">
+                    <div ng-repeat="result in results.slice().reverse().slice(0,9)" class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="">
+                                    <div class="card-img group-card" ng-style="getUrlByGroup(group)">
+                                        <p class="card-img-heading">{{result.name}}</p>
+                                    </div>
+                                    <div class="card-inner group-inner">
+                                        <p>
+                                            {{result.description}}
+                                        </p>
+                                    </div>
+                                    <ul class="nav nav-list options-card pull-right">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">more_vert</span></a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a ui-sref="group({group:group._id})" href="javascript:void(0)"><span class="icon margin-right-sm">details</span>&nbsp;View</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
