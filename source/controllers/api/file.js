@@ -5,7 +5,7 @@ module.exports = function(server) {
     var Formidable = require('formidable');
     var fs         = require('fs');
     var path       = require("path")
-     
+    var User = require('../../models/user');
 
      /**
      * @api {get} /file/ Return a list of files
@@ -297,12 +297,11 @@ module.exports = function(server) {
      *
      */
     addFile = function(req, res) {
-
+        
         var form = new Formidable.IncomingForm(); // parse a file upload
         form.parse(req, function(err, fields, files) {
             var tmp_path = files.file.path; //ruta del archivo
             var tipo = files.file.type; //tipo del archivo
-            
             if (tipo == 'application/pdf' || tipo == 'application/zip' || 
                 tipo == 'application/x-rar' || tipo=='video/mp4') {
                 
@@ -326,7 +325,8 @@ module.exports = function(server) {
                                     name         :files.file.name,
                                     user_creator :user_creator,
                                     create_date  :new Date(),
-                                    group : req.query.id_group
+                                    group : req.query.id_group,
+                                    url_file:nombrearchivo
                                 });
 
                                 newFile.save(function(err) {
