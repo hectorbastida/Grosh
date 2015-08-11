@@ -16,6 +16,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
     $scope.back = ''
 	$scope.posts = [];
 	$scope.images = [];
+	$scope.files = [];
 	init();
 	function init(){
 	if($stateParams.group){
@@ -33,26 +34,44 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 				$scope.posts = response.data;
 				for(var i=0;i<$scope.posts.length;i++){
 					$scope.posts[i].postType = 'text'
-				}		
+				}	
+				
+					postService.getImagesByGroup($scope.currentGroup._id)
+					.then(function(response){
+						$scope.images = response.data;
+						for(var i=0;i<$scope.images.length;i++){
+							$scope.images[i].postType = 'image'
+							$scope.posts.push($scope.images[i]);
+						}
+						
+							postService.getFilesByGroup($scope.currentGroup._id)
+							.then(function(response){
+								$scope.files = response.data;
+								for(var i=0;i<$scope.files.length;i++){
+									$scope.files[i].postType = 'file'
+									$scope.posts.push($scope.files[i]);
+								}
+								console.info($scope.posts)
+								$scope.posts.sort(function(a,b){
+								  return new Date(a.create_date) - new Date(b.create_date);
+								});
+							})
+							.catch(function(response){
+								
+							})				
+					})
+					.catch(function(response){
+						
+					})				
+				
+				
 			})	
 			.catch(function(response){
 				
 			})
-			postService.getImagesByGroup($scope.currentGroup._id)
-			.then(function(response){
-				$scope.images = response.data;
-				for(var i=0;i<$scope.images.length;i++){
-					$scope.images[i].postType = 'image'
-					$scope.posts.push($scope.images[i]);
-				}
-				console.info($scope.posts)
-				$scope.posts.sort(function(a,b){
-				  return new Date(a.create_date) - new Date(b.create_date);
-				});
-			})
-			.catch(function(response){
-				
-			})
+
+			
+			
 		})
 		.catch(function(response){
 			console.error(response.data)
@@ -126,9 +145,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 
 ///////////ng-file-upload
 
-    $scope.$watch('files', function () {
-        $scope.upload($scope.files);
-    });
+
     $scope.$watch('file', function () {
     	if($scope.file){
     	$scope.upload([$scope.file]);
@@ -154,6 +171,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
                         $scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
                      //   console.log(data)
                      $state.go('group',{group:$scope.groupId},{reload: true})
+
                     });
                 }).error(function (data, status, headers, config) {
                     console.log('error status: ' + status);
@@ -166,10 +184,10 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			content:''
 		}
 		$scope.addPostImage = function(imagepost){
-			 if($scope.imagepost){
-    			$scope.addImageGroup([$scope.imagepost]);
+			 if(imagepost){
+    			$scope.addImageGroup([imagepost]);
     		}else{
-    			ngFoobar.show("info", 'Please complete image field');
+    			ngFoobar.show("info", 'Please Select An Image ');
     		}
 		}
 	    $scope.addImageGroup = function (files) {
@@ -194,6 +212,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
                         $scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
                      //   console.log(data)
                      $state.go('group',{group:$scope.groupId},{reload: true})
+                     ngFoobar.show("success", 'Your Post Was Added Succesfully');
                     });
                 }).error(function (data, status, headers, config) {
                     console.log('error status: ' + status);
@@ -201,13 +220,68 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
             }
         }
     };
+    
+        $scope.$watch('filepost', function () {
+        	if($scope.filepost){
+			 	var input = document.getElementById('input-file');
+			 	if(input.files[0].size > 5242880){
+					  try {
+					    input.value = null;
+					  } catch(ex) { }
+					  if (input.value) {
+					    input.parentNode.replaceChild(input.cloneNode(true), input);
+					  }
+			 		ngFoobar.show("info", 'Please select a file under size of 5 megabytes');
+			 	}
+        	}
+		});
+    
+		$scope.addPostFile = function(filepost){
+			 if(filepost){
+
+    			$scope.addFileGroup([filepost]);
+    		}else{
+    			ngFoobar.show("info", 'Please select a file');
+    		}
+		}
+	    $scope.addFileGroup = function (files) {
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                Upload.upload({
+                	method: 'POST',
+                    url: '/file',
+                    file: file,
+                    params:{
+                    	content:$scope.newImage.content,
+						id_group:$scope.currentGroup._id,
+                    }
+                }).progress(function (evt) {
+                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    $scope.log = 'progress: ' + progressPercentage + '% ' +
+                                evt.config.file.name + '\n' + $scope.log;
+                               // console.log($scope.log);
+                }).success(function (data, status, headers, config) {
+                    $timeout(function() {
+                        $scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
+                     //   console.log(data)
+                     $state.go('group',{group:$scope.groupId},{reload: true})
+                     ngFoobar.show("success", 'Your Post Was Added Succesfully');
+                    });
+                }).error(function (data, status, headers, config) {
+                    console.log('error status: ' + status);
+                })
+            }
+        }
+    };
+    
 	$scope.showNewPost = function(postType){
 		if(postType === 'text'){
 			$state.go('group.newPost');
 		}else if(postType === 'image'){
 			$state.go('group.newImage');
 		}else if(postType === 'file'){
-			
+			$state.go('group.newFile');
 		}
 		
 		window.scrollTo(0,200);

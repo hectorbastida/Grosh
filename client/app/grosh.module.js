@@ -127,6 +127,15 @@ Grosh.config([
 				      id:'home'
 				    }		           
 		        })
+		        .state('group.newFile', {
+		            url: '/newFile',
+		            templateUrl: './app/post/post-file.partial.html',
+		            controller: 'groupController',
+				    data: {
+				      requireLogin: true,
+				      id:'home'
+				    }		           
+		        })		        
 		        .state('group.addCover', {
 		            url: '/addCover',
 		            templateUrl: './app/home/add-img.partial.html',
@@ -136,7 +145,6 @@ Grosh.config([
 				      id:'home'
 				    }		           
 		        })
-
 		       .state('myGroups', {
 		            url: '/myGroups/',
 		            templateUrl: './app/group/group-list.partial.html',

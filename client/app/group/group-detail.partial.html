@@ -56,6 +56,9 @@
 											<span>{{ post.user_creator.name + ' '+ post.user_creator.last_name}}</span>
 										</div>
 									</div>
+									<div ng-show="post.postType === 'file'" class="card-file">
+										<a ng-href="/uploads/{{post.url_file}}" target="_blank"><span class="icon margin-right-sm icon-2x">attach_file</span>&nbsp;{{post.name}}</a>
+									</div>
 									<div ng-show="post.url_image" class="card-img img-group">
 										<img alt="alt text" ng-src="/uploads/{{post.url_image}}">
 									</div>
