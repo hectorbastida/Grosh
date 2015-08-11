@@ -31,7 +31,9 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			postService.getByGroup($scope.currentGroup._id)
 			.then(function(response){
 				$scope.posts = response.data;
-
+				for(var i=0;i<$scope.posts.length;i++){
+					$scope.posts[i].postType = 'text'
+				}		
 			})	
 			.catch(function(response){
 				
@@ -39,6 +41,14 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			postService.getImagesByGroup($scope.currentGroup._id)
 			.then(function(response){
 				$scope.images = response.data;
+				for(var i=0;i<$scope.images.length;i++){
+					$scope.images[i].postType = 'image'
+					$scope.posts.push($scope.images[i]);
+				}
+				console.info($scope.posts)
+				$scope.posts.sort(function(a,b){
+				  return new Date(a.create_date) - new Date(b.create_date);
+				});
 			})
 			.catch(function(response){
 				
