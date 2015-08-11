@@ -118,6 +118,15 @@ Grosh.config([
 				      id:'home'
 				    }		           
 		        })
+		        .state('group.newImage', {
+		            url: '/newImage',
+		            templateUrl: './app/post/post-image.partial.html',
+		            controller: 'groupController',
+				    data: {
+				      requireLogin: true,
+				      id:'home'
+				    }		           
+		        })
 		        .state('group.addCover', {
 		            url: '/addCover',
 		            templateUrl: './app/home/add-img.partial.html',

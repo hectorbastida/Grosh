@@ -131,6 +131,7 @@ module.exports = function(server) {
      *
      */
     findAllPostsGroup = function(req, res) {
+
         Post.find({group : req.params.idGroup}, function(err, posts){
             if (!err) {
                 res.send(posts);
@@ -267,6 +268,7 @@ module.exports = function(server) {
      *
      */
     addPost = function(req, res) {
+
         userCreator = User.findById(req.user.id, function(err, user){
             if (user) {
                 user_creator = new User({
@@ -274,9 +276,7 @@ module.exports = function(server) {
                                     'name' : user.name,
                                     'last_name' : user.last_name,
                                     'url_image' : user.url_image
-                                });
-
-
+                            });
                 var newPost = new Post({
                     content      :req.body.content,
                     user_creator : user_creator,

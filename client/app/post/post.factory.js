@@ -10,34 +10,46 @@ var factory = function($http){
 
 	function add(content,idUser,idGroup){
 			var data = {
-				name:user.name,
+				content:content,
+				id_group:idGroup
 			}
 		    return $http.post('/post/',data);
 		    
 	}
-	function get(id){
-		return $http.get('/user/'+id);
+	function addImage(content,idGroup,file){
+			var data = {
+				content:content,
+				id_group:idGroup,
+				file:file
+			}
+		    return $http.post('/image',data);
 	}
-	function getByEmail(email){
-		return $http.get('/user/'+email);
+	
+	function getByGroup(id){
+		return $http.get('/postGroup/'+id);
 	}
-    function update(user){
-    	return $http.put('/user/'+user._id,{
-    		name:user.name,
-    		last_name:user.last_name,
-    		password:user.password,
-    		status:user.status,
-    		email:user.email,
-    		sex:user.sex
+	
+	function getImagesByGroup(id){
+		return $http.get('/imageGroup/'+id);
+	}	
+
+    function update(post){
+    	return $http.put('/post/'+post._id,{
+    		name:post.content,
+    		status:post.status
     	});
 	}
 
+	function remove(id){
+		return $http.delete('/post/'+id);
+	}
 
 	return {
 		add:add,
-		get:get,
-		getByEmail:getByEmail,
-		update:update
+		getByGroup:getByGroup,
+		getImagesByGroup:getImagesByGroup,
+		update:update,
+		remove:remove
 	}
 }
 
