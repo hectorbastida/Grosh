@@ -134,7 +134,7 @@ module.exports = function(server) {
      *
      */
     findAllGroups = function(req, res) {
-        Group.find(function(err, group) {
+        Group.find({'privileges' : 'public'},function(err, group) {
             if(!err) 
                 res.send(group);
             else 
