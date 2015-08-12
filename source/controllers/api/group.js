@@ -436,7 +436,7 @@ module.exports = function(server) {
      */
     findPersonalGroup = function(req, res){
         Group.find(
-            {'administrators': req.params.idUser , 'privileges' : 'personal'}, function(err, group){
+            {'administrators': req.user.id , 'privileges' : 'personal'}, function(err, group){
                     if (!err) 
                         res.send(group);
                     else
@@ -876,7 +876,7 @@ module.exports = function(server) {
     server.get('/group/', server.oauth.authorise(), findAllGroups);
     server.get('/groupUser/:idUser', server.oauth.authorise(), findAllGroupsUser);
     server.get('/groupUserBelongs/:idUser', server.oauth.authorise(), findAllGroupsUserBelongs);
-    server.get('/personalUserGroup/:idUser', server.oauth.authorise(), findPersonalGroup);
+    server.get('/personalUserGroup/', server.oauth.authorise(), findPersonalGroup);
     server.get('/group/:id/', server.oauth.authorise(), findByID);
     server.get('/groupByName/:name', server.oauth.authorise(), findByName);
     server.post('/group/', server.oauth.authorise(), addGroup);

@@ -10,10 +10,13 @@ var facebookConection=function(server){
 		done(null,profile);
 	}));
 
-	server.get('/auth/facebook',passport.authenticate('facebook'));
+	server.get('/auth/facebook',passport.authenticate('facebook'), function(req, res, next){
+		req.userSocial = req.user;
+		next();
+	});
 
-	server.get('/auth/facebook/callback',passport.authenticate('facebook',{successRedirect:'/',
-																			failureRedirect:'/'}))
+	server.get('/auth/facebook/callback',passport.authenticate('facebook',{successRedirect:'/socialConnection',
+																			failureRedirect:'/socialConnection'}))
 }
 
 module.exports=facebookConection;
