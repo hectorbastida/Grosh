@@ -16,13 +16,12 @@ var controller = function($scope,$state,loginService,$rootScope,userService){
         }
         if(toState.name === 'home' && fromState.name === 'login'){
             	    initProfile();
-            	     
-
         }
     });
   
   	$rootScope.$on('$stateChangeStart', function(event, toState, toParams){
   	    $scope.sideMenuOpen = false;
+  	    $scope.user = loginService.getLoggedUser();
   	})
   	
   	
@@ -30,8 +29,9 @@ var controller = function($scope,$state,loginService,$rootScope,userService){
   	
   	
   	function initProfile(){
-  	  if($scope.user){
-            userService.get($scope.user._id)
+  	  var loggedUser = loginService.getLoggedUser();
+  	  if(loggedUser){
+            userService.get(loggedUser._id)
           .then(function(response){
           $scope.currentUser = response.data;
        })
@@ -96,6 +96,8 @@ var controller = function($scope,$state,loginService,$rootScope,userService){
     $scope.logout = function(){
       $scope.sideMenuOpen = false;
       if(loginService.logout()){
+        $scope.user='';
+        $scope.currentUser = '';
         $state.go('login');
       }
     }

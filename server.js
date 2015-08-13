@@ -7,7 +7,7 @@ var express      = require('express'),
 	bodyParser   = require('body-parser'),
 	oauthserver = require('./source/controllers/serverOAuth/lib/oauth2server');
 var server       = express();//<-------------------------------creamos el server de express
-var server_socket = http.createServer(server).listen(process.env.PORT, process.env.IP);//<-creamos el server de sockets
+var server_socket = http.createServer(server).listen(8000);//<-creamos el server de sockets
 var io = require('socket.io').listen(server_socket);//<--------el servidor de eventos escuchara en el mismo puerto que nuestro server de express
 
 swig.setDefaults({

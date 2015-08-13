@@ -53,7 +53,13 @@ var factory = function($http){
 		return $http.patch('/group/'+id,data);
 	}
 	
-
+	function addMeToGroup(id){
+		var data = {
+			id_group:id
+		}
+		return $http.patch('/addMeGroup/',data);
+		
+	}
 	return {
 		add:add,
 		get:get,
@@ -62,7 +68,8 @@ var factory = function($http){
 		getGroupsCreated:getGroupsCreated,
 		getGroupsJoined:getGroupsJoined,
 		update:update,
-		addImgUrl:addImgUrl
+		addImgUrl:addImgUrl,
+		addMeToGroup:addMeToGroup
 	}
 }
 

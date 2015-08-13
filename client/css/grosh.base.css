@@ -284,10 +284,10 @@ header{
   height: 100%;
 }
 
-.avatar-grosh{
-  height: 30px;
-  width: 30px;
-  margin-top: -5.4px!important;
+.avatar-grosh {
+    height: 40px;
+    width: 40px;
+    /* margin-top: -5.4px!important; */
 }
 
 
@@ -892,7 +892,7 @@ a.fbtn.fbtn-red.fbtn-lg.btn-grosh-circular:active {
 }
 
 .card-answers{
-    background-color: rgb(241, 239, 239);
+        background-color: rgba(0, 150, 136, 0.13);
     margin: 0;
     padding: 20px;
     overflow-y: scroll;
@@ -907,7 +907,7 @@ a.fbtn.fbtn-red.fbtn-lg.btn-grosh-circular:active {
 }
 
 .card-answers-write {
-        background-color: rgb(0, 210, 191);
+        background-color: rgba(0, 0, 0, 0.1);
 }
 
 

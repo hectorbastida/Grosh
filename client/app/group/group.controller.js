@@ -142,20 +142,37 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			ngFoobar.show("info", 'Please complete image url field');
 		}
 	}
-       $scope.hasPermits = function(){
-               if($scope.currentGroup.administrators[0] === loginService.getLoggedUser()._id){
+       $scope.viewAdd = function(){
+               if($scope.isAdmin){
                  return false;
+               }else{
+               	if($scope.currentGroup.members){
+	               	for(var i=0;i<$scope.currentGroup.members.length;i++){
+						if(loginService.getLoggedUser()._id === $scope.currentGroup.members[i] ){
+							return false;
+						}
+					}	
+               	}
+
                }
                 return true;
        }
-
+		
+		$scope.addMeToGroup = function(){
+			groupService.addMeToGroup($scope.currentGroup._id)
+			.then(function(response){
+				console.info(response.data)
+				ngFoobar.show("success", 'Added To Group Successfully!');
+				$state.go('group',{group:$scope.groupId},{reload: true})
+			})
+		}
 ///////////ng-file-upload
 
 
     $scope.$watch('file', function () {
     	if($scope.file){
     	$scope.upload([$scope.file]);
-
+			
     	}
     });
 
@@ -288,9 +305,12 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
     
     $scope.hasPermits = function(post){
     	var postUser = post.user_creator;
-    	if(postUser.id === loginService.getLoggedUser()._id || $scope.isAdmin){
-    		return true;
+    	if(postUser){
+	    	if(postUser.id === loginService.getLoggedUser()._id || $scope.isAdmin){
+	    		return true;
+	    	}
     	}
+
     	return false;
     }
     $scope.deletePost = function(post){
@@ -314,9 +334,24 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
     	}
     }
     
-    
+    $scope.isMember = function(){
+    	if($scope.isAdmin){
+    		return true;
+    	}
+    	if($scope.currentGroup.members){
+	        for(var i=0;i<$scope.currentGroup.members.length;i++){
+				if(loginService.getLoggedUser()._id === $scope.currentGroup.members[i] ){
+					return true;
+				}
+			}	
+			return false;
+         }
+    }
     $scope.activePost = '';
     $scope.postAnswerActive = function(post){
+    	
+
+    	
     	if(!$scope.activePost){
     		return false;
     	}else 
@@ -377,6 +412,45 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 		}
 		
 		window.scrollTo(0,200);
+	}
+	
+	
+	//fast filters
+	
+	$scope.filters = {
+		all:function(){
+			$scope.init();
+		},
+		text:function(){
+			postService.getByGroup($scope.currentGroup._id)
+				.then(function(response){
+				var aux = response.data;
+				aux.map(function(post){
+					post.postType = 'text';
+				})
+				$scope.posts = aux
+			})
+		},
+		image:function(){
+			postService.getImagesByGroup($scope.currentGroup._id)
+			.then(function(response){
+				var aux = response.data;
+				aux.map(function(post){
+					post.postType = 'image';
+				})				
+				$scope.posts = aux;
+			})
+		},
+		file:function(){
+			postService.getFilesByGroup($scope.currentGroup._id)
+			.then(function(response){
+				var aux = response.data;
+				aux.map(function(post){
+					post.postType = 'file';
+				})								
+				$scope.posts = aux;
+			})
+		}
 	}
 }
 

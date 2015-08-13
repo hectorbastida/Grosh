@@ -16,7 +16,7 @@
                                         <div class="form-group form-group-label">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1">
-                                                    <label class="floating-label"  for="login-email">Email</label>
+                                                    <label class="floating-label"  for="login-email">{{ 'EMAIL' | translate }}</label>
                                                     <input ng-model="user.email" autocomplete="on" class="form-control c-gray" id="login-email" type="text">
                                                 </div>
                                             </div>
@@ -24,7 +24,7 @@
                                         <div class="form-group form-group-label">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1">
-                                                    <label class="floating-label " for="login-password">Password</label>
+                                                    <label class="floating-label " for="login-password">{{ 'PASSWORD' | translate }}</label>
                                                     <input ng-model="user.password" autocomplete="on" class="form-control c-gray" id="login-password" type="password">
                                                 </div>
                                             </div>
@@ -32,7 +32,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1 btn-login">
-                                                    <a href="javascript:void(0)" ng-click="login()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">Sign In</a>
+                                                    <a href="javascript:void(0)" ng-click="login()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">{{ 'SIGN_IN' | translate }}</a>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -43,8 +43,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1 sign-up-text">
-                                                    Don't have an account?
-                                                    <a href="javascript:void(0);" ng-click="toggleLoginPartial()">Sign up</a>
+                                                    {{ 'CHANGE_SIGNUP' | translate }}
+                                                    <a href="javascript:void(0);" ng-click="toggleLoginPartial()"> {{ 'SIGN_UP' | translate }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,7 +55,7 @@
                             <div class="card-main" ng-class="activeLoginPartial('signUp')">
                                 <div class="card-header">
                                     <div class="card-inner">
-                                        <h1 class="card-heading c-white">Sign Up</h1>
+                                        <h1 class="card-heading c-white"> {{ 'SIGN_UP' | translate }}</h1>
                                     </div>
                                 </div>
                                 <div class="card-inner card-inner-0">
@@ -63,7 +63,7 @@
                                         <div class="form-group form-group-label">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1">
-                                                    <label class="floating-label" for="login-name">Name</label>
+                                                    <label class="floating-label" for="login-name">{{ 'NAME_FIELD' | translate }}</label>
                                                     <input ng-model="newUser.name" class="form-control c-gray" id="login-name" type="text">
                                                 </div>
                                             </div>
@@ -71,7 +71,7 @@
                                         <div class="form-group form-group-label">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1">
-                                                    <label class="floating-label" for="login-lastName">Last Name</label>
+                                                    <label class="floating-label" for="login-lastName">{{ 'LAST_NAME_FIELD' | translate }}</label>
                                                     <input ng-model="newUser.lastName" class="form-control c-gray" id="login-lastName" type="text">
                                                 </div>
                                             </div>
@@ -79,7 +79,7 @@
                                         <div class="form-group form-group-label">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1">
-                                                    <label class="floating-label" for="login-username">Email</label>
+                                                    <label class="floating-label" for="login-username">{{ 'EMAIL_FIELD' | translate }}</label>
                                                     <input ng-model="newUser.email" class="form-control c-gray" id="login-username" type="text">
                                                 </div>
                                             </div>
@@ -87,7 +87,7 @@
                                         <div class="form-group form-group-label">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1">
-                                                    <label class="floating-label " for="login-password">Password</label>
+                                                    <label class="floating-label " for="login-password">{{ 'PASSWORD_FIELD' | translate }}</label>
                                                     <input ng-model="newUser.password" class="form-control c-gray" id="login-password" type="password">
                                                 </div>
                                             </div>
@@ -95,19 +95,19 @@
                                         <div class="form-group form-group-label">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1">
-                                                    <label class="floating-label " for="login-password">Repeat Password</label>
+                                                    <label class="floating-label " for="login-password">{{ 'RE_PASSWORD_FIELD' | translate }}</label>
                                                     <input ng-model="newUser.rePassword" class="form-control c-gray" id="login-password" type="password">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group radio-group"> <div class="radio radio-adv radio-inline">
                                                 <label for="input-radio-inline-1" class="c-gray">
-                                                    <input ng-model="newUser.gender" class="access-hide c-gray" id="input-radio-inline-1" name="input-radio-inline" type="radio" value="female">Female
+                                                    <input ng-model="newUser.gender" class="access-hide c-gray" id="input-radio-inline-1" name="input-radio-inline" type="radio" value="female">{{ 'FEMALE_RADIO' | translate }}
                                                 <span class="circle"></span><span class="circle-check"></span></label>
                                             </div>
                                             <div class="radio radio-adv radio-inline">
                                                 <label for="input-radio-inline-2" class="c-gray">
-                                                    <input ng-model="newUser.gender" class="access-hide" id="input-radio-inline-2" name="input-radio-inline" type="radio" value="male">Male
+                                                    <input ng-model="newUser.gender" class="access-hide" id="input-radio-inline-2" name="input-radio-inline" type="radio" value="male">{{ 'MALE_RADIO' | translate }}
                                                 <span class="circle"></span><span class="circle-check"></span></label>
                                             </div>
                                         </div>
@@ -115,13 +115,13 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1 btn-login">
-                                                    <a href="javascript:void(0)" ng-click="addNewUser()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">Sign Up</a>
+                                                    <a href="javascript:void(0)" ng-click="addNewUser()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">{{ 'SIGN_UP' | translate }}</a>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-10 col-md-push-1 sign-up-text">
-                                                    Already have an account?
-                                                    <a href="javascript:void(0);" ng-click="toggleLoginPartial()">Sign In</a>
+                                                    {{ 'CHANGE_SIGNIN' | translate }}
+                                                    <a href="javascript:void(0);" ng-click="toggleLoginPartial()">{{ 'SIGN_IN' | translate }}</a>
                                                 </div>
                                             </div>
                                         </div>

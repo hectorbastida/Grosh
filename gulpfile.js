@@ -21,7 +21,7 @@ gulp.task('minify', function () {
     gulp.src('./client/css/grosh.base.css')
         .pipe(cssmin())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('./client/dist'));
 });
 
 

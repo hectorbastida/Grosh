@@ -8,7 +8,7 @@
             </li>
             <li>
                 <a ui-sref="home" class="home-logo">
-                    <span class="avatar avatar-border"><img alt="alt text for John Smith avatar" src="images/grosh-app.png"></span>
+                    <span class="avatar avatar-border"><img alt="alt text" src="images/grosh-app.png"></span>
                 </a>
             </li>
         </ul>
@@ -19,7 +19,7 @@
                     <span class="icon icon-lg">search</span>
                 </a>
             </li>
-            <li class="dropdown icon-menu">
+            <!--li class="dropdown icon-menu">
                 <a class="dropdown-toggle " data-toggle="dropdown"><span class="icon icon-lg">notifications_none</span></a>
                 <ul class="dropdown-menu">
                     <li>
@@ -32,7 +32,7 @@
                         <a href="javascript:void(0)"><span class="icon margin-right-sm">shuffle</span>&nbsp;Sed Ornare</a>
                     </li>
                 </ul>
-            </li>
+            </li-->
             <li class=" icon-menu">
                 <a  id="chat-button"  ng-click="openSideMenu('chat')" href="javascript:void(0)">
                     <span class="icon icon-lg">question_answer</span>
@@ -52,7 +52,7 @@
             <div class="menu-wrap">
                 <div class="menu-top">
                     <div class="menu-top-img">
-                        <img alt="John Smith" src="images/samples/landscape.jpg">
+                        <img alt="alt" src="images/samples/landscape.jpg">
                     </div>
                     <div class="menu-top-info">
                         <a class="menu-top-user"  ui-sref="profile({profile:currentUser._id})" href="javascript:void(0)"><span class="avatar pull-left"><img alt="alt text for avatar" ng-src="{{currentUser.url_image}}"></span>{{user.name + ' '+ user.lastName}}</a>
@@ -64,23 +64,23 @@
                 <div class="menu-content">
                     <ul class="nav">
                         <li id="homeView">
-                            <a ui-sref="home"><span class="icon icon-lg">home</span>Home</a>
+                            <a ui-sref="home"><span class="icon icon-lg">home</span>{{ 'SIDEMENU_HOME' | translate }}</a>
                         </li>
                         <li  id="profileView">
-                            <a ng-click="viewProfile()" href="javascript:void(0)"><span class="icon icon-lg">account_box</span>Profile</a>
+                            <a ng-click="viewProfile()" href="javascript:void(0)"><span class="icon icon-lg">account_box</span>{{ 'SIDEMENU_PROFILE' | translate }}</a>
                         </li>
                         <li  id="groupseView">
-                            <a ng-click="viewGroups()" href="javascript:void(0)"><span class="icon icon-lg">group</span>My Groups</a>
+                            <a ng-click="viewGroups()" href="javascript:void(0)"><span class="icon icon-lg">group</span>{{ 'SIDEMENU_GROUPS' | translate }}</a>
                         </li>
 
                         <!--li id="gcloudView">
                             <a href="javascript:void(0)"><span class="icon icon-lg">language</span>G Cloud</a>
                         </li-->
                         <li id="settingsView">
-                            <a ui-sref="settings"><span class="icon icon-lg">settings</span>Settings</a>
+                            <a ui-sref="settings"><span class="icon icon-lg">settings</span>{{ 'SIDEMENU_SETTINGS' | translate }}</a>
                         </li>
                         <li id="logoutView">
-                            <a ng-click="logout()" href="javascript:void(0)"><span class="icon icon-lg">exit_to_app</span>Logout</a>
+                            <a ng-click="logout()" href="javascript:void(0)"><span class="icon icon-lg">exit_to_app</span>{{ 'SIDEMENU_LOGOUT' | translate }}</a>
                         </li>
                     </ul>
                 </div>
@@ -91,7 +91,7 @@
 		<div class="menu-scroll chat-content" id="chat-container">
 		<!--div class="menu-scroll chat-content" id="chat-container" click-outside="closeThis2()" outside-if-not="chat-button"-->
 
-			<div class="menu-wrap" >
+			<div class="menu-wrap" ng-show="false">
 			     <div class="menu-top-info-sub sender-back" style="background-color: #009688;">
                         <a style="float:right;position: relative;top: -15px;" class="" ng-click="closeChat()" href="javascript:void(0)"><span class="icon icon-2x" style="text-shadow:none!important">close</span></a>
                 </div>
@@ -117,7 +117,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="menu-wrap chat-wrap" ng-show="false">
+			<div class="menu-wrap chat-wrap" >
 				<div class="chat-sender" >
 				    <div class="menu-top-info-sub sender-reciber">
                         <small>Hector Bastida</small>

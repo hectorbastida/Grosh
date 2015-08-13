@@ -9,7 +9,7 @@
         <div class="container profile-header-container-group" >
             <h2 class="heading profile-title ">{{currentGroup.name}}</h2>
         </div>
-        <a ng-show="!isAdmin" ng-click="joinGroup()" class="btn waves-attach waves-button waves-effect fixed-profile">Join Group</a>
+        <a ng-show="viewAdd()" ng-click="addMeToGroup()" class="btn waves-attach waves-button waves-effect fixed-profile">Join Group</a>
     </div>        
 
     <div class="container group-detail">  
@@ -28,16 +28,16 @@
 						<a class="btn dropdown-toggle-btn" data-toggle="dropdown" aria-expanded="true">Filter Posts<span class="icon margin-left-sm">keyboard_arrow_down</span></a>
 						<ul class="dropdown-menu nav" style="max-width: 968px;">
 							<li>
-								<a href="javascript:void(0)">All</a>
+								<a ng-click="filters.all()" href="javascript:void(0)">All</a>
 							</li>
 							<li>
-								<a href="javascript:void(0)">Text</a>
+								<a ng-click="filters.text()" href="javascript:void(0)">Text</a>
 							</li>
 							<li>
-								<a href="javascript:void(0)">Images</a>
+								<a ng-click="filters.image()" href="javascript:void(0)">Images</a>
 							</li>
 							<li>
-								<a href="javascript:void(0)">Files</a>
+								<a ng-click="filters.file()" href="javascript:void(0)">Files</a>
 							</li>						
 						</ul>
 					</div>
@@ -58,10 +58,10 @@
 										</div>
 									</div>
 									<div ng-show="post.postType === 'file'" class="card-file">
-										<a ng-href="/uploads/{{post.url_file}}" target="_blank"><span class="icon margin-right-sm icon-2x">attach_file</span>&nbsp;{{post.name}}</a>
+										<a ng-href="{{'/uploads/'+ post.url_file || ''}}" target="_blank"><span class="icon margin-right-sm icon-2x">attach_file</span>&nbsp;{{post.name}}</a>
 									</div>
 									<div ng-show="post.url_image" class="card-img img-group">
-										<img alt="alt text" ng-src="/uploads/{{post.url_image}}">
+										<img alt="alt text" ng-src="{{'/uploads/' + post.url_image ||''}}" alt="{{post.user_creator.name}}">
 									</div>
 									<div ng-show="post.content" class="card-inner">
 										<p>
@@ -75,8 +75,8 @@
 										</div>
 									</div>
 									<div  ng-show="postAnswerActive(post)" class="card-answers-write">
-										<input ng-click="addAnswer(post)" type="button" value="Answer" class="btn btn-answer" style="float: right" />
-										<div style="overflow: hidden; padding-right: .5em;">
+										<input ng-show="isMember()" ng-click="addAnswer(post)" type="button" value="Answer" class="btn btn-answer" style="float: right" />
+										<div ng-show="isMember()" style="overflow: hidden; padding-right: .5em;">
 										   <textarea  ng-model="post.newAnswer" style="width: 100%;" class="text-write" />
 										</div>						
 										
