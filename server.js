@@ -5,7 +5,7 @@ var express      = require('express'),
 	session      = require('express-session'),
 	cookieParser = require('cookie-parser');
 	bodyParser   = require('body-parser'),
-	oauthserver = require('./source/controllers/serverOAuth/lib/oauth2server');
+	oauthserver  = require('./source/controllers/serverOAuth/lib/oauth2server');
 var server       = express();//<-------------------------------creamos el server de express
 var server_socket = http.createServer(server).listen(8000);//<-creamos el server de sockets
 var io = require('socket.io').listen(server_socket);//<--------el servidor de eventos escuchara en el mismo puerto que nuestro server de express
@@ -43,7 +43,6 @@ server.oauth = oauthserver({
   debug: false,
   accessTokenLifetime : 3600
 });
-
 
 //config swig
 server.engine('html',swig.renderFile);//<----------------------el motor de templates es swig
