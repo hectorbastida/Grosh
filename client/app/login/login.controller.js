@@ -4,11 +4,12 @@
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$scope','$state','userService','loginService','ngFoobar'];
+	'$scope','$state','userService','loginService','ngFoobar','$filter'];
 /*
 The controller's functionality
 */
-var controller = function($scope,$state,userService,loginService,ngFoobar){
+var controller = function($scope,$state,userService,loginService,ngFoobar,$filter){
+	var $translate = $filter('translate');
 	var html = document.querySelector('html');
 	html.id = 'login'
 	$scope.loginPartial = 'signIn';
@@ -58,16 +59,16 @@ var controller = function($scope,$state,userService,loginService,ngFoobar){
                        loginService.setProfile(data.id,data.email,data.name,
                            data.last_name,
                            data.access_token);
-                       ngFoobar.show("success", 'Welcome Back '+data.name+' '+data.last_name);
+                       ngFoobar.show("success", $translate('WELCOME_BACK')+' '+data.name+' '+data.last_name);
                        $state.go('home');
 		            })
 		            .error(function(data, status, headers, config) {
-		               console.error(data); 
-		               ngFoobar.show("error", 'User credentials are invalid');
+		            //   console.error(data); 
+		               ngFoobar.show("error", $translate('CREDENTIALS_INVALID'));
 		            }); 
 		}else{
 
-			ngFoobar.show("info", 'Please Complete all the fields');
+			ngFoobar.show("info", $translate('COMPLETE_FIELDS'));
 		}
 	}
 
@@ -79,7 +80,7 @@ var controller = function($scope,$state,userService,loginService,ngFoobar){
 					userService.add($scope.newUser)
 		            .success(function(data, status, headers, config) {
 		               restarForm();
-		               ngFoobar.show("success", 'You have been registered correctly ' + data.name + ' '+ data.last_name);
+		               ngFoobar.show("success", $translate('REGISTERED_SUCCESS') + data.name + ' '+ data.last_name);
 		            	$scope.loginPartial = 'signIn';
 		            })
 		            .error(function(data, status, headers, config) {
@@ -88,12 +89,12 @@ var controller = function($scope,$state,userService,loginService,ngFoobar){
 		            }); 
 
 				}else{
-						ngFoobar.show("info", 'Password and Repeat Password fields do not match');
+						ngFoobar.show("info", $translate('PASSWORD_DISMATCH'));
 
 				}
 
 		}else{
-				ngFoobar.show("info", 'Please Complete all the fields, all field are required');
+				ngFoobar.show("info",  $translate('COMPLETE_FIELDS')+$translate('REQUIRED_FIELDS'));
 
 		}
 	}

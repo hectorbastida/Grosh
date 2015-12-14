@@ -1,26 +1,44 @@
-
+var io = require('socket.io-browserify');
 /*
 This array contains the name of the injected dependencies, this is for minification purposes
 */
 var dependencies = [
-	'$scope','$state','loginService','$rootScope'];
+	'$scope','$state','loginService','$rootScope','userService'];
 /*
 The controller's functionality
 */
-var controller = function($scope,$state,loginService,$rootScope){
+var controller = function($scope,$state,loginService,$rootScope,userService){
     $scope.user = loginService.getLoggedUser();
-
+    $scope.currentUser = '';
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams,fromState,fromParams){
-        if(toState.name !== 'group.newPost' && toState.name !== 'group.newImage'){
+        if(toState.name !== 'group.newPost' || toState.name !== 'group.newImage' || toState.name !== 'group.newFile'){
             window.scrollTo(0,0);
+        }
+        if(toState.name === 'home' && fromState.name === 'login'){
+            	    initProfile();
         }
     });
   
   	$rootScope.$on('$stateChangeStart', function(event, toState, toParams){
   	    $scope.sideMenuOpen = false;
+  	    $scope.user = loginService.getLoggedUser();
   	})
+  	
+  	
 
-  
+  	
+  	
+  	function initProfile(){
+  	  var loggedUser = loginService.getLoggedUser();
+  	  if(loggedUser){
+            userService.get(loggedUser._id)
+          .then(function(response){
+          $scope.currentUser = response.data;
+       })
+      }
+  	}
+    initProfile();
+
   
     $scope.closeThis = function () {
       if($scope.sideMenuOpen){
@@ -78,6 +96,8 @@ var controller = function($scope,$state,loginService,$rootScope){
     $scope.logout = function(){
       $scope.sideMenuOpen = false;
       if(loginService.logout()){
+        $scope.user='';
+        $scope.currentUser = '';
         $state.go('login');
       }
     }

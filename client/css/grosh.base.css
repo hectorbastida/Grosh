@@ -284,10 +284,10 @@ header{
   height: 100%;
 }
 
-.avatar-grosh{
-  height: 30px;
-  width: 30px;
-  margin-top: -5.4px!important;
+.avatar-grosh {
+    height: 40px;
+    width: 40px;
+    /* margin-top: -5.4px!important; */
 }
 
 
@@ -370,10 +370,8 @@ header{
 }
 
 .profile-header-container{
-      padding-top: 110px;
-      margin-bottom: -20px;
-          position: absolute;
-    left: 200px;
+position: absolute;
+    left: 220px;
     bottom: 104px;
 }
 
@@ -395,17 +393,18 @@ header{
 
 
 .profile-image{
- /* border-radius: 50%;*/
- /* position:absolute;*/
-  z-index:9;
-  margin: 0 auto;
-  top:165px;
-  right:20px;
-  height: 180px;
-      float: left;
+    /* border-radius: 50%; */
+    /* position: absolute; */
+    z-index: 9;
+    margin: 0 auto;
+    top: 165px;
+    right: 20px;
+    height: 200px;
+    width: 200px;
+    float: left;
     /* padding: 200px; */
     /* margin-bottom: 20px; */
-    margin-top: -160px;
+    margin-top: -110px;
     border: 6px solid #fff;
     margin-left: 20px;
 }
@@ -414,22 +413,35 @@ header{
   margin-top:60px;
 }
 
-
-
+.main-profile{
+        background-color: transparent!important;
+}
+.fixed-profile{
+    position: fixed;
+    right: 0;
+    /* top: 50%; */
+    /* left: 50%; */
+    margin-left: -400px;
+    z-index: 999;
+}
 @media screen and (max-width: 480px) {
   .profile-image {
-    top: 200px;
+    top: 180px;
     right: 20px;
-    height: 130px;
+    height: 180px;
+    width: 180px;
     left:0;
 
   }
   .profile-title{
-    font-size: 24px;
+    font-size: 28px;
+    margin-left: 20px;
   }
   
   .profile-header-container{
     left: 150px;
+    bottom: 0;
+    left: 0;
 }
   
   .home-logo{
@@ -567,7 +579,7 @@ html{
 
 
 .chat-search{
-    margin-top:10px;
+  /*  margin-top:10px;*/
     border: 2px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -847,13 +859,134 @@ a.fbtn.fbtn-red.fbtn-lg.btn-grosh-circular:active {
     .image-post-upload{
         padding: 0!important;
     }
+    .card-img img {
+    width: 100%!important;
+    }
 }
 @media screen and (min-width: 1024px) {
-
+    .card-img img {
+    width: 70%!important;
+    }
 }
 
 @media screen and (min-width: 481px) and (max-width: 1023px) {
     .image-post-upload{
         padding: 0!important;
     }
+}
+
+.card-img.img-group {
+    background-color: rgb(241, 239, 239);
+    border-top: 1px solid #e0e0e0;
+}
+
+.img-group img {
+    max-height: 600px;
+    margin: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.card-img img {
+    width: auto;
+}
+
+.card-answers{
+        background-color: rgba(0, 150, 136, 0.13);
+    margin: 0;
+    padding: 20px;
+    overflow-y: scroll;
+    max-height: 300px;
+    border: 3px solid rgba(0, 210, 191, 0.10);
+}
+
+.card-answers p {
+    padding: 8px;
+    background-color: honeydew;
+    border-radius: 7px;
+}
+
+.card-answers-write {
+        background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+/*
+.text-write {
+    border-radius: 5px;
+    word-wrap: break-word;
+    line-height: 20px;
+    border: none;
+    outline: none;
+    max-height: 79px;
+    overflow-y: scroll!important;
+    background-color: rgb(255, 255, 255);
+    overflow-y: hidden;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #ECECEC;
+    word-wrap: break-word;
+}
+*/
+.text-write {
+    border-radius: 5px;
+    /* width: 200px; */
+    /* height: 100%; */
+    /* background-color: #fff; */
+
+    /* min-height: 2.5em; */
+    line-height: 20px;
+    border: none;
+    outline: none;
+    max-height: 79px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #ECECEC;
+    /* min-height: 10px; */
+    resize: none;
+}
+
+.btn-answer{
+    padding: 10px;
+    margin: 10px;
+    background-color:#00D2BF;
+    color:#fff;
+}
+
+.btn-answer:hover {
+    box-shadow: 0 1px 1px rgba(0,0,0,.15),0 1px 1px 1px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.15);
+    color: #fff;
+    outline: 0;
+    text-decoration: none;
+}
+
+
+
+.btn-answer:active {
+    background-color: #01A395;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.3),0 6px 9px rgba(0,0,0,.15);
+    color:#fff;
+}
+
+.btn-answer:focus {
+    box-shadow: 0 1px 3px rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.3),0 6px 9px rgba(0,0,0,.15);
+    color:#fff;
+}
+
+.answer-container{
+    padding: 8px;
+    background-color: honeydew;
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+.answer-content{
+    display: inline;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.answer-content:not(:last-child):before{
+    margin-bottom: 0px;
 }

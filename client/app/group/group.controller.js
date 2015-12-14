@@ -14,11 +14,12 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 	$scope.groupId = '';
 	$scope.isAdmin = false;
     $scope.back = ''
+    $scope.aux = [];
 	$scope.posts = [];
 	$scope.images = [];
 	$scope.files = [];
-	init();
-	function init(){
+	
+	$scope.init = function(){
 	if($stateParams.group){
 		$scope.groupId = $stateParams.group;
 		groupService.get($stateParams.group)
@@ -31,9 +32,9 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			}
 			postService.getByGroup($scope.currentGroup._id)
 			.then(function(response){
-				$scope.posts = response.data;
-				for(var i=0;i<$scope.posts.length;i++){
-					$scope.posts[i].postType = 'text'
+				$scope.aux = response.data;
+				for(var i=0;i<$scope.aux.length;i++){
+					$scope.aux[i].postType = 'text'
 				}	
 				
 					postService.getImagesByGroup($scope.currentGroup._id)
@@ -41,20 +42,19 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 						$scope.images = response.data;
 						for(var i=0;i<$scope.images.length;i++){
 							$scope.images[i].postType = 'image'
-							$scope.posts.push($scope.images[i]);
+							$scope.aux.push($scope.images[i]);
 						}
-						
 							postService.getFilesByGroup($scope.currentGroup._id)
 							.then(function(response){
 								$scope.files = response.data;
 								for(var i=0;i<$scope.files.length;i++){
 									$scope.files[i].postType = 'file'
-									$scope.posts.push($scope.files[i]);
+									$scope.aux.push($scope.files[i]);
 								}
-								console.info($scope.posts)
-								$scope.posts.sort(function(a,b){
+								$scope.aux.sort(function(a,b){
 								  return new Date(a.create_date) - new Date(b.create_date);
 								});
+								$scope.posts = $scope.aux;
 							})
 							.catch(function(response){
 								
@@ -78,6 +78,7 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 		})
 	}
 }
+	$scope.init();
 	$scope.group = {
 		name:'',
 		description:''
@@ -141,15 +142,37 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 			ngFoobar.show("info", 'Please complete image url field');
 		}
 	}
+       $scope.viewAdd = function(){
+               if($scope.isAdmin){
+                 return false;
+               }else{
+               	if($scope.currentGroup.members){
+	               	for(var i=0;i<$scope.currentGroup.members.length;i++){
+						if(loginService.getLoggedUser()._id === $scope.currentGroup.members[i] ){
+							return false;
+						}
+					}	
+               	}
 
-
+               }
+                return true;
+       }
+		
+		$scope.addMeToGroup = function(){
+			groupService.addMeToGroup($scope.currentGroup._id)
+			.then(function(response){
+				console.info(response.data)
+				ngFoobar.show("success", 'Added To Group Successfully!');
+				$state.go('group',{group:$scope.groupId},{reload: true})
+			})
+		}
 ///////////ng-file-upload
 
 
     $scope.$watch('file', function () {
     	if($scope.file){
     	$scope.upload([$scope.file]);
-
+			
     	}
     });
 
@@ -275,6 +298,110 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
         }
     };
     
+    
+    
+    
+    
+    
+    $scope.hasPermits = function(post){
+    	var postUser = post.user_creator;
+    	if(postUser){
+	    	if(postUser.id === loginService.getLoggedUser()._id || $scope.isAdmin){
+	    		return true;
+	    	}
+    	}
+
+    	return false;
+    }
+    $scope.deletePost = function(post){
+    	if(post.postType === 'text'){
+    		postService.remove(post._id)
+    		.then(function(response){
+    			console.log('imhere')
+    			$scope.init();
+    		})
+    	}else if(post.postType === 'image'){
+    		postService.removeImage(post._id)
+    		.then(function(response){
+    			$scope.init();
+    		})
+    		
+    	}else if(post.postType === 'file'){
+    		postService.removeFile(post._id)
+    		.then(function(response){
+    			$scope.init();
+    		})    		
+    	}
+    }
+    
+    $scope.isMember = function(){
+    	if($scope.isAdmin){
+    		return true;
+    	}
+    	if($scope.currentGroup.members){
+	        for(var i=0;i<$scope.currentGroup.members.length;i++){
+				if(loginService.getLoggedUser()._id === $scope.currentGroup.members[i] ){
+					return true;
+				}
+			}	
+			return false;
+         }
+    }
+    $scope.activePost = '';
+    $scope.postAnswerActive = function(post){
+    	
+
+    	
+    	if(!$scope.activePost){
+    		return false;
+    	}else 
+    	if(post._id === $scope.activePost._id){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    	
+    }
+    
+    $scope.setActivePost  = function(post){
+    	if(post._id===$scope.activePost._id){
+    		$scope.activePost = '';
+    	}else{
+    		$scope.activePost = post;
+    	}
+    	
+    }
+    
+    $scope.addAnswer = function(post){
+    	console.log(post.newAnswer)
+    	if(post.newAnswer){
+    		var answerObject = {
+    			content:post.newAnswer,
+    			date:new Date(),
+    			user:loginService.getLoggedUser().name + ' ' + loginService.getLoggedUser().lastName
+    		}
+	    	if(post.postType === 'text'){
+	    		postService.addTextAnswer(post._id,answerObject)
+	    		.then(function(response){
+	    			$scope.init();
+	    		})
+	    	}else if(post.postType === 'image'){
+	    		postService.addImageAnswer(post._id,answerObject)
+	    		.then(function(response){
+	    			$scope.init();
+	    		})
+	    		
+	    	}else if(post.postType === 'file'){
+	    		postService.addFileAnswer(post._id,answerObject)
+	    		.then(function(response){
+	    			$scope.init();
+	    		})    		
+	    	}
+    	}else{
+    		ngFoobar.show("info", 'Please complete Answer Field');
+    	}
+    }
+    
 	$scope.showNewPost = function(postType){
 		if(postType === 'text'){
 			$state.go('group.newPost');
@@ -285,6 +412,45 @@ var controller = function($scope,userService,loginService,$state,groupService,$s
 		}
 		
 		window.scrollTo(0,200);
+	}
+	
+	
+	//fast filters
+	
+	$scope.filters = {
+		all:function(){
+			$scope.init();
+		},
+		text:function(){
+			postService.getByGroup($scope.currentGroup._id)
+				.then(function(response){
+				var aux = response.data;
+				aux.map(function(post){
+					post.postType = 'text';
+				})
+				$scope.posts = aux
+			})
+		},
+		image:function(){
+			postService.getImagesByGroup($scope.currentGroup._id)
+			.then(function(response){
+				var aux = response.data;
+				aux.map(function(post){
+					post.postType = 'image';
+				})				
+				$scope.posts = aux;
+			})
+		},
+		file:function(){
+			postService.getFilesByGroup($scope.currentGroup._id)
+			.then(function(response){
+				var aux = response.data;
+				aux.map(function(post){
+					post.postType = 'file';
+				})								
+				$scope.posts = aux;
+			})
+		}
 	}
 }
 

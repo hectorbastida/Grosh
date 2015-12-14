@@ -22,6 +22,9 @@ var factory = function($http){
 	function get(id){
 		return $http.get('/user/'+id);
 	}
+	function getByName(name){
+		return $http.get('/userName/'+name);
+	}	
 	function getByEmail(email){
 		return $http.get('/user/'+email);
 	}
@@ -35,13 +38,30 @@ var factory = function($http){
     		sex:user.sex
     	});
 	}
-
-
+	
+	function addChatInvitation(receptor){
+		var data = {
+			receptor_user:receptor
+		}
+		return $http.post('/chatInvitation/',data);
+	}
+	function getChatInvitation(email){
+		return $http.get('/chatInvitation/');
+	}
+	function getChatInvitationProfile(id){
+		return $http.get('/chatInvitationProfile/'+id);
+	}
+	
 	return {
 		add:add,
 		get:get,
+		getByName:getByName,
 		getByEmail:getByEmail,
-		update:update
+		update:update,
+		addChatInvitation:addChatInvitation,
+		getChatInvitation:getChatInvitation,
+		getChatInvitationProfile:getChatInvitationProfile
+		
 	}
 }
 

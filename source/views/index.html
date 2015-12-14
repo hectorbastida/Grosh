@@ -11,7 +11,7 @@
     <title>Grosh</title>
     <!-- css -->
     <link href="css/base.min.css" rel="stylesheet">
-    <link href="css/grosh.base.css" rel="stylesheet">
+    <link href="dist/grosh.base.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css">
     <link rel="stylesheet" href="/bower_components/Hover/css/hover-min.css">
     <link rel="stylesheet" href="/bower_components/ng-foobar/ng-foobar.css">
@@ -33,22 +33,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/base.min.js"></script>
     <script src="dist/bundle.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript">
-        var socket = io();
-        socket.on('request55b54d0ca8954d1008f52788', function (data) {
-            console.log(data);
-        });
-        socket.on('invitation55b54d0ca8954d1008f52788', function (data) {
-            console.log(data);
-        });
-        socket.on('newChatInvitation55b54d0ca8954d1008f52788', function (data){
-            console.log(data);
-        });
-        socket.on('newMessage55b54d0ca8954d1008f52788', function (data){
-            console.log(data);
-        });
-    </script>
+
 </body>
 
 </html>

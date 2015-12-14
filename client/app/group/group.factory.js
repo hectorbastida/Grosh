@@ -20,6 +20,10 @@ var factory = function($http){
 	function get(id){
 		return $http.get('/group/'+id);
 	}
+	
+	function getByName(name){
+		return $http.get('/groupByName/'+name);
+	}
 	function getAll(){
 		return $http.get('/group/');
 	}
@@ -49,15 +53,23 @@ var factory = function($http){
 		return $http.patch('/group/'+id,data);
 	}
 	
-
+	function addMeToGroup(id){
+		var data = {
+			id_group:id
+		}
+		return $http.patch('/addMeGroup/',data);
+		
+	}
 	return {
 		add:add,
 		get:get,
 		getAll:getAll,
+		getByName:getByName,
 		getGroupsCreated:getGroupsCreated,
 		getGroupsJoined:getGroupsJoined,
 		update:update,
-		addImgUrl:addImgUrl
+		addImgUrl:addImgUrl,
+		addMeToGroup:addMeToGroup
 	}
 }
 

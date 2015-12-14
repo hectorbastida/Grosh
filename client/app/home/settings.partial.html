@@ -1,12 +1,12 @@
 <div class="content m-main ">
     <div class="content-heading ">
         <div class="container">
-            <h2 class="heading">Settings</h2>
+            <h2 class="heading">{{ 'SETTINGS_TITLE' | translate }}</h2>
         </div>
     </div>
     <div class="container">
         <section class="content-inner">
-            <h2 class="content-sub-heading">Profile Information</h2>
+            <h2 class="content-sub-heading">{{ 'SETTINGS_SUBTITLE' | translate }}</h2>
             <div class="card-wrap">
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-card-form">
@@ -15,13 +15,13 @@
                                 <div class="">
                                     <div class="card-inner">
                                         <p>
-                                                  Here you can edit your personal information. 
+                                                  {{ 'SETTINGS_CARD_HEADER' | translate }}
                                         </p>
                                         <form class="form">
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-lg-2 col-md-3 col-sm-4">
-                                                        <label class="form-label" for="input-name">Name</label>
+                                                        <label class="form-label" for="input-name">{{ 'NAME_FIELD' | translate }}</label>
                                                     </div>
                                                     <div class="col-lg-4 col-md-8 col-sm-8">
                                                         <input ng-model="user.name" class="form-control" id="input-name" type="name">
@@ -31,22 +31,41 @@
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-lg-2 col-md-3 col-sm-4">
-                                                        <label class="form-label" for="input-lastName">Last Name</label>
+                                                        <label class="form-label" for="input-lastName">{{ 'LAST_NAME_FIELD' | translate }}</label>
                                                     </div>
                                                     <div class="col-lg-4 col-md-8 col-sm-8">
                                                         <input ng-model="user.last_name" class="form-control" id="input-lastName" type="name">
                                                     </div>
                                                 </div>
                                             </div>
-
-
+                                            <div class="form-group"> 
+                                            <div class="col-lg-2 col-md-3 col-sm-4">
+                                                <label class="form-label" for="input" style="margin-left: -5px;margin-right: 12px;">{{ 'LABEL_LANGUAGE' | translate }}</label>
+                                            </div>                                            
+                                            <div class="radio radio-adv radio-inline" >
+                                                    <label for="input-radio-inline-1" class="">
+                                                        <input ng-click="changeLanguage('fr')" ng-model="language" class="access-hide " id="input-radio-inline-1" name="input-radio-inline" type="radio" value="fr">{{ 'FRENCH_RADIO' | translate }}
+                                                    <span class="circle"></span><span class="circle-check"></span></label>
+                                                </div>
+                                                <div class="radio radio-adv radio-inline">
+                                                    <label for="input-radio-inline-2" class="">
+                                                        <input ng-click="changeLanguage('en')" ng-model="language" class="access-hide" id="input-radio-inline-2" name="input-radio-inline" type="radio" value="en">{{ 'ENGLISH_RADIO' | translate }}
+                                                    <span class="circle"></span><span class="circle-check"></span></label>
+                                                </div>
+                                                <div class="radio radio-adv radio-inline">
+                                                    <label for="input-radio-inline-3" class="">
+                                                        <input ng-click="changeLanguage('es')" ng-model="language" class="access-hide" id="input-radio-inline-3" name="input-radio-inline" type="radio" value="es">{{ 'SPANISH_RADIO' | translate }}
+                                                    <span class="circle"></span><span class="circle-check"></span></label>
+                                                </div>                                                
+                                            </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-3 col-md-push-8 btn-login">
-                                                        <a href="javascript:void(0)" ng-click="updateUser()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">Apply Changes</a>
+                                                        <a href="javascript:void(0)" ng-click="updateUser()" class="btn btn-block btn-blue waves-button waves-effect waves-light btn-grosh">{{ 'BUTTON_APPLY_CHANGES' | translate }}</a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         </form>
                                     </div>
                                 </div>

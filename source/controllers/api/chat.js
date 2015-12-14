@@ -15,7 +15,19 @@ var chat = function (server, io){
 				}
 			});
 	}
-
+	getChatInvitationProfile = function(req, res){
+		Chat.find(
+			{
+				'receptor_user' : req.params.id, 
+				'statusInvitation' : 'En espera'
+			}, function(err, invitations){
+				if (err) {
+					res.send('error');
+				}else{
+					res.send(invitations);
+				}
+			});
+	}
 	getContactList = function(req, res){
 		Chat.find(
 			{
@@ -130,6 +142,7 @@ var chat = function (server, io){
 
 	//API Routes
     server.get('/chatInvitation/', server.oauth.authorise(), getChatInvitation);
+    server.get('/chatInvitationProfile/:id', server.oauth.authorise(), getChatInvitationProfile);
     server.get('/contactList/', server.oauth.authorise(), getContactList);
     server.get('/messageChat/:idChat', server.oauth.authorise(), getmessageChat);
     server.patch('/acceptChatInvitation/:id', server.oauth.authorise(),acceptChatInvitation);

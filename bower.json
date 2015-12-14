@@ -21,6 +21,7 @@
     "angular-ui-router-anim-in-out": "~0.0.13",
     "alertify.js": "~0.3.11",
     "Hover": "~2.0.2",
-    "ng-foobar": "~0.1.0"
+    "ng-foobar": "~0.1.0",
+    "angular-translate": "~2.7.2"
   }
 }

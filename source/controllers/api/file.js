@@ -446,6 +446,22 @@ module.exports = function(server) {
         });
     };
 
+    updateFileAnswers = function(req, res) {
+        File.findById(req.params.id, function(err, file) {
+
+            file.answer.push(req.body.answer);
+            
+            file.save(function(err) {
+                if(!err) 
+                    console.log("File Successfully Updated");
+                else 
+                    console.log('ERROR: ' +err); 
+                
+            });
+            res.send(file);
+        });
+    };
+
     /**
      * @api {delete} /file/:id Delete a specific File
      * @apiVersion 1.0.0
@@ -501,10 +517,12 @@ module.exports = function(server) {
     deleteFile = function(req, res) {
         File.findById(req.params.id, function(err, file) {
             file.remove(function(err) {
-                if(!err) 
+                if(!err){
                     console.log('File Successfully Deleted');
-                else 
-                    console.log('ERROR: ' +err);  
+                    res.send('File Successfully Deleted');
+                }else {
+                    console.log('ERROR: ' +err); 
+                }
             });    
         });
     }
@@ -515,5 +533,6 @@ module.exports = function(server) {
     server.get('/file/:id', server.oauth.authorise(), findByID);
     server.post('/file', server.oauth.authorise(), addFile);
     server.put('/file/:id', server.oauth.authorise(), updateFile);
+    server.put('/fileAnswer/:id', server.oauth.authorise(), updateFileAnswers);
     server.delete('/file/:id', server.oauth.authorise(), deleteFile);
 }

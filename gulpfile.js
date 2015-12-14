@@ -12,16 +12,16 @@ streamify = require('gulp-streamify'),
 debowerify = require("debowerify");
 
 gulp.task('minify-css', function() {
-  return gulp.src('css/baseRec.css')
+  return gulp.src('./client/css/grosh.base.css')
     .pipe(minifyCss({compatibility: 'ie8'}))
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('minify', function () {
-    gulp.src('css/baseRec.css')
+    gulp.src('./client/css/grosh.base.css')
         .pipe(cssmin())
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('./client/dist'));
 });
 
 
