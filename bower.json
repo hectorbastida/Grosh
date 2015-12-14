@@ -1,0 +1,27 @@
+{
+  "name": "Group Sharing",
+  "version": "0.0.1",
+  "authors": [
+    "Hector Bastida <hectorlooper@gmail.com>"
+  ],
+  "description": "Group Sharing",
+  "main": "grosh-index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mdi": "~1.1.34",
+    "jquery": "~2.1.4",
+    "toastr": "~2.1.1",
+    "angular-ui-router-anim-in-out": "~0.0.13",
+    "alertify.js": "~0.3.11",
+    "Hover": "~2.0.2",
+    "ng-foobar": "~0.1.0",
+    "angular-translate": "~2.7.2"
+  }
+}

@@ -1,0 +1,125 @@
+<div class="content m-main " >
+
+        
+    <div class="content-heading profile-header" back-img="{{back}}">
+        <div class="form-group-btn btn-add-img" style="float:right" ng-show="isAdmin">
+        <a  class="btn waves-attach waves-button waves-effect " ngf-select ng-model="file" ngf-multiple="false" href="#/home"><span class="fbtn-ori icon hvr-bounce-in">add_to_photos</span></a>                                
+        <!--a ui-sref=".addCover" class="btn waves-attach waves-button waves-effect " href="#/home"><span class="fbtn-ori icon hvr-bounce-in">add_to_photos</span></a-->                                
+        </div>
+        <div class="container profile-header-container-group" >
+            <h2 class="heading profile-title ">{{currentGroup.name}}</h2>
+        </div>
+        <a ng-show="viewAdd()" ng-click="addMeToGroup()" class="btn waves-attach waves-button waves-effect fixed-profile">Join Group</a>
+    </div>        
+
+    <div class="container group-detail">  
+    <div class="fbtn-group-detail">
+        <div class="fbtn-inner">
+            <a class="fbtn fbtn-red fbtn-lg btn-grosh-circular">
+             <span class="fbtn-ori icon icon-lg">details</span>
+             <span class="fbtn-text">More Info about {{currentGroup.name}}</span>
+            </a>
+        </div>
+    </div>
+        <section class="content-inner ">
+            <div ui-view></div>
+			<div class="dropdown-wrap">
+					<div class="dropdown dropdown-inline">
+						<a class="btn dropdown-toggle-btn" data-toggle="dropdown" aria-expanded="true">Filter Posts<span class="icon margin-left-sm">keyboard_arrow_down</span></a>
+						<ul class="dropdown-menu nav" style="max-width: 968px;">
+							<li>
+								<a ng-click="filters.all()" href="javascript:void(0)">All</a>
+							</li>
+							<li>
+								<a ng-click="filters.text()" href="javascript:void(0)">Text</a>
+							</li>
+							<li>
+								<a ng-click="filters.image()" href="javascript:void(0)">Images</a>
+							</li>
+							<li>
+								<a ng-click="filters.file()" href="javascript:void(0)">Files</a>
+							</li>						
+						</ul>
+					</div>
+			</div>
+            <div class="card-wrap ">
+                <div class="row" ng-repeat="post in posts.slice().reverse()" >
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-post">
+							<div class="card">
+								<div class="card-main">
+									<div class="card-header">
+										<div class="card-header-side pull-left">
+											<div class="avatar">
+												<img alt="John Smith Avatar" src="images/users/avatar-001.jpg">
+											</div>
+										</div>
+										<div  class="card-inner">
+											<span>{{ post.user_creator.name + ' '+ post.user_creator.last_name}}</span>
+										</div>
+									</div>
+									<div ng-show="post.postType === 'file'" class="card-file">
+										<a ng-href="{{'/uploads/'+ post.url_file || ''}}" target="_blank"><span class="icon margin-right-sm icon-2x">attach_file</span>&nbsp;{{post.name}}</a>
+									</div>
+									<div ng-show="post.url_image" class="card-img img-group">
+										<img alt="alt text" ng-src="{{'/uploads/' + post.url_image ||''}}" alt="{{post.user_creator.name}}">
+									</div>
+									<div ng-show="post.content" class="card-inner">
+										<p>
+											{{post.content}}
+										</p>
+									</div>
+									<div  class="card-inner card-answers" ng-show="postAnswerActive(post)" >
+										
+										<div class="answer-container" ng-repeat="answer in post.answer">
+											<div class="answer-content">{{answer.user}}</div>{{': '+ answer.content + ' - ' + answer.date}}
+										</div>
+									</div>
+									<div  ng-show="postAnswerActive(post)" class="card-answers-write">
+										<input ng-show="isMember()" ng-click="addAnswer(post)" type="button" value="Answer" class="btn btn-answer" style="float: right" />
+										<div ng-show="isMember()" style="overflow: hidden; padding-right: .5em;">
+										   <textarea  ng-model="post.newAnswer" style="width: 100%;" class="text-write" />
+										</div>						
+										
+										</div>
+		
+									<div class="card-action">
+										<ul class="nav nav-list pull-left">
+											<li>
+												<a ng-click="setActivePost(post)" href="javascript:void(0)"><span class="icon text-blue">ring_volume</span>&nbsp;<span class="text-blue">{{post.answer.length}} Answers</span></a>
+											</li>
+										</ul>
+										<ul  ng-show="hasPermits(post)" class="nav nav-list pull-right">
+											<li class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">keyboard_arrow_down</span></a>
+												<ul class="dropdown-menu">
+													<!--li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_1</span>&nbsp;Lorem Ipsum</a>
+													</li>
+													<li>
+														<a href="javascript:void(0)"><span class="icon margin-right-sm">filter_2</span>&nbsp;Consectetur Adipiscing</a>
+													</li-->
+													<li>
+														<a ng-click="deletePost(post)" href="javascript:void(0)"><span class="icon margin-right-sm">delete</span>&nbsp;Delete</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="fbtn-container">
+		<div class="fbtn-inner">
+			<a class="fbtn fbtn-red fbtn-lg btn-grosh-circular" data-toggle="dropdown" aria-expanded="false"><span class="fbtn-text">Express Something!</span><span class="fbtn-ori icon">edit</span><span class="fbtn-sub icon">close</span></a>
+			<div class="fbtn-dropdown">
+				<a ng-click="showNewPost('text')" class="fbtn" href="javascript:void(0)" ><span class="fbtn-text">Text</span><span class="fa fa-pencil-square-o"></span></a>
+				<a ng-click="showNewPost('image')" class="fbtn fbtn-blue" href="javascript:void(0)"><span class="fbtn-text">Image</span><span class="fa fa-picture-o"></span></a>
+				<a ng-click="showNewPost('file')" class="fbtn fbtn-alt" href="javascript:void(0)"><span class="fbtn-text">File</span><span class="fa fa-file-o"></span></a>
+			</div>
+		</div>
+</div>

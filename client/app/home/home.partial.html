@@ -1,0 +1,50 @@
+<div class="content m-main ">
+    <div class="content-heading ">
+        <div class="container">
+            <h2 class="heading">{{ ('HOME_TITLE' | translate) }}</h2>
+        </div>
+    </div>
+    <div class="container">
+        <section class="content-inner">
+            <h2 class="content-sub-heading">{{ ('HOME_SUBTITLE' | translate) }}</h2>
+            <div class="card-wrap">
+                <div class="row">
+                    <div ng-repeat="group in groups.slice().reverse().slice(0,9)" class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="">
+                                    <div class="card-img group-card" ng-style="getUrlByGroup(group)">
+                                        <p class="card-img-heading">{{group.name}}</p>
+                                    </div>
+                                    <div class="card-inner group-inner">
+                                        <p>
+                                            {{group.description}}
+                                        </p>
+                                    </div>
+                                    <ul class="nav nav-list options-card pull-right">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown"><span class="icon">more_vert</span></a>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a ui-sref="group({group:group._id})" href="javascript:void(0)"><span class="icon margin-right-sm">details</span>&nbsp;{{ ('CARD_VIEW' | translate) }}</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="fbtn-container">
+    <div class="fbtn-inner">
+        <a ui-sref="createGroup" class="fbtn fbtn-red fbtn-lg btn-grosh-circular">
+            <span class="fbtn-ori icon">add</span>
+            <span class="fbtn-text">{{('GROUP_CREATE' | translate )}}</span>
+        </a>
+    </div>
+</div>

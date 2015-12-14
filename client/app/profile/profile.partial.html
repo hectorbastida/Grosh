@@ -1,0 +1,12 @@
+<div class="content m-main " ng-style="properties">
+    <div class="content-heading profile-header main-profile" >
+        <img ng-show="isAdmin" ngf-select ng-model="profileImage" ngf-multiple="false" class="card profile-image" ng-src="{{currentUser.url_image }}">
+        <img ng-hide="isAdmin" class="card profile-image" ng-src="{{currentUser.url_image }}">
+        </img>
+        <div class="container profile-header-container" >
+            <h2 class="heading profile-title ">{{currentUser.name}} {{currentUser.last_name }} </h2>
+        </div>
+    </div>
+    <a ng-show="invitationPerms()" ng-click="sendChatRequest()" class="btn waves-attach waves-button waves-effect fixed-profile">Send Chat Invitation</a>
+</div>
+
